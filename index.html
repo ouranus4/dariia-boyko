@@ -59,27 +59,62 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .menu-open .burger{background:var(--paper)}
 .menu-open .burger span{background:var(--ink)}
 
-/* ---------- HERO (video + booking) ---------- */
-.hero{position:relative;height:100vh;height:100svh;min-height:680px;overflow:hidden;background:#070707;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}
-.hv{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:3px;translate:calc(var(--mx,0) * -10px) calc(var(--sp,0) * 120px);scale:calc(1.04 + var(--sp,0) * .08)}
+/* ---------- HERO (video + portrait cut-out + booking) ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:720px;overflow:hidden;background:#070707;color:#fff;isolation:isolate}
+.hv{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:3px;z-index:0;translate:calc(var(--mx,0) * -8px) calc(var(--sp,0) * 140px);scale:calc(1.05 + var(--sp,0) * .08)}
 .hv-p{position:relative;overflow:hidden;clip-path:inset(50% 0 50% 0);animation:curtain 1.6s cubic-bezier(.7,0,.2,1) forwards}
-.hv-p:nth-child(1){animation-delay:.15s}.hv-p:nth-child(2){animation-delay:0s}.hv-p:nth-child(3){animation-delay:.3s}
+.hv-p:nth-child(1){animation-delay:.15s}.hv-p:nth-child(3){animation-delay:.3s}
 @keyframes curtain{to{clip-path:inset(0 0 0 0)}}
-.hv-p video{width:100%;height:100%;object-fit:cover;scale:1.15;animation:settle 2.6s cubic-bezier(.2,.7,.2,1) forwards}
-.hv-p:nth-child(2) video{animation-delay:.1s}
+.hv-p video{width:100%;height:100%;object-fit:cover;scale:1.15;animation:settle 2.6s cubic-bezier(.2,.7,.2,1) forwards;filter:saturate(1.1) brightness(.78)}
 @keyframes settle{to{scale:1}}
-.hv-shade{position:absolute;inset:0;pointer-events:none;background:
-  radial-gradient(120% 80% at 50% 70%,rgba(0,0,0,.15),rgba(0,0,0,.55) 70%),
-  linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 45%,rgba(0,0,0,.82) 100%)}
+/* hide iOS "play" overlay when autoplay is delayed */
+video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+video::-webkit-media-controls{display:none!important}
+.hv-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  radial-gradient(90% 70% at 72% 60%,rgba(0,0,0,0),rgba(0,0,0,.5) 75%),
+  linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 50%,rgba(0,0,0,.85) 100%),
+  linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 55%)}
 
-.hero-in{position:relative;z-index:2;padding:0 var(--pad) clamp(90px,11svh,120px);text-align:center;display:flex;flex-direction:column;align-items:center}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:40px;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);opacity:0;animation:fadeIn 1s 1.9s forwards}
-.hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#7CFFB0;box-shadow:0 0 0 0 rgba(124,255,176,.7);animation:ping 1.8s infinite}
-@keyframes ping{70%{box-shadow:0 0 0 10px rgba(124,255,176,0)}100%{box-shadow:0 0 0 0 rgba(124,255,176,0)}}
+/* giant name behind her */
+.hero-name{position:absolute;z-index:2;left:0;right:0;top:clamp(70px,11svh,120px);text-align:center;font-family:var(--poster);font-size:21.5vw;line-height:.8;letter-spacing:-.005em;white-space:nowrap;pointer-events:none;
+  color:#fff;-webkit-mask-image:linear-gradient(180deg,#000 25%,rgba(0,0,0,.3) 100%);mask-image:linear-gradient(180deg,#000 25%,rgba(0,0,0,.3) 100%);
+  translate:calc(var(--mx,0) * 14px) calc(var(--my,0) * 8px + var(--sp,0) * -60px)}
+.hero-name span{display:inline-block;opacity:0;transform:translateY(40%);filter:blur(12px);animation:nameIn 1.2s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes nameIn{to{opacity:1;transform:none;filter:blur(0)}}
+
+/* warm spotlight + portrait */
+.spot{position:absolute;z-index:3;right:6vw;bottom:-10%;width:min(70vw,900px);aspect-ratio:1;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,214,170,.42),rgba(255,190,140,.14) 55%,rgba(255,190,140,0));
+  translate:calc(var(--mx,0) * 30px) calc(var(--my,0) * 20px);opacity:0;animation:fadeIn 2s 1s forwards;mix-blend-mode:screen}
+.hero-person{position:absolute;z-index:4;right:clamp(20px,11vw,220px);bottom:0;height:min(90svh,1100px);pointer-events:none;
+  translate:calc(var(--mx,0) * 26px) calc(var(--my,0) * 10px + var(--sp,0) * -30px)}
+.hero-person picture{display:contents}
+.hero-person img{height:100%;width:auto;object-fit:contain;object-position:bottom;
+  filter:drop-shadow(0 0 30px rgba(255,210,170,.28)) drop-shadow(0 40px 60px rgba(0,0,0,.6));
+  opacity:0;transform:translateY(12%) scale(.94);animation:personIn 1.8s .9s cubic-bezier(.16,.84,.3,1) forwards;transform-origin:50% 100%}
+@keyframes personIn{0%{opacity:0;transform:translateY(12%) scale(.94);filter:blur(14px) drop-shadow(0 0 30px rgba(255,210,170,.28))}
+  100%{opacity:1;transform:none;filter:blur(0) drop-shadow(0 0 30px rgba(255,210,170,.28)) drop-shadow(0 40px 60px rgba(0,0,0,.6))}}
+.hero-person::after{content:"";position:absolute;left:-10%;right:-10%;bottom:0;height:22%;background:linear-gradient(transparent,#070707 92%);pointer-events:none}
+
+/* sparks canvas */
+.sparks{position:absolute;inset:0;z-index:5;pointer-events:none;mix-blend-mode:screen}
+
+/* spinning CTA badge */
+.badge{position:absolute;z-index:6;right:calc(clamp(20px,11vw,220px) + min(90svh,1100px) * .45 + 20px);top:46%;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;color:#fff;
+  opacity:0;animation:fadeIn 1s 2.6s forwards;translate:calc(var(--mx,0) * 40px) calc(var(--my,0) * 26px)}
+.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 14s linear infinite}
+.badge text{font:600 10.5px var(--sans);letter-spacing:.32em;text-transform:uppercase;fill:#fff}
+.badge b{width:58px;height:58px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-size:20px;font-weight:400;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.badge:hover b{transform:scale(1.15) rotate(-45deg)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* content */
+.hero-in{position:absolute;z-index:7;left:var(--pad);bottom:clamp(70px,10svh,110px);width:min(760px,58vw);display:flex;flex-direction:column;align-items:flex-start}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:40px;background:rgba(255,255,255,.07);backdrop-filter:blur(8px);opacity:0;animation:fadeIn 1s 1.9s forwards}
+.hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#7CFFB0;animation:ping 1.8s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(124,255,176,.7)}70%{box-shadow:0 0 0 10px rgba(124,255,176,0)}100%{box-shadow:0 0 0 0 rgba(124,255,176,0)}}
 @keyframes fadeIn{to{opacity:1}}
-
-/* gravity headline: words fall in and bounce */
-.hero h1{margin-top:22px;font-weight:200;font-size:clamp(46px,7.4vw,128px);line-height:.95;letter-spacing:-.045em}
+.hero h1{margin-top:20px;font-weight:200;font-size:clamp(42px,5.4vw,96px);line-height:.95;letter-spacing:-.045em;text-shadow:0 10px 40px rgba(0,0,0,.35)}
 .hero h1 .ln{display:block}
 .hero h1 em{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:-.015em}
 .g{display:inline-block;transform:translateY(-120vh) rotate(var(--r,0deg));animation:fall 1.5s cubic-bezier(.33,0,.67,1) forwards;animation-delay:var(--d,0s)}
@@ -90,54 +125,61 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   82%{transform:translateY(0)}
   90%{transform:translateY(-4%)}
   100%{transform:none}}
-.hero-lead{margin-top:24px;max-width:560px;font-size:clamp(15px,1.2vw,17px);line-height:1.6;color:rgba(255,255,255,.82);opacity:0;animation:fadeIn 1s 2.2s forwards}
+.hero-lead{margin-top:20px;max-width:520px;font-size:clamp(14.5px,1.1vw,16.5px);line-height:1.6;color:rgba(255,255,255,.82);opacity:0;animation:fadeIn 1s 2.2s forwards}
 
-/* booking bar */
-.book{margin-top:34px;display:flex;align-items:stretch;gap:0;padding:6px;border-radius:60px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 30px 80px -30px rgba(0,0,0,.8);opacity:0;transform:translateY(30px);animation:bookIn 1s 2.4s cubic-bezier(.2,.7,.2,1) forwards;text-align:left}
+.book{margin-top:28px;display:flex;align-items:stretch;padding:6px;border-radius:60px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 30px 80px -30px rgba(0,0,0,.8);opacity:0;transform:translateY(30px);animation:bookIn 1s 2.4s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes bookIn{to{opacity:1;transform:none}}
-.book label{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 24px;border-right:1px solid rgba(255,255,255,.18);min-width:170px}
+.book label{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 20px;border-right:1px solid rgba(255,255,255,.18);min-width:140px}
 .book label span{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600}
 .book select,.book input{appearance:none;-webkit-appearance:none;background:none;border:0;outline:0;color:#fff;font:400 15px/1.3 var(--sans);padding:2px 0;cursor:pointer;color-scheme:dark;width:100%}
 .book select option{color:#111}
 .book input::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.7;cursor:pointer}
-.book button{position:relative;overflow:hidden;margin-left:6px;display:inline-flex;align-items:center;gap:14px;padding:0 30px;min-height:60px;border-radius:50px;background:#fff;color:var(--ink);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.book button{position:relative;overflow:hidden;margin-left:6px;display:inline-flex;align-items:center;gap:14px;padding:0 26px;min-height:60px;border-radius:50px;background:#fff;color:var(--ink);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
 .book button::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.5s 3.5s infinite}
 @keyframes shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
 .book button i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;transition:transform .4s}
 .book button:hover i{transform:rotate(-45deg)}
-.book-alt{margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.65);opacity:0;animation:fadeIn 1s 2.8s forwards}
+.book.flash{animation:flash 1.2s}
+@keyframes flash{30%{box-shadow:0 0 0 6px rgba(255,255,255,.45),0 30px 80px -30px rgba(0,0,0,.8)}}
+.book-alt{margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.65);opacity:0;animation:fadeIn 1s 2.8s forwards}
 .book-alt a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
 
-.hero-foot{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:26px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7);opacity:0;animation:fadeIn 1s 3s forwards;pointer-events:none}
+.hero-foot{position:absolute;z-index:7;right:var(--pad);bottom:26px;display:flex;align-items:center;gap:28px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7);opacity:0;animation:fadeIn 1s 3s forwards;pointer-events:none}
 .hero-foot b{color:#fff;font-weight:600}
 .scroll-hint{display:flex;align-items:center;gap:12px}
 .scroll-hint i{display:block;width:1px;height:34px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
 .scroll-hint i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:#fff;animation:drip 1.8s infinite}
 @keyframes drip{to{top:100%}}
 
-/* floating CTA after the hero */
-.fab{position:fixed;right:var(--pad);bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:40px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);transform:translateY(140%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.fab{position:fixed;right:var(--pad);bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:40px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);transform:translateY(160%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 .fab.on{transform:none}
 .fab::before{content:"";width:8px;height:8px;border-radius:50%;background:#7CFFB0}
 
-@media (max-width:900px){
+@media (max-width:1100px){
+  .hero-in{width:min(640px,62vw)}
+  .book{flex-wrap:wrap;border-radius:26px}
+  .book label{flex:1 1 30%}
+  .book button{flex:1 1 100%;margin:6px 0 0;justify-content:space-between}
+  .badge{display:none}
+}
+/* phone: stage (video + name + portrait) then headline & form below */
+@media (max-width:820px){
+  .hero{height:auto;min-height:0;display:flex;flex-direction:column}
+  .hero-stage{position:relative;height:84svh;min-height:560px}
   .hv{grid-template-columns:1fr}
   .hv-p:nth-child(1),.hv-p:nth-child(3){display:none}
-  .book{flex-direction:column;border-radius:26px;width:100%;max-width:440px;padding:8px}
-  .book label{border-right:0;border-bottom:1px solid rgba(255,255,255,.16);padding:12px 18px;min-width:0}
-  .book button{margin:8px 0 0;justify-content:space-between;min-height:56px}
-  .hero-in{padding-bottom:80px}
-  .hero-foot .stats-mini{display:none}
-  .hero-foot{justify-content:center}
-}
-@media (max-width:560px){
-  .hero{min-height:760px}
-  .hero-eyebrow{font-size:9.5px;letter-spacing:.16em}
-  .hero-lead{font-size:14.5px;margin-top:16px}
-  .book{margin-top:22px}
+  .hv-shade{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 48%,rgba(7,7,7,.85) 78%,#070707 92%)}
+  .hero-name{top:88px;font-size:22.5vw}
+  .spot{right:50%;margin-right:-60vw;width:120vw;bottom:-20%}
+  .hero-person{right:50%;margin-right:calc(min(76svh,640px) * -.224);height:min(76svh,640px)}
+  .hero-in{position:relative;left:auto;bottom:auto;width:auto;margin-top:-18svh;padding:0 var(--pad) 60px;align-items:center;text-align:center}
+  .hero h1{font-size:clamp(40px,11.5vw,60px)}
+  .book{flex-direction:column;width:100%;max-width:440px;padding:8px}
+  .book label{border-right:0;border-bottom:1px solid rgba(255,255,255,.16);padding:12px 18px;flex:auto;text-align:left}
+  .book button{margin:8px 0 0;min-height:56px}
+  .hero-foot{display:none}
   .fab{left:16px;right:16px;justify-content:center;bottom:60px}
 }
-
 /* ---------- common ---------- */
 section{position:relative}
 .wrap{padding-left:var(--pad);padding-right:var(--pad)}
@@ -502,12 +544,23 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hv" aria-hidden="true">
-    <div class="hv-p"><video src="video/h1.mp4" poster="video/h1.jpg" autoplay muted loop playsinline preload="auto"></video></div>
-    <div class="hv-p"><video src="video/h2.mp4" poster="video/h2.jpg" autoplay muted loop playsinline preload="auto"></video></div>
-    <div class="hv-p"><video src="video/h3.mp4" poster="video/h3.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+  <div class="hero-stage">
+    <div class="hv" aria-hidden="true">
+      <div class="hv-p"><video data-src="video/h1.mp4" poster="video/h1.jpg" muted loop playsinline autoplay preload="none"></video></div>
+      <div class="hv-p"><video src="video/h2.mp4" poster="video/h2.jpg" muted loop playsinline autoplay preload="auto"></video></div>
+      <div class="hv-p"><video data-src="video/h3.mp4" poster="video/h3.jpg" muted loop playsinline autoplay preload="none"></video></div>
+    </div>
+    <div class="hv-shade"></div>
+    <div class="hero-name" aria-hidden="true"><span style="animation-delay:0.50s">D</span><span style="animation-delay:0.57s">A</span><span style="animation-delay:0.64s">R</span><span style="animation-delay:0.71s">U</span><span style="animation-delay:0.78s">S</span><span style="animation-delay:0.85s">H</span><span style="animation-delay:0.92s">K</span><span style="animation-delay:0.99s">A</span></div>
+    <div class="spot" aria-hidden="true"></div>
+    <div class="hero-person"><picture><source srcset="img/daria_cut.webp" type="image/webp"><img src="img/daria_cut.png" alt="Дарія Бойко — івент-організатор" fetchpriority="high"></picture></div>
+    <canvas class="sparks" id="sparks" aria-hidden="true"></canvas>
+    <a href="#book" class="badge" id="badge" aria-label="Забронювати дату">
+      <svg viewBox="0 0 128 128"><defs><path id="circ" d="M64,64 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+        <text><textPath href="#circ">Забронювати дату · 2026 · Забронювати дату · 2026 ·</textPath></text></svg>
+      <b>↗</b>
+    </a>
   </div>
-  <div class="hv-shade"></div>
 
   <div class="hero-in">
     <p class="hero-eyebrow"><span class="dot"></span>Приймаю бронювання на 2026</p>
@@ -516,14 +569,13 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <span class="ln"><em><span class="g" style="--d:1.56s;--r:8deg">моя</span></em> <span class="g" style="--d:1.68s;--r:-7deg">відповідальність</span></span>
     </h1>
     <p class="hero-lead">Дарія Бойко — івент-організатор і координатор. Весілля та події під ключ, зроблені як для себе. Ви насолоджуєтесь моментом — я піклуюсь про решту.</p>
-
     <form class="book" id="book">
       <label><span>Подія</span>
         <select name="type">
           <option>Весілля</option><option>Заручини / пропозиція</option><option>Корпоратив</option>
           <option>День народження / ювілей</option><option>Гендер паті / хрестини</option><option>Конференція / форум</option>
         </select></label>
-      <label><span>Дата</span><input type="date" name="date" min="2026-01-01"></label>
+      <label><span>Дата</span><input type="date" name="date"></label>
       <label><span>Послуга</span>
         <select name="svc"><option>Повна організація</option><option>Координація дня</option><option>Ще не знаю</option></select></label>
       <button type="submit">Забронювати дату <i>→</i></button>
@@ -532,7 +584,7 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
   </div>
 
   <div class="hero-foot">
-    <span class="stats-mini"><b>100+</b> подій · <b>5</b> міст · <b>24/7</b> на зв’язку</span>
+    <span><b>100+</b> подій · <b>5</b> міст · <b>24/7</b></span>
     <span class="scroll-hint">Гортайте <i></i></span>
   </div>
 </section>
@@ -967,6 +1019,56 @@ fill('m1',a);fill('m2',b);
   fab.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'});setTimeout(()=>f.querySelector('select').focus(),900)});
   const upd=()=>{const past=scrollY>innerHeight*.8,near=contact.getBoundingClientRect().top<innerHeight;fab.classList.toggle('on',past&&!near)};
   addEventListener('scroll',upd,{passive:true});upd();
+})();
+
+// ---------- hero: sparks, badge, reliable autoplay on phones ----------
+(()=>{
+  const hero=document.querySelector('.hero');
+  const mobile=matchMedia('(max-width:820px)').matches;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // videos: side panels only on desktop; force muted inline autoplay (iOS / in-app browsers)
+  const vids=[...document.querySelectorAll('.hv video')];
+  if(!mobile)vids.forEach(v=>{if(v.dataset.src){v.src=v.dataset.src;v.preload='auto'}});
+  const kick=v=>{if(!v.getAttribute('src'))return;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('muted','');v.setAttribute('playsinline','');const p=v.play();p&&p.catch(()=>{})};
+  vids.forEach(v=>{kick(v);v.addEventListener('loadeddata',()=>kick(v),{once:true})});
+  // Low Power Mode / Instagram browser block autoplay until the first gesture — retry then
+  const wake=()=>{vids.forEach(kick);document.querySelectorAll('.phone video').forEach(v=>{const r=v.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){v.muted=true;v.play().catch(()=>{})}})};
+  ['touchstart','pointerdown','scroll','keydown'].forEach(ev=>addEventListener(ev,wake,{once:true,passive:true}));
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)vids.forEach(kick)});
+  // reels: tapping the video itself toggles play
+  document.querySelectorAll('.phone video').forEach(v=>{v.setAttribute('muted','');v.addEventListener('click',()=>v.paused?v.play():v.pause())});
+
+  // badge -> focus the booking form
+  document.getElementById('badge').addEventListener('click',e=>{e.preventDefault();const f=document.getElementById('book');
+    f.scrollIntoView({behavior:'smooth',block:'center'});f.classList.remove('flash');void f.offsetWidth;f.classList.add('flash');setTimeout(()=>f.querySelector('select').focus({preventScroll:true}),600)});
+
+  // golden sparks rising (cold-fountain feel)
+  if(reduce)return;
+  const cv=document.getElementById('sparks'),ctx=cv.getContext('2d');
+  let W,H,dpr=Math.min(2,devicePixelRatio||1),parts=[],on=true;
+  const N=mobile?38:80;
+  const size=()=>{W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};
+  const spawn=(p,init)=>{p.x=W*(mobile?.5+ (Math.random()-.5)*.9:.35+Math.random()*.65);p.y=init?Math.random()*H:H+10;
+    p.vy=-(.35+Math.random()*1.1);p.vx=(Math.random()-.5)*.3;p.r=.6+Math.random()*1.8;p.life=0;p.max=240+Math.random()*320;p.tw=Math.random()*6.28;
+    p.c=Math.random()<.7?'255,214,150':'255,255,255';return p};
+  size();addEventListener('resize',size);
+  for(let i=0;i<N;i++)parts.push(spawn({},true));
+  new IntersectionObserver(([e])=>{on=e.isIntersecting;if(on)requestAnimationFrame(tick)}).observe(hero);
+  function tick(){
+    if(!on)return;
+    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
+    for(const p of parts){
+      p.life++;p.x+=p.vx+Math.sin((p.life+p.tw*40)/40)*.25;p.y+=p.vy;p.tw+=.08;
+      const k=Math.min(1,p.life/40)*Math.max(0,1-p.life/p.max),a=k*(.55+.45*Math.sin(p.tw));
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);
+      g.addColorStop(0,`rgba(${p.c},${a})`);g.addColorStop(1,`rgba(${p.c},0)`);
+      ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,6.283);ctx.fill();
+      if(p.life>p.max||p.y<-20)spawn(p,false);
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
 </body>
