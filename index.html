@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daria Boyko — Event Organizer</title>
+<meta name="description" content="Дарія Бойко (Darushka) — івент-організатор і координатор весіль, корпоративів та приватних подій. Київ, Одеса, Вінниця, Полтава, Харків.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f2ee;
+  --ink:#0d0d0d;
+  --ink-2:#3a3a3a;
+  --muted:#8a8782;
+  --line:rgba(13,13,13,.14);
+  --line-inv:rgba(255,255,255,.18);
+  --seam:40%;
+  --pad:clamp(16px,4vw,56px);
+  --sans:"Manrope",system-ui,sans-serif;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --cond:"Oswald","Arial Narrow",sans-serif;
+  --poster:"Anton","Oswald",Impact,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--ink);color:var(--paper)}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad);transition:background .4s,padding .4s}
+.nav.scrolled{background:rgba(244,242,238,.9);backdrop-filter:blur(12px);padding-top:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.logo{font-family:var(--cond);font-weight:700;letter-spacing:.06em;font-size:20px;line-height:1}
+.logo small{display:block;font-family:var(--sans);font-weight:500;font-size:9px;letter-spacing:.32em;margin-top:5px;text-align:center}
+.nav-links{display:flex;gap:34px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
+.nav-links a{position:relative}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:0;background:currentColor;transition:width .35s}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:40px;padding:11px 20px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:transform .3s}
+.nav-cta:hover{transform:translateY(-2px)}
+.nav-links{margin-left:auto;margin-right:34px}
+.nav:not(.scrolled) .nav-links{color:#fff}
+.nav:not(.scrolled) .nav-cta{background:#fff;color:var(--ink)}
+.nav:not(.scrolled) .burger{background:#fff}.nav:not(.scrolled) .burger span{background:var(--ink)}
+.nav:not(.scrolled) .logo{color:#fff}
+.burger{display:none;width:44px;height:44px;border-radius:50%;background:var(--ink);position:relative}
+.burger span{position:absolute;left:14px;right:14px;height:1.5px;background:var(--paper);transition:.3s}
+.burger span:nth-child(1){top:18px}.burger span:nth-child(2){top:25px}
+.menu-open .burger span:nth-child(1){top:21.5px;transform:rotate(45deg)}
+.menu-open .burger span:nth-child(2){top:21.5px;transform:rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:40;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad);gap:6px;opacity:0;pointer-events:none;transition:opacity .4s}
+.mobile-menu a{font-family:var(--serif);font-size:44px;line-height:1.2;font-weight:300}
+.menu-open .mobile-menu{opacity:1;pointer-events:auto}
+.menu-open .nav{background:transparent;border-color:transparent;color:var(--paper)}
+.menu-open .burger{background:var(--paper)}
+.menu-open .burger span{background:var(--ink)}
+
+/* ---------- HERO (video + booking) ---------- */
+.hero{position:relative;height:100vh;height:100svh;min-height:680px;overflow:hidden;background:#070707;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}
+.hv{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:3px;translate:calc(var(--mx,0) * -10px) calc(var(--sp,0) * 120px);scale:calc(1.04 + var(--sp,0) * .08)}
+.hv-p{position:relative;overflow:hidden;clip-path:inset(50% 0 50% 0);animation:curtain 1.6s cubic-bezier(.7,0,.2,1) forwards}
+.hv-p:nth-child(1){animation-delay:.15s}.hv-p:nth-child(2){animation-delay:0s}.hv-p:nth-child(3){animation-delay:.3s}
+@keyframes curtain{to{clip-path:inset(0 0 0 0)}}
+.hv-p video{width:100%;height:100%;object-fit:cover;scale:1.15;animation:settle 2.6s cubic-bezier(.2,.7,.2,1) forwards}
+.hv-p:nth-child(2) video{animation-delay:.1s}
+@keyframes settle{to{scale:1}}
+.hv-shade{position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(120% 80% at 50% 70%,rgba(0,0,0,.15),rgba(0,0,0,.55) 70%),
+  linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 26%,rgba(0,0,0,0) 45%,rgba(0,0,0,.82) 100%)}
+
+.hero-in{position:relative;z-index:2;padding:0 var(--pad) clamp(90px,11svh,120px);text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:40px;background:rgba(255,255,255,.06);backdrop-filter:blur(8px);opacity:0;animation:fadeIn 1s 1.9s forwards}
+.hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#7CFFB0;box-shadow:0 0 0 0 rgba(124,255,176,.7);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(124,255,176,0)}100%{box-shadow:0 0 0 0 rgba(124,255,176,0)}}
+@keyframes fadeIn{to{opacity:1}}
+
+/* gravity headline: words fall in and bounce */
+.hero h1{margin-top:22px;font-weight:200;font-size:clamp(46px,7.4vw,128px);line-height:.95;letter-spacing:-.045em}
+.hero h1 .ln{display:block}
+.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:-.015em}
+.g{display:inline-block;transform:translateY(-120vh) rotate(var(--r,0deg));animation:fall 1.5s cubic-bezier(.33,0,.67,1) forwards;animation-delay:var(--d,0s)}
+@keyframes fall{
+  0%{transform:translateY(-120vh) rotate(var(--r,0deg))}
+  55%{transform:translateY(0) rotate(0);animation-timing-function:cubic-bezier(.2,.6,.4,1)}
+  70%{transform:translateY(-14%) rotate(calc(var(--r,0deg) * -.15))}
+  82%{transform:translateY(0)}
+  90%{transform:translateY(-4%)}
+  100%{transform:none}}
+.hero-lead{margin-top:24px;max-width:560px;font-size:clamp(15px,1.2vw,17px);line-height:1.6;color:rgba(255,255,255,.82);opacity:0;animation:fadeIn 1s 2.2s forwards}
+
+/* booking bar */
+.book{margin-top:34px;display:flex;align-items:stretch;gap:0;padding:6px;border-radius:60px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 30px 80px -30px rgba(0,0,0,.8);opacity:0;transform:translateY(30px);animation:bookIn 1s 2.4s cubic-bezier(.2,.7,.2,1) forwards;text-align:left}
+@keyframes bookIn{to{opacity:1;transform:none}}
+.book label{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 24px;border-right:1px solid rgba(255,255,255,.18);min-width:170px}
+.book label span{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600}
+.book select,.book input{appearance:none;-webkit-appearance:none;background:none;border:0;outline:0;color:#fff;font:400 15px/1.3 var(--sans);padding:2px 0;cursor:pointer;color-scheme:dark;width:100%}
+.book select option{color:#111}
+.book input::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.7;cursor:pointer}
+.book button{position:relative;overflow:hidden;margin-left:6px;display:inline-flex;align-items:center;gap:14px;padding:0 30px;min-height:60px;border-radius:50px;background:#fff;color:var(--ink);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.book button::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.5s 3.5s infinite}
+@keyframes shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+.book button i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;transition:transform .4s}
+.book button:hover i{transform:rotate(-45deg)}
+.book-alt{margin-top:16px;font-size:12.5px;color:rgba(255,255,255,.65);opacity:0;animation:fadeIn 1s 2.8s forwards}
+.book-alt a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
+
+.hero-foot{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:26px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7);opacity:0;animation:fadeIn 1s 3s forwards;pointer-events:none}
+.hero-foot b{color:#fff;font-weight:600}
+.scroll-hint{display:flex;align-items:center;gap:12px}
+.scroll-hint i{display:block;width:1px;height:34px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
+.scroll-hint i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:#fff;animation:drip 1.8s infinite}
+@keyframes drip{to{top:100%}}
+
+/* floating CTA after the hero */
+.fab{position:fixed;right:var(--pad);bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:40px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);transform:translateY(140%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.fab.on{transform:none}
+.fab::before{content:"";width:8px;height:8px;border-radius:50%;background:#7CFFB0}
+
+@media (max-width:900px){
+  .hv{grid-template-columns:1fr}
+  .hv-p:nth-child(1),.hv-p:nth-child(3){display:none}
+  .book{flex-direction:column;border-radius:26px;width:100%;max-width:440px;padding:8px}
+  .book label{border-right:0;border-bottom:1px solid rgba(255,255,255,.16);padding:12px 18px;min-width:0}
+  .book button{margin:8px 0 0;justify-content:space-between;min-height:56px}
+  .hero-in{padding-bottom:80px}
+  .hero-foot .stats-mini{display:none}
+  .hero-foot{justify-content:center}
+}
+@media (max-width:560px){
+  .hero{min-height:760px}
+  .hero-eyebrow{font-size:9.5px;letter-spacing:.16em}
+  .hero-lead{font-size:14.5px;margin-top:16px}
+  .book{margin-top:22px}
+  .fab{left:16px;right:16px;justify-content:center;bottom:60px}
+}
+
+/* ---------- common ---------- */
+section{position:relative}
+.wrap{padding-left:var(--pad);padding-right:var(--pad)}
+.eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:500;display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.display{font-family:var(--sans);font-weight:200;font-size:clamp(44px,7.4vw,112px);line-height:.98;letter-spacing:-.035em}
+.display em{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:-.01em}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.oval{border-radius:999px;overflow:hidden}
+.oval img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- ABOUT ---------- */
+.about{padding:clamp(90px,12vw,170px) 0 clamp(80px,10vw,140px)}
+.about-head{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.about-head .display .l2{display:block;padding-left:22%}
+.about-lead{font-size:14px;line-height:1.65;color:var(--ink-2);max-width:340px;justify-self:end;margin-top:14px}
+.about-grid{display:grid;grid-template-columns:5fr 4fr 3fr;gap:clamp(24px,4vw,70px);margin-top:clamp(40px,5vw,70px);align-items:start}
+.about-oval{aspect-ratio:3/4.4}
+.about-oval img{object-position:50% 30%}
+.sign{display:flex;justify-content:space-between;margin-top:22px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.sign span:last-child{font-family:var(--serif);font-size:18px;letter-spacing:0;text-transform:none;font-weight:400;font-style:italic}
+.about-text{padding-top:clamp(20px,8vw,130px);font-size:14.5px;color:var(--ink-2)}
+.about-text p+p{margin-top:1.1em}
+.about-text p:first-child{text-indent:3em}
+.about-small{aspect-ratio:1/1.6;margin-top:clamp(0px,3vw,40px)}
+.about-small img{object-position:40% 30%}
+.principle{margin-top:34px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.3;color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:clamp(60px,8vw,110px)}
+.stat{padding:28px 20px 0 0}
+.stat b{display:block;font-family:var(--sans);font-weight:200;font-size:clamp(44px,5.6vw,84px);line-height:1;letter-spacing:-.04em}
+.stat span{display:block;margin-top:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* ---------- EVENTS LIST ---------- */
+.events{padding:0 0 clamp(80px,10vw,140px)}
+.events-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}
+.events-head p{max-width:300px;font-size:14px;color:var(--ink-2)}
+.ev-list{list-style:none;border-top:1px solid var(--line)}
+.ev{position:relative;display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:20px;padding:26px 0;border-bottom:1px solid var(--line);cursor:default;overflow:hidden}
+.ev::before{content:"";position:absolute;inset:0;background:var(--ink);transform:scaleY(0);transform-origin:bottom;transition:transform .5s cubic-bezier(.2,.7,.2,1);z-index:0}
+.ev>*{position:relative;z-index:1;transition:color .4s,transform .5s}
+.ev .n{font-size:12px;letter-spacing:.2em;color:var(--muted)}
+.ev h3{font-weight:200;font-size:clamp(28px,4.2vw,58px);line-height:1.05;letter-spacing:-.03em}
+.ev .arr{font-size:26px;font-weight:200}
+.ev:hover::before{transform:scaleY(1)}
+.ev:hover>*{color:var(--paper)}
+.ev:hover h3{transform:translateX(20px)}
+.ev-thumb{position:fixed;width:220px;height:300px;pointer-events:none;z-index:30;border-radius:120px;overflow:hidden;opacity:0;transform:translate(-50%,-50%) scale(.8);transition:opacity .3s,transform .3s}
+.ev-thumb.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.ev-thumb img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- DARK / DIFFERENCE ---------- */
+.dark{overflow:hidden;background:var(--paper);padding-top:clamp(120px,16vw,240px);color:var(--paper);isolation:isolate}
+.dark-bg{position:absolute;left:0;right:0;bottom:0;top:clamp(230px,24vw,380px);background:var(--ink);z-index:-1}
+.dark-bg::before{content:"";position:absolute;left:-15%;right:-15%;top:clamp(-220px,-16vw,-110px);height:clamp(440px,40vw,700px);background:var(--ink);border-radius:50%}
+.big-name{font-family:var(--serif);font-weight:300;font-size:clamp(72px,17.5vw,300px);line-height:.8;letter-spacing:-.02em;text-align:center;color:#fff;mix-blend-mode:difference;position:relative;z-index:2;white-space:nowrap}
+.big-name .it{font-style:italic;display:block}
+.diff{display:grid;grid-template-columns:1fr minmax(240px,340px) 1fr;gap:clamp(24px,4vw,70px);align-items:center;padding:clamp(20px,3vw,40px) var(--pad) clamp(90px,10vw,150px)}
+.diff-oval{aspect-ratio:1/1.55;margin-top:-6vw;position:relative;z-index:1}
+.diff-oval img{object-position:50% 25%}
+.diff h2{font-weight:300;font-size:clamp(24px,2.4vw,34px);line-height:1.15;letter-spacing:-.02em;margin-bottom:22px}
+.diff p{font-size:14px;line-height:1.7;color:rgba(244,242,238,.72)}
+.diff .tag{display:inline-block;font-size:10px;letter-spacing:.24em;text-transform:uppercase;border:1px solid var(--line-inv);border-radius:30px;padding:7px 14px;margin-bottom:22px;color:var(--paper)}
+.btn{display:inline-flex;align-items:center;gap:18px;padding:18px 26px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;transition:.3s}
+.btn-light{background:rgba(255,255,255,.1);color:var(--paper);margin-top:34px}
+.btn-light:hover{background:var(--paper);color:var(--ink)}
+.btn-dark{background:var(--ink);color:var(--paper)}
+.btn-dark:hover{background:#333}
+
+/* ---------- GALLERY STRIP ---------- */
+.strip{background:var(--ink);padding-bottom:clamp(90px,10vw,150px);overflow:hidden}
+.strip-track{display:flex;gap:14px;width:max-content;animation:scroll 60s linear infinite}
+.strip:hover .strip-track{animation-play-state:paused}
+.strip-track figure{width:clamp(200px,22vw,330px);aspect-ratio:3/4.3;overflow:hidden;flex:none}
+.strip-track img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:filter .6s,transform .8s}
+.strip-track figure:hover img{filter:none;transform:scale(1.04)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- SERVICES ---------- */
+.services{padding:clamp(90px,11vw,160px) 0}
+.svc-top{display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:30px;margin-bottom:clamp(40px,5vw,70px)}
+.tabs{display:inline-flex;border:1px solid var(--ink);border-radius:40px;padding:4px}
+.tab{padding:12px 24px;border-radius:40px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;transition:.3s}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.panel{display:none;grid-template-columns:minmax(260px,4fr) 7fr;gap:clamp(30px,5vw,90px);align-items:start}
+.panel.active{display:grid;animation:fadeUp .6s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}}
+.price-card{position:sticky;top:100px;background:var(--ink);color:var(--paper);padding:clamp(28px,3vw,44px)}
+.price-card h3{font-family:var(--serif);font-weight:300;font-size:clamp(34px,3.4vw,50px);line-height:1;margin-bottom:28px}
+.price-card h3 em{font-style:italic}
+.opt{display:grid;grid-template-columns:1fr auto;gap:6px 20px;padding:18px 0;border-top:1px solid var(--line-inv)}
+.opt b{font-weight:200;font-size:40px;line-height:1;letter-spacing:-.03em;grid-row:span 2;align-self:center}
+.opt span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,242,238,.55);font-weight:500}
+.opt p{font-size:13.5px;line-height:1.5;grid-column:1}
+.big-percent{font-weight:200;font-size:clamp(110px,12vw,180px);line-height:.85;letter-spacing:-.06em}
+.note{margin-top:22px;font-size:12px;line-height:1.55;color:rgba(244,242,238,.55)}
+.price-card .btn{margin-top:28px;background:var(--paper);color:var(--ink);width:100%;justify-content:space-between}
+.svc-list{list-style:none;counter-reset:s;border-top:1px solid var(--line)}
+.svc-list li{counter-increment:s;border-bottom:1px solid var(--line)}
+.svc-list summary{list-style:none;display:grid;grid-template-columns:54px 1fr 30px;gap:12px;align-items:baseline;padding:22px 0;cursor:pointer;font-size:clamp(18px,1.6vw,23px);font-weight:400;letter-spacing:-.01em}
+.svc-list summary::-webkit-details-marker{display:none}
+.svc-list summary::before{content:counter(s,decimal-leading-zero);font-size:11px;letter-spacing:.18em;color:var(--muted);font-weight:500}
+.svc-list summary::after{content:"+";font-weight:200;font-size:26px;line-height:1;text-align:right;transition:transform .3s}
+.svc-list details[open] summary::after{transform:rotate(45deg)}
+.svc-list details p{padding:0 30px 24px 66px;font-size:14.5px;color:var(--ink-2);max-width:640px}
+.secret{margin-top:30px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.35}
+
+/* ---------- CITIES & STARS ---------- */
+.cities{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:clamp(60px,7vw,100px) 0}
+.cities-row{display:grid;grid-template-columns:1fr 2fr;gap:40px;align-items:start}
+.city-names{display:flex;flex-wrap:wrap;gap:4px 22px;font-family:var(--serif);font-weight:300;font-size:clamp(40px,5.6vw,84px);line-height:1.05}
+.city-names span:not(:last-child)::after{content:"·";margin-left:22px;color:var(--muted)}
+.stars{padding:clamp(60px,7vw,100px) 0 0;overflow:hidden}
+.stars .eyebrow{margin-bottom:34px}
+.marquee{display:flex;width:max-content;animation:scroll 45s linear infinite;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
+.marquee span{font-family:var(--cond);font-weight:500;font-size:clamp(28px,3.6vw,52px);text-transform:uppercase;letter-spacing:.01em;padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:56px}
+.marquee span::after{content:"✦";font-size:.45em;color:var(--muted)}
+.marquee.rev{animation-direction:reverse;border-top:0}
+.marquee.rev span{font-family:var(--serif);font-style:italic;font-weight:300;text-transform:none}
+
+/* ---------- REVIEWS ---------- */
+.reviews{padding:clamp(90px,11vw,160px) 0}
+.rev-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(30px,5vw,90px);align-items:center}
+.quote{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4vw,62px);line-height:1.05;letter-spacing:-.01em}
+.quote em{font-style:italic}
+.quote-by{margin-top:26px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.shots{display:grid;gap:18px}
+.shots img{width:100%;box-shadow:0 30px 60px -30px rgba(0,0,0,.35);transition:transform .6s}
+.shots img:nth-child(2){width:88%;margin-left:12%}
+.shots img:hover{transform:translateY(-6px)}
+
+/* ---------- CONTACT ---------- */
+.contact{background:var(--ink);color:var(--paper);overflow:hidden;padding:clamp(90px,11vw,160px) 0 0}
+.contact-grid{display:grid;grid-template-columns:7fr 5fr;gap:50px;align-items:end}
+.contact .display{font-size:clamp(50px,8.4vw,132px)}
+.contact-sub{margin-top:28px;font-size:15px;color:rgba(244,242,238,.7);max-width:420px}
+.contact-oval{aspect-ratio:1/1.35;max-width:380px;justify-self:end;width:100%}
+.contact-oval img{object-position:50% 20%}
+.links{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(60px,7vw,100px);border-top:1px solid var(--line-inv)}
+.links a{padding:30px 20px 30px 0;border-right:1px solid var(--line-inv);display:flex;flex-direction:column;gap:8px;transition:background .3s,padding .3s}
+.links a:last-child{border-right:0}
+.links a span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,242,238,.5);font-weight:500}
+.links a b{font-weight:300;font-size:clamp(18px,1.7vw,24px);letter-spacing:-.01em;word-break:break-word}
+.links a:hover{background:rgba(255,255,255,.06);padding-left:16px}
+.footer-word{font-family:var(--poster);font-size:22.5vw;line-height:.78;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(244,242,238,.35);margin-top:60px;letter-spacing:.005em;white-space:nowrap;user-select:none}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:24px var(--pad);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.5);border-top:1px solid var(--line-inv)}
+
+/* ---------- PRELOADER ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:28px var(--pad);transition:transform 1s cubic-bezier(.8,0,.2,1)}
+.loader.done{transform:translateY(-100%)}
+.loader-word{font-family:var(--poster);font-size:clamp(70px,17vw,260px);line-height:.8;overflow:hidden;align-self:flex-start;padding-top:.05em}
+.loader-word span{display:inline-block;transform:translateY(100%);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes up{to{transform:none}}
+.loader-row{display:flex;justify-content:space-between;align-items:end;gap:20px;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.loader-count{font-family:var(--serif);font-size:clamp(60px,10vw,140px);line-height:.8;letter-spacing:0;font-weight:300}
+body.is-loading{overflow:hidden}
+body.is-loading .hero *{animation-play-state:paused!important}
+
+/* ---------- PROMISE / MANIFESTO ---------- */
+.promise{padding:clamp(100px,13vw,200px) 0 clamp(60px,8vw,120px)}
+.promise .eyebrow{margin-bottom:40px}
+.manifesto{font-weight:200;font-size:clamp(32px,4.9vw,76px);line-height:1.08;letter-spacing:-.035em;max-width:1250px}
+.manifesto em{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:-.01em}
+.manifesto .w{opacity:.13;transition:opacity .25s}
+.manifesto .w.on{opacity:1}
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(60px,8vw,120px);border-top:1px solid var(--line)}
+.pillar{padding:30px 26px 10px 0;border-right:1px solid var(--line);margin-right:26px}
+.pillar:last-child{border-right:0;margin-right:0}
+.pillar i{font-style:normal;font-family:var(--serif);font-size:54px;line-height:1;font-weight:300;display:block;margin-bottom:26px}
+.pillar h3{font-weight:500;font-size:17px;letter-spacing:-.01em;margin-bottom:10px}
+.pillar p{font-size:14px;color:var(--ink-2);line-height:1.6}
+
+/* ---------- BRIDE MORNING (scroll colour reveal) ---------- */
+.bride{height:230vh;background:var(--ink);color:var(--paper)}
+.bride-stick{position:sticky;top:0;height:100vh;height:100svh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.bride-media{position:relative;overflow:hidden}
+.bride-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.bride-media .col{clip-path:circle(var(--r,0%) at 50% 40%)}
+.bride-media .stamp{position:absolute;left:24px;bottom:24px;z-index:2;font-size:10px;letter-spacing:.3em;text-transform:uppercase;background:rgba(13,13,13,.55);backdrop-filter:blur(6px);padding:9px 14px;border-radius:30px}
+.bride-text{display:flex;flex-direction:column;justify-content:center;padding:100px clamp(24px,6vw,110px)}
+.bride-text .eyebrow{color:rgba(244,242,238,.6);margin-bottom:30px}
+.bride-text h2{font-weight:200;font-size:clamp(44px,5.6vw,92px);line-height:.98;letter-spacing:-.035em}
+.bride-text h2 em{font-family:var(--serif);font-style:italic;font-weight:300}
+.bride-text>p{margin-top:30px;font-size:15px;line-height:1.7;color:rgba(244,242,238,.72);max-width:470px}
+.bride-steps{list-style:none;margin-top:36px;border-top:1px solid var(--line-inv);max-width:470px}
+.bride-steps li{display:flex;gap:18px;padding:14px 0;border-bottom:1px solid var(--line-inv);font-size:14px;opacity:.3;transition:opacity .5s}
+.bride-steps li.on{opacity:1}
+.bride-steps b{font-family:var(--serif);font-weight:400;font-style:italic;font-size:17px;min-width:52px}
+
+/* ---------- SHOWCASE (pinned horizontal) ---------- */
+.show{height:var(--show-h,420vh);background:var(--paper)}
+.show-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:40px}
+.show-head{display:flex;justify-content:space-between;align-items:end;gap:30px;padding:0 var(--pad);margin-bottom:30px}
+.show-head .display{font-size:clamp(40px,5.2vw,84px)}
+.show-count{font-family:var(--serif);font-size:clamp(28px,3vw,44px);font-weight:300;white-space:nowrap}
+.show-track{display:flex;gap:clamp(14px,1.6vw,26px);padding:0 var(--pad);width:max-content;will-change:transform}
+.card{position:relative;flex:none;height:min(58svh,620px);overflow:hidden;color:#fff}
+.card.t{aspect-ratio:3/4}.card.w{aspect-ratio:4/3.4}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.card:hover img{transform:scale(1.05)}
+.card figcaption{position:absolute;left:0;right:0;bottom:0;padding:70px 24px 22px;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.card figcaption span{display:block;font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.8;margin-bottom:8px}
+.card figcaption b{font-weight:300;font-size:clamp(20px,1.9vw,28px);letter-spacing:-.02em;line-height:1.1}
+.card.quote-card{background:var(--ink);display:flex;flex-direction:column;justify-content:space-between;padding:34px;aspect-ratio:3/4}
+.card.quote-card p{font-family:var(--serif);font-weight:300;font-size:clamp(28px,2.6vw,42px);line-height:1.08}
+.card.quote-card p em{font-style:italic}
+.card.quote-card small{font-size:10px;letter-spacing:.26em;text-transform:uppercase;opacity:.6}
+.show-bar{margin:30px var(--pad) 0;height:1px;background:var(--line);position:relative}
+.show-bar i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--ink)}
+
+/* ---------- REELS ---------- */
+.reels{background:var(--ink);color:var(--paper);padding:clamp(100px,12vw,180px) 0 clamp(120px,12vw,190px);overflow:hidden}
+.reels-grid{display:grid;grid-template-columns:1fr auto auto;gap:clamp(24px,4vw,60px);align-items:center}
+.reels h2{font-weight:200;font-size:clamp(44px,6vw,96px);line-height:.98;letter-spacing:-.035em}
+.reels h2 em{font-family:var(--serif);font-style:italic;font-weight:300}
+.reels-text>p:last-child{margin-top:26px;color:rgba(244,242,238,.7);font-size:15px;max-width:400px}
+.phone{position:relative;width:clamp(220px,20vw,300px);aspect-ratio:9/16;border-radius:34px;overflow:hidden;border:1px solid rgba(255,255,255,.2);box-shadow:0 40px 80px -30px rgba(0,0,0,.8);background:#111}
+.phone.low{margin-top:120px}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.phone .snd{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);color:#fff;font-size:16px;display:grid;place-items:center}
+.phone .lbl{position:absolute;left:14px;top:14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;background:rgba(0,0,0,.35);backdrop-filter:blur(6px);padding:7px 12px;border-radius:30px;color:#fff}
+
+@media (max-width:1000px){
+  .pillars{grid-template-columns:1fr 1fr}
+  .pillar:nth-child(2){border-right:0;margin-right:0}
+  .reels-grid{grid-template-columns:1fr 1fr}
+  .reels-text{grid-column:1/-1}
+  .phone{width:100%}
+  .phone.low{margin-top:60px}
+}
+@media (max-width:820px){
+  .bride{height:auto}
+  .bride-stick{position:relative;height:auto;grid-template-columns:1fr}
+  .bride-media{aspect-ratio:4/5}
+  .bride-text{padding:60px var(--pad) 80px}
+  .show{height:auto}
+  .show-stick{position:relative;height:auto;padding:90px 0}
+  .show-track{overflow-x:auto;width:auto;scroll-snap-type:x mandatory;transform:none!important;scrollbar-width:none}
+  .show-track::-webkit-scrollbar{display:none}
+  .card{height:auto;width:78vw;scroll-snap-align:center}
+  .card.w{aspect-ratio:3/4}
+  .show-bar{display:none}
+  .show-head{flex-direction:column;align-items:start}
+}
+@media (max-width:700px){
+  .pillars{grid-template-columns:1fr}
+  .pillar{border-right:0!important;margin-right:0!important;border-bottom:1px solid var(--line);padding-bottom:26px}
+  .reels-grid{gap:12px}
+  .phone{border-radius:22px}
+}
+
+/* ---------- EFFECTS ---------- */
+/* film grain */
+body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+
+/* custom cursor (mouse only) */
+.cursor,.cursor-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:96;border-radius:50%;display:none}
+@media (hover:hover) and (pointer:fine){
+  .cursor{display:block;width:8px;height:8px;background:#fff;mix-blend-mode:difference;margin:-4px 0 0 -4px}
+  .cursor-ring{display:grid;place-items:center;width:44px;height:44px;margin:-22px 0 0 -22px;border:1px solid #fff;mix-blend-mode:difference;transition:width .35s cubic-bezier(.2,.7,.2,1),height .35s cubic-bezier(.2,.7,.2,1),margin .35s cubic-bezier(.2,.7,.2,1),background .35s,border-color .35s}
+  .cursor-ring span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--ink);opacity:0;transition:opacity .2s}
+  .cursor-ring.link{width:64px;height:64px;margin:-32px 0 0 -32px}
+  .cursor-ring.view{width:110px;height:110px;margin:-55px 0 0 -55px;background:var(--paper);border-color:var(--paper);mix-blend-mode:normal}
+  .cursor-ring.view span{opacity:1}
+}
+
+/* crossed marquee bands */
+.band{position:relative;height:clamp(200px,22vw,320px);overflow:hidden;background:var(--paper)}
+.band-row{position:absolute;left:-5%;right:-5%;top:50%;display:flex;white-space:nowrap;padding:18px 0;font-family:var(--poster);font-size:clamp(30px,4.2vw,64px);line-height:1;text-transform:uppercase}
+.band-row div{display:flex;animation:scroll 40s linear infinite}
+.band-row span{padding:0 26px;display:flex;align-items:center;gap:52px}
+.band-row span::after{content:"✦";font-family:var(--sans);font-size:.5em}
+.band-row.a{background:var(--ink);color:var(--paper);transform:translateY(-50%) rotate(-4deg);z-index:2}
+.band-row.b{background:var(--paper);color:var(--ink);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);transform:translateY(-50%) rotate(3deg)}
+.band-row.b div{animation-direction:reverse}
+.band-row.b span{font-family:var(--serif);font-style:italic;font-weight:300;text-transform:none}
+
+/* oval photos unveil + inner parallax */
+.oval.reveal{opacity:1;transform:none;clip-path:inset(100% 0 0 0 round 999px);transition:clip-path 1.4s cubic-bezier(.7,0,.2,1)}
+.oval.reveal.in{clip-path:inset(0 0 0 0 round 999px)}
+.oval img{scale:1.18;translate:0 var(--py,0px)}
+
+@media (prefers-reduced-motion:reduce){body::after{animation:none}.band-row div{animation:none}}
+
+section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px){
+  .nav-links,.nav .nav-cta{display:none}
+  .burger{display:block}
+  .about-grid{grid-template-columns:1fr 1fr}
+  .about-small{display:none}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{padding-bottom:24px}
+  .panel{grid-template-columns:1fr}
+  .price-card{position:relative;top:0}
+  .rev-grid,.contact-grid{grid-template-columns:1fr}
+  .contact-oval{justify-self:start;max-width:300px}
+  .links{grid-template-columns:1fr 1fr}
+  .links a:nth-child(2){border-right:0}
+  .links a:nth-child(-n+2){border-bottom:1px solid var(--line-inv)}
+  .diff{grid-template-columns:1fr 1fr}
+  .diff-oval{grid-column:1/-1;grid-row:1;max-width:300px;justify-self:center;margin-top:-4vw}
+}
+@media (max-width:700px){
+  .about-head{grid-template-columns:1fr}
+  .about-head .display .l2{padding-left:12%}
+  .about-lead{justify-self:start}
+  .about-grid{grid-template-columns:1fr}
+  .about-oval{max-width:320px}
+  .about-text{padding-top:0}
+  .events-head{flex-direction:column;align-items:start}
+  .ev{grid-template-columns:44px 1fr auto;padding:20px 0}
+  .ev-thumb{display:none}
+  .diff{grid-template-columns:1fr}
+  .cities-row{grid-template-columns:1fr;gap:20px}
+  .svc-list summary{grid-template-columns:40px 1fr 24px}
+  .svc-list details p{padding-left:52px;padding-right:0}
+  .tabs{width:100%}.tab{flex:1;padding:12px 10px;letter-spacing:.1em}
+  .links{grid-template-columns:1fr}
+  .links a{border-right:0;border-bottom:1px solid var(--line-inv)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="demo.js" defer></script><!-- DEMO: удалите эту строку и файл demo.js в чистой версии -->
+</head>
+<body class="is-loading">
+<div class="cursor" id="cursor"></div><div class="cursor-ring" id="ring"><span>Дивитись</span></div>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-word"><span>DARUSHKA</span></div>
+  <div class="loader-row"><span>Івент-організатор<br>як для себе</span><span class="loader-count" id="count">0</span></div>
+</div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a href="#top" class="logo">DARIA BOYKO<small>EVENT</small></a>
+  <nav class="nav-links">
+    <a href="#about">Про мене</a>
+    <a href="#show">Портфоліо</a>
+    <a href="#services">Послуги та ціни</a>
+    <a href="#reviews">Відгуки</a>
+    <a href="#contact">Контакти</a>
+  </nav>
+  <a href="https://t.me/daruuuushka" target="_blank" rel="noopener" class="nav-cta">Написати →</a>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span></button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">Про мене</a>
+  <a href="#show">Портфоліо</a>
+  <a href="#reels">Відео</a>
+  <a href="#services">Послуги</a>
+  <a href="#reviews">Відгуки</a>
+  <a href="#contact">Контакти</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hv" aria-hidden="true">
+    <div class="hv-p"><video src="video/h1.mp4" poster="video/h1.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="hv-p"><video src="video/h2.mp4" poster="video/h2.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="hv-p"><video src="video/h3.mp4" poster="video/h3.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+  </div>
+  <div class="hv-shade"></div>
+
+  <div class="hero-in">
+    <p class="hero-eyebrow"><span class="dot"></span>Приймаю бронювання на 2026</p>
+    <h1>
+      <span class="ln"><span class="g" style="--d:1.20s;--r:-14deg">Ваше</span> <span class="g" style="--d:1.32s;--r:9deg">свято</span> <span class="g" style="--d:1.44s;--r:-6deg">—</span></span>
+      <span class="ln"><em><span class="g" style="--d:1.56s;--r:8deg">моя</span></em> <span class="g" style="--d:1.68s;--r:-7deg">відповідальність</span></span>
+    </h1>
+    <p class="hero-lead">Дарія Бойко — івент-організатор і координатор. Весілля та події під ключ, зроблені як для себе. Ви насолоджуєтесь моментом — я піклуюсь про решту.</p>
+
+    <form class="book" id="book">
+      <label><span>Подія</span>
+        <select name="type">
+          <option>Весілля</option><option>Заручини / пропозиція</option><option>Корпоратив</option>
+          <option>День народження / ювілей</option><option>Гендер паті / хрестини</option><option>Конференція / форум</option>
+        </select></label>
+      <label><span>Дата</span><input type="date" name="date" min="2026-01-01"></label>
+      <label><span>Послуга</span>
+        <select name="svc"><option>Повна організація</option><option>Координація дня</option><option>Ще не знаю</option></select></label>
+      <button type="submit">Забронювати дату <i>→</i></button>
+    </form>
+    <p class="book-alt">Відповім протягом години · або напишіть у <a href="https://t.me/daruuuushka" target="_blank" rel="noopener">Telegram</a></p>
+  </div>
+
+  <div class="hero-foot">
+    <span class="stats-mini"><b>100+</b> подій · <b>5</b> міст · <b>24/7</b> на зв’язку</span>
+    <span class="scroll-hint">Гортайте <i></i></span>
+  </div>
+</section>
+<a href="#top" class="fab" id="fab">Забронювати дату</a>
+
+<!-- PROMISE -->
+<section class="promise wrap" id="promise">
+  <p class="eyebrow">Мій принцип</p>
+  <p class="manifesto" id="manifesto">Я роблю кожну подію з максимальною відповідальністю — <em>як для себе.</em> Ніби це моє весілля, моє свято, мої гості. Тому я пам’ятаю про кожну дрібницю, щоб ви не думали ні про що, крім щастя.</p>
+  <div class="pillars">
+    <div class="pillar reveal"><i>01</i><h3>Як для себе</h3><p>Кожна деталь перевірена так, ніби святкую я сама — від таймінгу до стрічки на букеті.</p></div>
+    <div class="pillar reveal"><i>02</i><h3>Відповідальність за команду</h3><p>Я відповідаю за кожного підрядника: хто, коли, де і що робить. Ви отримуєте результат, а не питання.</p></div>
+    <div class="pillar reveal"><i>03</i><h3>Спокій наречених</h3><p>Форс-мажори вирішуються тихо й непомітно — ще до того, як ви про них дізнаєтесь.</p></div>
+    <div class="pillar reveal"><i>04</i><h3>Поруч 24/7</h3><p>На зв’язку на кожному етапі підготовки і з першої до останньої хвилини свята.</p></div>
+  </div>
+</section>
+
+<!-- BAND -->
+<div class="band" aria-hidden="true">
+  <div class="band-row b"><div><span>весілля</span><span>заручини</span><span>корпоративи</span><span>гендер паті</span><span>ювілеї</span><span>конференції</span><span>весілля</span><span>заручини</span><span>корпоративи</span><span>гендер паті</span><span>ювілеї</span><span>конференції</span></div></div>
+  <div class="band-row a"><div><span>Як для себе</span><span>Максимальна відповідальність</span><span>Спокій наречених</span><span>Як для себе</span><span>Максимальна відповідальність</span><span>Спокій наречених</span></div></div>
+</div>
+
+<!-- ABOUT -->
+<section class="about wrap" id="about">
+  <div class="about-head">
+    <h2 class="display reveal">Давайте<span class="l2"><em>познайомимось</em></span></h2>
+    <p class="about-lead reveal">Мене звати Дарія — я івент-координатор і організатор із маркетинговою освітою та любов’ю до своєї справи.</p>
+  </div>
+
+  <div class="about-grid">
+    <div>
+      <div class="oval about-oval reveal"><img src="img/s_p13.jpg" alt="Дарія готує декор до весілля" loading="lazy"></div>
+      <div class="sign"><span>Event organizer<br>&amp; coordinator</span><span>Дарія Бойко</span></div>
+    </div>
+    <div class="about-text reveal">
+      <p>За 2 роки в івент-сфері я здобула досвід роботи на 100+ весіль, корпоративів і приватних заходів у різних містах України. Співпрацювала з багатьма професіоналами індустрії — ведучими, декораторами, фотографами, артистами.</p>
+      <p>Я вмію створювати чітку структуру підготовки — від плану зустрічей до детального таймінгу дня події. Знаю, як комунікувати з підрядниками, щоб усі працювали як єдина команда.</p>
+      <p>У день заходу я завжди поруч — стежу, щоб усе йшло за планом, а непередбачувані ситуації вирішувалися швидко й непомітно для гостей.</p>
+      <p class="principle">«Мій головний принцип — комфорт усіх учасників, спокій наречених і впевненість, що їх свято у надійних руках».</p>
+    </div>
+    <div class="oval about-small reveal"><img src="img/g_p8_1.jpg" alt="Дарія на заході" loading="lazy"></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat reveal"><b data-count="100">100+</b><span>весіль і заходів</span></div>
+    <div class="stat reveal"><b>2</b><span>роки в івент-сфері</span></div>
+    <div class="stat reveal"><b>5</b><span>міст України</span></div>
+    <div class="stat reveal"><b>24/7</b><span>на зв’язку</span></div>
+  </div>
+</section>
+
+<!-- BRIDE MORNING -->
+<section class="bride" id="bride">
+  <div class="bride-stick">
+    <div class="bride-media">
+      <img src="img/n_bride_bw.jpg" alt="Дарія допомагає нареченій із сукнею" loading="lazy">
+      <img class="col" src="img/n_bride.jpg" alt="Дарія застібає сукню нареченій" loading="lazy">
+      <span class="stamp">Ранок нареченої</span>
+    </div>
+    <div class="bride-text">
+      <p class="eyebrow">Я поруч із самого ранку</p>
+      <h2>Кожен ґудзик — <em>з турботою</em></h2>
+      <p>Я збираю наречену так, ніби збираю найріднішу людину: застібну сукню, поправлю фату, заспокою і нагадаю, що все під контролем. Поки ви посміхаєтесь — я тримаю таймінг.</p>
+      <ol class="bride-steps" id="brideSteps">
+        <li><b>08:00</b>Зустріч стилістів, візажистів і фотографів</li>
+        <li><b>10:30</b>Сукня, фата, аксесуари — усе на своїх місцях</li>
+        <li><b>12:00</b>Перша зустріч молодят у весільних образах</li>
+        <li><b>13:00</b>Локація готова — ви їдете святкувати</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="events wrap" id="events">
+  <div class="events-head">
+    <h2 class="display reveal">На яких<br><em>подіях</em> я працюю</h2>
+    <p class="reveal">Від камерних заручин до конференцій — кожна подія має свою логіку, і я бачу її зсередини.</p>
+  </div>
+  <ul class="ev-list">
+    <li class="ev" data-img="img/g_p4_2.jpg"><span class="n">01</span><h3>Весілля</h3><span class="arr">↗</span></li>
+    <li class="ev" data-img="img/g_p2_2.jpg"><span class="n">02</span><h3>Корпоративні заходи</h3><span class="arr">↗</span></li>
+    <li class="ev" data-img="img/g_p6_2.jpg"><span class="n">03</span><h3>Гендер паті / Хрестини</h3><span class="arr">↗</span></li>
+    <li class="ev" data-img="img/g_p9_2.jpg"><span class="n">04</span><h3>Дні народження / Ювілеї</h3><span class="arr">↗</span></li>
+    <li class="ev" data-img="img/g_p4_1.jpg"><span class="n">05</span><h3>Заручини та пропозиції</h3><span class="arr">↗</span></li>
+    <li class="ev" data-img="img/g_p5_2.jpg"><span class="n">06</span><h3>Конференції, форуми, семінари</h3><span class="arr">↗</span></li>
+  </ul>
+  <div class="ev-thumb" id="evThumb"><img alt=""></div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="show" id="show">
+  <div class="show-stick">
+    <div class="show-head">
+      <h2 class="display">Моменти, які<br><em>ми створили</em></h2>
+      <span class="show-count"><span id="showNum">01</span> / 08</span>
+    </div>
+    <div class="show-track" id="showTrack">
+      <figure class="card t"><img src="img/n_dance2.jpg" alt="Перший танець у важкому димі" loading="lazy"><figcaption><span>Весілля</span><b>Перший танець у хмарах</b></figcaption></figure>
+      <figure class="card t"><img src="img/n_smoke3.jpg" alt="Гендер-паті з синім димом" loading="lazy"><figcaption><span>Gender party</span><b>Це хлопчик! Синій вибух над водою</b></figcaption></figure>
+      <figure class="card quote-card"><p>Найкращий результат — коли гості не помітили <em>жодної</em> роботи координатора.</p><small>Darushka · event</small></figure>
+      <figure class="card t"><img src="img/n_arch1.jpg" alt="Весільна арка з квітів" loading="lazy"><figcaption><span>Церемонія</span><b>Квіткова арка просто неба</b></figcaption></figure>
+      <figure class="card t"><img src="img/n_baby1.jpg" alt="Baby party" loading="lazy"><figcaption><span>Приватна подія</span><b>Baby party у білому</b></figcaption></figure>
+      <figure class="card t"><img src="img/n_dance4.jpg" alt="Лазерне шоу на першому танці" loading="lazy"><figcaption><span>Шоу-програма</span><b>Світло, дим, лазери</b></figcaption></figure>
+      <figure class="card w"><img src="img/n_team.jpg" alt="Команда підрядників на весіллі" loading="lazy"><figcaption><span>Команда</span><b>Підрядники, які працюють як один</b></figcaption></figure>
+      <figure class="card t"><img src="img/n_smoke1.jpg" alt="Гендер-паті на воді" loading="lazy"><figcaption><span>Спецефекти</span><b>Момент, який запам’ятають усі</b></figcaption></figure>
+    </div>
+    <div class="show-bar"><i id="showBar"></i></div>
+  </div>
+</section>
+
+<!-- DIFFERENCE (dark with arc) -->
+<section class="dark">
+  <div class="dark-bg"></div>
+  <div class="big-name" aria-hidden="true">Darushka<span class="it">event</span></div>
+  <div class="diff">
+    <div class="reveal">
+      <span class="tag">Організатор</span>
+      <h2>Той, хто бере на себе всі турботи</h2>
+      <p>Повністю відповідає за підготовку та проведення події: продумує концепцію, шукає місце, підбирає підрядників — ведучого, фотографа, декор, ресторан, — складає план і бюджет, координує всіх, щоб івент відбувся красиво, вчасно й без стресу для вас.</p>
+      <a href="#services" class="btn btn-light">Послуги та ціни <span>→</span></a>
+    </div>
+    <div class="oval diff-oval reveal"><img src="img/s_p14.jpg" alt="Дарія сервірує стіл" loading="lazy"></div>
+    <div class="reveal">
+      <span class="tag">Координатор</span>
+      <h2>Той, хто керує днем події</h2>
+      <p>Веде комунікацію з рестораном і підрядниками, тримає під контролем таймінг, допомагає гостям і молодятам, щоб вони ні про що не турбувались і спокійно насолоджувались святом.</p>
+      <p style="margin-top:18px;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--paper)">Секрет: ведучий чи фотограф — не координатор 😉</p>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<section class="strip" aria-label="Фото з подій">
+  <div class="strip-track" id="strip"></div>
+</section>
+
+<!-- REELS -->
+<section class="reels wrap" id="reels">
+  <div class="reels-grid">
+    <div class="reels-text reveal">
+      <p class="eyebrow" style="color:rgba(244,242,238,.6);margin-bottom:30px">Відео з подій</p>
+      <h2>Подивіться,<br>як це <em>відчувається</em></h2>
+      <p>Від ранку нареченої до першого танцю в хмарах диму — справжні весілля, які я координувала. Увімкніть звук 🔊</p>
+    </div>
+    <div class="phone reveal"><span class="lbl">Весілля · маєток</span><video src="video/reel1.mp4" poster="video/reel1.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
+    <div class="phone low reveal"><span class="lbl">Весілля · вечір</span><video src="video/reel2.mp4" poster="video/reel2.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services wrap" id="services">
+  <div class="svc-top">
+    <h2 class="display reveal">Послуги<br><em>та ціни</em></h2>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="coord">Координація</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="org">Організація</button>
+    </div>
+  </div>
+
+  <!-- coordination -->
+  <div class="panel active" id="coord" role="tabpanel">
+    <div class="price-card">
+      <h3>Координація <em>весілля</em></h3>
+      <div class="opt"><b>250$</b><span>Варіант 1</span><p>Від приїзду до нареченої до фіналу весілля</p></div>
+      <div class="opt"><b>200$</b><span>Варіант 2</span><p>Від приїзду на локацію святкування до фіналу</p></div>
+      <div class="opt"><b>300$</b><span>Варіант 3</span><p>Два координатори на повний день святкування</p></div>
+      <p class="note">+ транспортні витрати. Фінальна вартість може змінюватись залежно від формату, масштабу, кількості підрядників, артистів і шоу-програм.</p>
+      <a href="https://t.me/daruuuushka" target="_blank" rel="noopener" class="btn">Уточнити дату <span>→</span></a>
+    </div>
+    <div>
+      <ol class="svc-list">
+        <li><details open><summary>Розробка таймінгу</summary><p>На початку співпраці розробляємо орієнтовний таймінг заходу. Під час підготовки організовуємо зустріч із ведучим і вносимо правки відповідно до програми, інтерактивів, традицій і деталей святкування.</p></details></li>
+        <li><details><summary>Комунікація з підрядниками</summary><p>За кілька днів до весілля — зв’язок з усіма, хто працюватиме на заході. За день — розсилка з усією інформацією: контакти, час роботи, таймінг, адреса локації, час приїзду, розрахунок.</p></details></li>
+        <li><details><summary>Координація зборів нареченої</summary><p>Зустріч стилістів, візажистів, фото- та відеографів, допомога у фотосесії, контроль таймінгу зборів, організація першої зустрічі молодят у весільних образах.</p></details></li>
+        <li><details><summary>Контроль готовності локації</summary><p>Перевірка монтажу декору, технічного оснащення (світло, звук), ресторану, роботи фотографа та відеографа.</p></details></li>
+        <li><details><summary>Контроль таймінгу та команди</summary><p>Координація програми, ведучого, фото/відео, артистів, техніки, ресторану, гостей, тортику та інших деталей — від заїзду на монтаж до фіналу. Швидка адаптація таймінгу за потреби.</p></details></li>
+        <li><details><summary>Зустріч підрядників і гостей</summary><p>Зібрати всіх у потрібний момент і в потрібному місці.</p></details></li>
+        <li><details><summary>Підготовка весільних елементів</summary><p>Подарунки для гостей, реквізит для конкурсів чи традицій, атрибути для церемонії або першого танцю.</p></details></li>
+        <li><details><summary>Вирішення непередбачуваних ситуацій</summary><p>Координатор вирішує всі можливі форс-мажори до того, як ви про них дізнаєтесь (якщо взагалі дізнаєтесь) 😅</p></details></li>
+        <li><details><summary>Супровід артистів / шоу-програми</summary><p>Зустріч на локації, побутовий райдер, комунікація з командою артистів, координація таймінгу виходу та допомога на локації.</p></details></li>
+        <li><details><summary>Розрахунок підрядників</summary><p>За домовленістю.</p></details></li>
+      </ol>
+      <p class="secret reveal">Якщо на своєму святі ви хочете відпочивати, а не вирішувати 100/500 питань — вам потрібна людина, яка візьме на себе весь процес координації.</p>
+    </div>
+  </div>
+
+  <!-- organization -->
+  <div class="panel" id="org" role="tabpanel">
+    <div class="price-card">
+      <h3>Повна <em>організація</em></h3>
+      <div class="big-percent">10%</div>
+      <p class="note" style="margin-top:14px">від загальної вартості заходу — повна організація та координація події під ключ.</p>
+      <a href="https://t.me/daruuuushka" target="_blank" rel="noopener" class="btn">Обговорити подію <span>→</span></a>
+    </div>
+    <ol class="svc-list">
+      <li><details open><summary>Перша зустріч та брифінг</summary><p>Зрозуміти запит, формат, бюджет, очікування.</p></details></li>
+      <li><details><summary>Концепція та формат заходу</summary><p>Створення ідеї, стилю й атмосфери події відповідно до вашого запиту та бюджету.</p></details></li>
+      <li><details><summary>Планування бюджету</summary><p>Кошторис, оптимізація витрат, контроль оплат і фінансова прозорість.</p></details></li>
+      <li><details><summary>Підбір та бронювання локації</summary><p>Пошук найкращого простору, комунікація з банкетними менеджерами, презентація локацій, вільних на вашу дату. Перегляди, переговори, бронювання.</p></details></li>
+      <li><details><summary>Команда підрядників</summary><p>Перевірені спеціалісти: ведучий, ді-джей, фотограф, відеограф, стиліст, візажист, торт, музиканти, артисти, шоу, кейтеринг, запрошення.</p></details></li>
+      <li><details><summary>Координація підготовки на всіх етапах</summary><p>Уся комунікація — на організаторі. Ви отримуєте готові презентації про кожного спеціаліста з портфоліо та прозорими прайсами. Планування, дедлайни й задачі для кожного.</p></details></li>
+      <li><details><summary>Розробка таймінгу</summary><p>Орієнтовний таймінг на старті, зустріч із ведучим і правки відповідно до програми, інтерактивів і традицій.</p></details></li>
+      <li><details><summary>Декор та флористика</summary><p>Від стилістики до реалізації: зона церемонії, фотозони, сервірування, деталі. Підбір декораторів, які втілять вашу концепцію.</p></details></li>
+      <li><details><summary>Технічне забезпечення</summary><p>Звук, світло, сцена, екрани, спецефекти — підбір спеціалістів під оптимальний бюджет.</p></details></li>
+      <li><details><summary>Логістика та комфорт гостей</summary><p>Трансфер, розсадка, навігація, welcome-зона та сервіс.</p></details></li>
+      <li><details><summary>Повна координація в день заходу</summary><p>Усі послуги координатора та необхідна кількість координаторів відповідно до масштабу й програми.</p></details></li>
+      <li><details><summary>Вирішення непередбачуваних ситуацій</summary><p>Усі форс-мажори вирішуються до того, як ви про них дізнаєтесь 😅</p></details></li>
+      <li><details><summary>Супровід артистів / шоу-програми</summary><p>Зустріч на локації, райдер, комунікація з командою, таймінг виходу.</p></details></li>
+      <li><details><summary>Завершення та післяподійний супровід</summary><p>Контроль фінальних оплат, збір матеріалів, зворотний зв’язок і підсумки.</p></details></li>
+    </ol>
+  </div>
+</section>
+
+<!-- CITIES & STARS -->
+<section class="cities wrap">
+  <div class="cities-row">
+    <p class="eyebrow reveal">Міста, де я працювала</p>
+    <div class="city-names reveal"><span>Київ</span><span>Одеса</span><span>Вінниця</span><span>Полтава</span><span>Харків</span></div>
+  </div>
+</section>
+<section class="stars">
+  <p class="eyebrow wrap">З ким мала честь працювати</p>
+  <div class="marquee" id="m1"></div>
+  <div class="marquee rev" id="m2"></div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews wrap" id="reviews">
+  <div class="rev-grid">
+    <div class="reveal">
+      <p class="eyebrow" style="margin-bottom:30px">Те, заради чого я працюю</p>
+      <p class="quote">«Все було чітко, <em>взагалі кайфово</em> — весілля без напряга»</p>
+      <p class="quote-by">— з відгуків наречених</p>
+    </div>
+    <div class="shots reveal">
+      <img src="img/s_p10.jpg" alt="Відгуки клієнтів" loading="lazy">
+      <img src="img/s_p11.jpg" alt="Відгуки клієнтів" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="eyebrow" style="margin-bottom:30px">Вільні дати</p>
+        <h2 class="display">Дізнавайтесь<br>дати на <em>2026</em></h2>
+        <p class="contact-sub">На зв’язку 24/7 у будь-якому месенджері. Дякую, що дочитали до кінця — буду рада співпраці з кожним!</p>
+      </div>
+      <div class="oval contact-oval reveal"><img src="img/g_p9_1.jpg" alt="Дарія Бойко" loading="lazy"></div>
+    </div>
+    <div class="links">
+      <a href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener"><span>Instagram</span><b>@_daruuushka_</b></a>
+      <a href="https://t.me/daruuuushka" target="_blank" rel="noopener"><span>Telegram</span><b>@daruuuushka</b></a>
+      <a href="https://wa.me/380731174417" target="_blank" rel="noopener"><span>WhatsApp</span><b>+380 73 117 44 17</b></a>
+      <a href="mailto:dashaboyko276@gmail.com"><span>E-mail</span><b>dashaboyko276@gmail.com</b></a>
+    </div>
+  </div>
+  <div class="footer-word" aria-hidden="true">DARUSHKA</div>
+  <div class="foot"><span>© 2026 Daria Boyko · Event</span><span>Київ — Одеса — Вінниця — Полтава — Харків</span></div>
+</section>
+
+<script>
+// nav state
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.getElementById('burger').onclick=()=>document.body.classList.toggle('menu-open');
+document.querySelectorAll('#mobileMenu a').forEach(a=>a.onclick=()=>document.body.classList.remove('menu-open'));
+
+// reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// tabs
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===t.dataset.tab));
+});
+
+// hover thumbnail on event list
+const th=document.getElementById('evThumb'),thImg=th.querySelector('img');
+document.querySelectorAll('.ev').forEach(ev=>{
+  ev.addEventListener('mouseenter',()=>{thImg.src=ev.dataset.img;th.classList.add('on')});
+  ev.addEventListener('mouseleave',()=>th.classList.remove('on'));
+  ev.addEventListener('mousemove',e=>{th.style.left=e.clientX+'px';th.style.top=e.clientY+'px'});
+});
+
+// photo strip (duplicated for seamless loop)
+const photos=['g_p8_2','s_p15','g_p4_3','g_p9_3','g_p3_1','g_p6_3','g_p2_1','s_p16','g_p7_2','g_p5_1','g_p8_3','g_p6_1','g_p2_3','s_p12'];
+const strip=document.getElementById('strip');
+strip.innerHTML=[...photos,...photos].map(p=>`<figure><img src="img/${p}.jpg" alt="" loading="lazy"></figure>`).join('');
+
+// celebrities marquee
+const a=['Олексій Новіков','Оля Полякова','Анна Трінчер','MELOVIN','TIK','Павло Зібров','Катерина Осадча'];
+const b=['Катерина Сільченко','Анастасія Ткаченко','Максим Бородін','ADAM','Нікіта Кісєльов','VOLKANOV','Aviator'];
+const fill=(id,arr)=>{const h=arr.map(n=>`<span>${n}</span>`).join('');document.getElementById(id).innerHTML=h+h};
+fill('m1',a);fill('m2',b);
+
+// preloader: count to 100, then lift the curtain
+(()=>{
+  const L=document.getElementById('loader'),c=document.getElementById('count'),t0=performance.now();
+  let done=false;
+  const finish=()=>{if(done)return;done=true;c.textContent=100;L.classList.add('done');document.body.classList.remove('is-loading');setTimeout(()=>L.remove(),1100)};
+  setTimeout(finish,2200);
+  const tick=()=>{const n=Math.min(100,Math.round((performance.now()-t0)/13));c.textContent=n;n<100?requestAnimationFrame(tick):finish()};
+  requestAnimationFrame(tick);
+})();
+
+(()=>{
+  // manifesto: split into words that light up while scrolling
+  const man=document.getElementById('manifesto');
+  (function split(el){[...el.childNodes].forEach(n=>{
+    if(n.nodeType!==3){split(n);return}
+    const f=document.createDocumentFragment();
+    n.textContent.split(/(\s+)/).forEach(w=>{if(!w.trim()){f.append(w);return}const sp=document.createElement('span');sp.className='w';sp.textContent=w;f.append(sp)});
+    n.replaceWith(f);
+  })})(man);
+  const words=[...man.querySelectorAll('.w')];
+
+  const bride=document.getElementById('bride'),col=bride.querySelector('.col'),steps=[...document.querySelectorAll('#brideSteps li')];
+  const show=document.getElementById('show'),track=document.getElementById('showTrack'),bar=document.getElementById('showBar'),num=document.getElementById('showNum');
+  const wide=()=>innerWidth>820;
+  const clamp=v=>Math.min(1,Math.max(0,v));
+  const sizeShow=()=>{show.style.setProperty('--show-h',wide()?(innerHeight+track.scrollWidth-innerWidth)+'px':'auto')};
+
+  function onScroll(){
+    const vh=innerHeight;
+    const r=man.getBoundingClientRect();
+    const k=Math.round(clamp((vh*.8-r.top)/(r.height+vh*.3))*words.length);
+    words.forEach((w,i)=>w.classList.toggle('on',i<k));
+
+    const bb=bride.getBoundingClientRect();
+    const bp=wide()?clamp(-bb.top/(bb.height-vh)*1.15):clamp((vh*.9-bb.top)/(vh*1.1));
+    col.style.setProperty('--r',(bp*90)+'%');
+    steps.forEach((li,i)=>li.classList.toggle('on',bp>=i/steps.length*.85));
+
+    if(wide()){
+      const sr=show.getBoundingClientRect(),d=track.scrollWidth-innerWidth,sp=clamp(-sr.top/(sr.height-vh));
+      track.style.transform=`translate3d(${-sp*d}px,0,0)`;
+      bar.style.width=sp*100+'%';
+      num.textContent=String(Math.min(8,1+Math.floor(sp*8))).padStart(2,'0');
+    }
+  }
+  addEventListener('resize',()=>{sizeShow();onScroll()});
+  addEventListener('load',()=>{sizeShow();onScroll()});
+  addEventListener('scroll',onScroll,{passive:true});
+  sizeShow();onScroll();
+
+  // reels: autoplay muted when visible, one video with sound at a time
+  document.querySelectorAll('.phone').forEach(ph=>{
+    const v=ph.querySelector('video'),btn=ph.querySelector('.snd');
+    new IntersectionObserver(([e])=>{e.isIntersecting?v.play().catch(()=>{}):v.pause()},{threshold:.3}).observe(v);
+    btn.onclick=()=>{
+      document.querySelectorAll('.phone').forEach(o=>{if(o!==ph){o.querySelector('video').muted=true;o.querySelector('.snd').textContent='🔇'}});
+      v.muted=!v.muted;btn.textContent=v.muted?'🔇':'🔊';v.play();
+    };
+  });
+})();
+
+// ---------- effects ----------
+(()=>{
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // smooth scroll (Lenis)
+  // (deferred CDN script is ready by DOMContentLoaded)
+  document.addEventListener('DOMContentLoaded',()=>{
+    if(!window.Lenis||reduce)return;
+    document.documentElement.style.scrollBehavior='auto';
+    const lenis=new Lenis({lerp:.09,smoothWheel:true});
+    const raf=t=>{lenis.raf(t);requestAnimationFrame(raf)};requestAnimationFrame(raf);
+    document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+      const t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();
+      document.body.classList.remove('menu-open');lenis.scrollTo(t,{duration:1.6})}));
+  });
+
+  // hero: mouse parallax + scroll drift; oval photos inner parallax
+  const hero=document.querySelector('.hero');
+  if(fine)hero.addEventListener('mousemove',e=>{
+    hero.style.setProperty('--mx',((e.clientX/innerWidth-.5)*2).toFixed(3));
+    hero.style.setProperty('--my',((e.clientY/innerHeight-.5)*2).toFixed(3))});
+  const ovals=[...document.querySelectorAll('.oval img')];
+  const onS=()=>{
+    hero.style.setProperty('--sp',Math.min(1,scrollY/innerHeight).toFixed(3));
+    ovals.forEach(im=>{const r=im.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+      im.style.setProperty('--py',((r.top+r.height/2-innerHeight/2)*-.08).toFixed(1)+'px')});
+  };
+  addEventListener('scroll',onS,{passive:true});onS();
+
+  // custom cursor + magnetic buttons
+  if(fine){
+    const dot=document.getElementById('cursor'),ring=document.getElementById('ring');
+    let x=innerWidth/2,y=innerHeight/2,rx=x,ry=y;
+    addEventListener('mousemove',e=>{x=e.clientX;y=e.clientY;dot.style.transform=`translate(${x}px,${y}px)`});
+    (function loop(){rx+=(x-rx)*.18;ry+=(y-ry)*.18;ring.style.transform=`translate(${rx}px,${ry}px)`;requestAnimationFrame(loop)})();
+    document.addEventListener('mouseover',e=>{
+      const v=e.target.closest('.card,.oval,.strip-track figure,.shots img,.bride-media');
+      const l=e.target.closest('a,button,summary,.ev');
+      ring.classList.toggle('view',!!v&&!l);ring.classList.toggle('link',!!l);
+    });
+    document.querySelectorAll('.nav-cta,.btn,.snd,.tab').forEach(b=>{
+      b.style.transition=(getComputedStyle(b).transition||'')+',translate .3s';
+      b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.translate=`${(e.clientX-r.left-r.width/2)*.25}px ${(e.clientY-r.top-r.height/2)*.35}px`});
+      b.addEventListener('mouseleave',()=>b.style.translate='0 0');
+    });
+  }
+
+  // stats count-up
+  const so=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;so.unobserve(e.target);
+    const el=e.target,m=el.textContent.match(/^(\d+)(.*)$/);if(!m)return;const to=+m[1],rest=m[2],t0=performance.now();
+    const step=t=>{const k=Math.min(1,(t-t0)/1600);el.textContent=Math.round(to*(1-Math.pow(1-k,3)))+rest;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);
+  }),{threshold:.6});
+  document.querySelectorAll('.stat b').forEach(b=>so.observe(b));
+})();
+
+// ---------- booking form -> WhatsApp with a ready message ----------
+(()=>{
+  const f=document.getElementById('book');
+  const d=f.querySelector('[name=date]');
+  d.min=new Date().toISOString().slice(0,10);
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const date=d.value?new Date(d.value+'T12:00').toLocaleDateString('uk-UA',{day:'numeric',month:'long',year:'numeric'}):'дата ще не визначена';
+    const msg=`Вітаю, Даріє! Хочу забронювати дату 🤍\nПодія: ${f.type.value}\nДата: ${date}\nПослуга: ${f.svc.value}`;
+    window.open('https://wa.me/380731174417?text='+encodeURIComponent(msg),'_blank','noopener');
+  });
+  // floating CTA appears after the hero, hides near contacts
+  const fab=document.getElementById('fab'),contact=document.getElementById('contact');
+  fab.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'});setTimeout(()=>f.querySelector('select').focus(),900)});
+  const upd=()=>{const past=scrollY>innerHeight*.8,near=contact.getBoundingClientRect().top<innerHeight;fab.classList.toggle('on',past&&!near)};
+  addEventListener('scroll',upd,{passive:true});upd();
+})();
+</script>
+</body>
+</html>
