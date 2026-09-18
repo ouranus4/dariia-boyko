@@ -23,7 +23,7 @@
       font:500 11px/1.3 Manrope,Arial,sans-serif;letter-spacing:.06em;box-shadow:0 10px 30px rgba(0,0,0,.25);pointer-events:none}
     .dm-bar b{background:#0d0d0d;color:#e8e2d6;padding:9px 4px;border-radius:20px;font-weight:700;letter-spacing:.2em}
     .dm-bar span{white-space:nowrap}.dm-short{display:none}
-    @media (max-width:640px){.dm-long{display:none}.dm-short{display:inline}.dm-bar{font-size:9.5px;padding:10px 5px}}
+    @media (max-width:640px){.dm-long,.dm-short{display:none}.dm-bar{writing-mode:horizontal-tb;transform:none;top:auto;right:auto;left:12px;bottom:14px;padding:5px;border-radius:20px}.dm-bar b{padding:4px 9px}}
     img,video{-webkit-user-drag:none;user-select:none}
     body{-webkit-user-select:none;user-select:none}
     @media print{body{display:none!important}}
