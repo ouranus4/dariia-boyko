@@ -16,7 +16,8 @@
     .oval.dm-photo,.strip-track figure.dm-photo{position:relative}
     .dm-photo::before{content:"${MARK} · ${AUTHOR}";position:absolute;right:14px;bottom:14px;z-index:5;pointer-events:none;
       font:600 10px/1 Manrope,Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:#fff;
-      background:rgba(0,0,0,.45);padding:7px 10px;border-radius:20px;backdrop-filter:blur(4px)}
+      background:rgba(0,0,0,.45);padding:7px 10px;border-radius:20px;backdrop-filter:blur(4px);white-space:nowrap}
+    @media (max-width:640px){.dm-photo::before{content:"${MARK}";font-size:8.5px;right:8px;bottom:8px;padding:5px 8px}}
     .oval.dm-photo::before{right:50%;bottom:9%;transform:translateX(50%);white-space:nowrap}
     .dm-bar{position:fixed;right:0;top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;z-index:98;display:flex;align-items:center;gap:10px;
       max-height:calc(100% - 32px);padding:14px 7px;border-radius:0 10px 10px 0;background:#e8e2d6;color:#0d0d0d;
@@ -46,7 +47,7 @@
   mount();
 
   // підпис на кожному фото
-  document.querySelectorAll('.card:not(.quote-card),.oval,.strip-track figure,.bride-media,.phone')
+  document.querySelectorAll('.card:not(.quote-card),.oval,.strip-track figure,.bride-media,.phone,.gal-grid figure,.r3')
     .forEach(el => el.classList.add('dm-photo'));
   // стрічка фото генерується скриптом — підписуємо і її
   setTimeout(() => document.querySelectorAll('.strip-track figure').forEach(el => el.classList.add('dm-photo')), 500);

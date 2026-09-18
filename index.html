@@ -289,7 +289,7 @@ section{position:relative}
 .stars{padding:clamp(60px,7vw,100px) 0 0;overflow:hidden}
 .stars .eyebrow{margin-bottom:34px}
 .marquee{display:flex;width:max-content;animation:scroll 45s linear infinite;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:26px 0}
-.marquee span{font-family:var(--cond);font-weight:500;font-size:clamp(28px,3.6vw,52px);text-transform:uppercase;letter-spacing:.01em;padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:56px}
+.marquee span{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.2vw,62px);text-transform:none;letter-spacing:0;padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:56px}
 .marquee span::after{content:"✦";font-size:.45em;color:var(--muted)}
 .marquee.rev{animation-direction:reverse;border-top:0}
 .marquee.rev span{font-family:var(--serif);font-style:italic;font-weight:300;text-transform:none}
@@ -318,7 +318,7 @@ section{position:relative}
 .links a span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,242,238,.5);font-weight:500}
 .links a b{font-weight:300;font-size:clamp(18px,1.7vw,24px);letter-spacing:-.01em;word-break:break-word}
 .links a:hover{background:rgba(255,255,255,.06);padding-left:16px}
-.footer-word{font-family:var(--poster);font-size:22.5vw;line-height:.78;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(244,242,238,.35);margin-top:60px;letter-spacing:.005em;white-space:nowrap;user-select:none}
+.footer-word{font-family:var(--serif);font-style:italic;font-weight:300;font-size:17vw;line-height:.9;text-align:center;color:rgba(255,255,255,.16);margin-top:60px;letter-spacing:-.02em;white-space:nowrap;user-select:none}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:24px var(--pad);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.5);border-top:1px solid var(--line-inv)}
 
 /* ---------- PRELOADER ---------- */
@@ -443,7 +443,8 @@ body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;
 
 /* crossed marquee bands */
 .band{position:relative;height:clamp(200px,22vw,320px);overflow:hidden;background:var(--paper)}
-.band-row{position:absolute;left:-5%;right:-5%;top:50%;display:flex;white-space:nowrap;padding:18px 0;font-family:var(--poster);font-size:clamp(30px,4.2vw,64px);line-height:1;text-transform:uppercase}
+.band-row{position:absolute;left:-5%;right:-5%;top:50%;display:flex;white-space:nowrap;padding:20px 0;font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.6vw,70px);line-height:1}
+.band-row.a span{font-style:italic}
 .band-row div{display:flex;animation:scroll 40s linear infinite}
 .band-row span{padding:0 26px;display:flex;align-items:center;gap:52px}
 .band-row span::after{content:"✦";font-family:var(--sans);font-size:.5em}
@@ -458,6 +459,62 @@ body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;
 .oval img{scale:1.18;translate:0 var(--py,0px)}
 
 @media (prefers-reduced-motion:reduce){body::after{animation:none}.band-row div{animation:none}}
+
+
+/* ---------- SHOWREEL: three arches expand into a full-screen triptych ---------- */
+.reel3{height:300vh;background:var(--paper)}
+.reel3-stick{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.reel3-head{position:absolute;left:0;right:0;top:clamp(90px,13svh,130px);text-align:center;z-index:2;opacity:calc(1 - var(--p,0) * 2.4);translate:0 calc(var(--p,0) * -60px);pointer-events:none}
+.reel3-head .eyebrow{justify-content:center;margin-bottom:18px}
+.reel3-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(44px,5.6vw,96px);line-height:.98;letter-spacing:-.01em}
+.reel3-head h2 em{font-style:italic;color:var(--blue)}
+.r3{position:absolute;top:50%;left:50%;overflow:hidden;background:#cfd9ee;will-change:width,height,transform,border-radius;box-shadow:0 40px 90px -40px rgba(15,28,63,.55)}
+.r3 video{width:100%;height:100%;object-fit:cover;display:block}
+.reel3-cap{position:absolute;left:var(--pad);right:var(--pad);bottom:34px;z-index:3;display:flex;justify-content:space-between;align-items:end;color:#fff;opacity:calc((var(--p,0) - .72) * 4);pointer-events:none}
+.reel3-cap b{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.4vw,72px);line-height:1}
+.reel3-cap b em{font-style:italic}
+.reel3-cap span{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase}
+.reel3-stick::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(15,28,63,0) 55%,rgba(15,28,63,.55));opacity:calc((var(--p,0) - .6) * 2.5)}
+
+/* ---------- GALLERY mosaic ---------- */
+.gallery{padding:clamp(100px,12vw,180px) 0}
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,70px)}
+.gal-head a{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--blue);border-bottom:1px solid rgba(43,75,214,.35);padding-bottom:4px}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(160px,17vw,270px);grid-auto-flow:dense;gap:clamp(8px,1vw,16px)}
+.gal-grid figure{position:relative;margin:0;overflow:hidden;cursor:zoom-in;background:#dfe6f3}
+.gal-grid figure.tall{grid-row:span 2}
+.gal-grid figure.wide{grid-column:span 2}
+.gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1),filter .6s}
+.gal-grid figure:hover img{transform:scale(1.06)}
+.gal-grid figcaption{position:absolute;left:14px;bottom:12px;z-index:2;color:#fff;font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:.5s;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.gal-grid figure:hover figcaption{opacity:1;transform:none}
+
+/* curtain wipe reveal for photos */
+.wipe{position:relative;overflow:hidden}
+.wipe::after{content:"";position:absolute;inset:0;z-index:4;background:var(--blue);transform-origin:100% 50%;transition:transform 1.15s cubic-bezier(.77,0,.18,1);transition-delay:var(--wd,0s);pointer-events:none}
+.wipe.in::after{transform:scaleX(0)}
+.wipe img{scale:1.25;transition:scale 1.8s cubic-bezier(.16,1,.3,1) var(--wd,0s),transform 1.4s cubic-bezier(.16,1,.3,1)}
+.wipe.in img{scale:1}
+
+/* ---------- LIGHTBOX ---------- */
+.lb{position:fixed;inset:0;z-index:120;background:rgba(10,18,42,.94);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .45s}
+.lb.on{opacity:1;pointer-events:auto}
+.lb img{max-width:min(92vw,1300px);max-height:84svh;object-fit:contain;box-shadow:0 40px 90px rgba(0,0,0,.5);transform:scale(.96);transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .3s}
+.lb.on img{transform:none}
+.lb button{position:absolute;color:#fff;width:54px;height:54px;border-radius:50%;border:1px solid rgba(255,255,255,.3);font-size:20px;display:grid;place-items:center;transition:background .3s}
+.lb button:hover{background:rgba(255,255,255,.12)}
+.lb .lb-x{top:22px;right:22px}.lb .lb-p{left:22px;top:50%;margin-top:-27px}.lb .lb-n{right:22px;top:50%;margin-top:-27px}
+.lb-count{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.3em}
+[data-lb]{cursor:zoom-in}
+
+@media (max-width:820px){
+  .reel3{height:240vh}
+  .reel3-cap{bottom:110px;flex-direction:column;align-items:flex-start;gap:8px}
+  .reel3-cap span{display:none}
+  .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:44vw}
+  .gal-grid figure.wide{grid-column:span 2}
+  .lb .lb-p,.lb .lb-n{top:auto;bottom:18px;margin:0}
+}
 
 section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 
@@ -524,6 +581,7 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
   <nav class="nav-links">
     <a href="#about">Про мене</a>
     <a href="#show">Портфоліо</a>
+    <a href="#gallery">Галерея</a>
     <a href="#services">Послуги та ціни</a>
     <a href="#reviews">Відгуки</a>
     <a href="#contact">Контакти</a>
@@ -571,6 +629,8 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 </section>
 <button type="button" class="fab" id="fab" data-book>Забронювати дату</button>
 
+<div class="lb" id="lb" aria-hidden="true"><img alt=""><button class="lb-x" aria-label="Закрити">×</button><button class="lb-p" aria-label="Попереднє">←</button><button class="lb-n" aria-label="Наступне">→</button><div class="lb-count"></div></div>
+
 <dialog class="dlg" id="bookDlg" aria-labelledby="dlgTitle">
   <div class="dlg-img"><img src="img/n_bride.jpg" alt="" loading="lazy"></div>
   <div class="dlg-body">
@@ -610,6 +670,20 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
   <div class="band-row b"><div><span>весілля</span><span>заручини</span><span>корпоративи</span><span>гендер паті</span><span>ювілеї</span><span>конференції</span><span>весілля</span><span>заручини</span><span>корпоративи</span><span>гендер паті</span><span>ювілеї</span><span>конференції</span></div></div>
   <div class="band-row a"><div><span>Як для себе</span><span>Максимальна відповідальність</span><span>Спокій наречених</span><span>Як для себе</span><span>Максимальна відповідальність</span><span>Спокій наречених</span></div></div>
 </div>
+
+<!-- SHOWREEL -->
+<section class="reel3" id="showreel">
+  <div class="reel3-stick">
+    <div class="reel3-head">
+      <p class="eyebrow">Showreel 2026</p>
+      <h2>Кожна подія —<br><em>як окремий фільм</em></h2>
+    </div>
+    <div class="r3"><video src="video/r1.mp4" poster="video/r1.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+    <div class="r3"><video src="video/h2.mp4" poster="video/h2.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+    <div class="r3"><video src="video/r3.mp4" poster="video/r3.jpg" muted loop playsinline autoplay preload="metadata"></video></div>
+    <div class="reel3-cap"><b>Моменти, які <em>відчуваються</em></b><span>Церемонія · перший танець · вечір</span></div>
+  </div>
+</section>
 
 <!-- ABOUT -->
 <section class="about wrap" id="about">
@@ -687,14 +761,14 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <span class="show-count"><span id="showNum">01</span> / 08</span>
     </div>
     <div class="show-track" id="showTrack">
-      <figure class="card t"><img src="img/n_dance2.jpg" alt="Перший танець у важкому димі" loading="lazy"><figcaption><span>Весілля</span><b>Перший танець у хмарах</b></figcaption></figure>
-      <figure class="card t"><img src="img/n_smoke3.jpg" alt="Гендер-паті з синім димом" loading="lazy"><figcaption><span>Gender party</span><b>Це хлопчик! Синій вибух над водою</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/n_dance2.jpg" alt="Перший танець у важкому димі" loading="lazy"><figcaption><span>Весілля</span><b>Перший танець у хмарах</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/n_smoke3.jpg" alt="Гендер-паті з синім димом" loading="lazy"><figcaption><span>Gender party</span><b>Це хлопчик! Синій вибух над водою</b></figcaption></figure>
       <figure class="card quote-card"><p>Найкращий результат — коли гості не помітили <em>жодної</em> роботи координатора.</p><small>Darushka · event</small></figure>
-      <figure class="card t"><img src="img/n_arch1.jpg" alt="Весільна арка з квітів" loading="lazy"><figcaption><span>Церемонія</span><b>Квіткова арка просто неба</b></figcaption></figure>
-      <figure class="card t"><img src="img/n_baby1.jpg" alt="Baby party" loading="lazy"><figcaption><span>Приватна подія</span><b>Baby party у білому</b></figcaption></figure>
-      <figure class="card t"><img src="img/n_dance4.jpg" alt="Лазерне шоу на першому танці" loading="lazy"><figcaption><span>Шоу-програма</span><b>Світло, дим, лазери</b></figcaption></figure>
-      <figure class="card w"><img src="img/n_team.jpg" alt="Команда підрядників на весіллі" loading="lazy"><figcaption><span>Команда</span><b>Підрядники, які працюють як один</b></figcaption></figure>
-      <figure class="card t"><img src="img/n_smoke1.jpg" alt="Гендер-паті на воді" loading="lazy"><figcaption><span>Спецефекти</span><b>Момент, який запам’ятають усі</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/n_arch1.jpg" alt="Весільна арка з квітів" loading="lazy"><figcaption><span>Церемонія</span><b>Квіткова арка просто неба</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/n_baby1.jpg" alt="Baby party" loading="lazy"><figcaption><span>Приватна подія</span><b>Baby party у білому</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/n_dance4.jpg" alt="Лазерне шоу на першому танці" loading="lazy"><figcaption><span>Шоу-програма</span><b>Світло, дим, лазери</b></figcaption></figure>
+      <figure class="card w wipe"><img data-lb src="img/n_team.jpg" alt="Команда підрядників на весіллі" loading="lazy"><figcaption><span>Команда</span><b>Підрядники, які працюють як один</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/n_smoke1.jpg" alt="Гендер-паті на воді" loading="lazy"><figcaption><span>Спецефекти</span><b>Момент, який запам’ятають усі</b></figcaption></figure>
     </div>
     <div class="show-bar"><i id="showBar"></i></div>
   </div>
@@ -724,6 +798,28 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 <!-- STRIP -->
 <section class="strip" aria-label="Фото з подій">
   <div class="strip-track" id="strip"></div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery wrap" id="gallery">
+  <div class="gal-head">
+    <h2 class="display reveal">Галерея<br><em>подій</em></h2>
+    <a href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener">Більше в Instagram →</a>
+  </div>
+  <div class="gal-grid">
+      <figure class="tall wipe" style="--wd:0.00s"><img src="img/n_dance1.jpg" alt="Перший танець" loading="lazy" data-lb><figcaption>Перший танець</figcaption></figure>
+      <figure class="wide wipe" style="--wd:0.08s"><img src="img/s_p12.jpg" alt="Дарія на весіллі" loading="lazy" data-lb><figcaption>Дарія на весіллі</figcaption></figure>
+      <figure class="tall wipe" style="--wd:0.16s"><img src="img/n_smoke2.jpg" alt="Gender party" loading="lazy" data-lb><figcaption>Gender party</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.24s"><img src="img/g_p4_2.jpg" alt="Церемонія" loading="lazy" data-lb><figcaption>Церемонія</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.00s"><img src="img/n_baby2.jpg" alt="Baby party" loading="lazy" data-lb><figcaption>Baby party</figcaption></figure>
+      <figure class="wide wipe" style="--wd:0.08s"><img src="img/g_p7_1.jpg" alt="Робочий момент" loading="lazy" data-lb><figcaption>Робочий момент</figcaption></figure>
+      <figure class="tall wipe" style="--wd:0.16s"><img src="img/n_dance3.jpg" alt="Лазерне шоу" loading="lazy" data-lb><figcaption>Лазерне шоу</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.24s"><img src="img/s_p16.jpg" alt="Президія" loading="lazy" data-lb><figcaption>Президія</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.00s"><img src="img/g_p6_2.jpg" alt="Гості" loading="lazy" data-lb><figcaption>Гості</figcaption></figure>
+      <figure class="tall wipe" style="--wd:0.08s"><img src="img/n_arch2.jpg" alt="Арка" loading="lazy" data-lb><figcaption>Арка</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.16s"><img src="img/g_p2_2.jpg" alt="Корпоратив" loading="lazy" data-lb><figcaption>Корпоратив</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.24s"><img src="img/g_p3_1.jpg" alt="Деталі" loading="lazy" data-lb><figcaption>Деталі</figcaption></figure>
+  </div>
 </section>
 
 <!-- REELS -->
@@ -849,7 +945,7 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <a href="mailto:dashaboyko276@gmail.com"><span>E-mail</span><b>dashaboyko276@gmail.com</b></a>
     </div>
   </div>
-  <div class="footer-word" aria-hidden="true">DARUSHKA</div>
+  <div class="footer-word" aria-hidden="true">Daria Boyko</div>
   <div class="foot"><span>© 2026 Daria Boyko · Event</span><span>Київ — Одеса — Вінниця — Полтава — Харків</span></div>
 </section>
 
@@ -1037,6 +1133,48 @@ fill('m1',a);fill('m2',b);
   ['touchstart','pointerdown','scroll','keydown'].forEach(ev=>addEventListener(ev,wake,{once:true,passive:true}));
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)vids.forEach(kick)});
   document.querySelectorAll('.phone video').forEach(v=>{v.setAttribute('muted','');v.addEventListener('click',()=>v.paused?v.play():v.pause())});
+})();
+
+// ---------- showreel triptych, wipe reveals, lightbox ----------
+(()=>{
+  const clamp=v=>Math.min(1,Math.max(0,v)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const sec=document.getElementById('showreel'),stick=sec.querySelector('.reel3-stick'),panels=[...sec.querySelectorAll('.r3')];
+  const vids=panels.map(p=>p.querySelector('video'));
+  function layout(){
+    const vw=innerWidth,vh=innerHeight,r=sec.getBoundingClientRect();
+    const t=ease(clamp(-r.top/(r.height-vh)));
+    stick.style.setProperty('--p',t.toFixed(3));
+    const mob=vw<820;
+    const w=lerp(mob?.26*vw:Math.min(.17*vw,300),vw/3,t),h=lerp(mob?.36*vh:.5*vh,vh,t),g=lerp(mob?.03*vw:.022*vw,0,t),rad=lerp(w/2,0,t);
+    const y0=lerp(mob?.1*vh:.12*vh,0,t);
+    panels.forEach((p,i)=>{
+      const off=(i-1)*(w+g),dy=y0+(i===1?0:lerp(mob?.05*vh:.06*vh,0,t));
+      p.style.width=w+1+'px';p.style.height=h+'px';
+      p.style.borderRadius=`${rad}px ${rad}px ${lerp(6,0,t)}px ${lerp(6,0,t)}px`;
+      p.style.transform=`translate(calc(-50% + ${off}px),calc(-50% + ${dy}px))`;
+    });
+  }
+  addEventListener('scroll',layout,{passive:true});addEventListener('resize',layout);layout();
+  new IntersectionObserver(([e])=>vids.forEach(v=>{if(e.isIntersecting){v.muted=true;v.play().catch(()=>{})}else v.pause()}),{threshold:.05}).observe(sec);
+  ['touchstart','pointerdown'].forEach(ev=>addEventListener(ev,()=>{const r=sec.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)vids.forEach(v=>v.play().catch(()=>{}))},{once:true,passive:true}));
+
+  // curtain wipe on photos as they enter the viewport
+  const wo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');wo.unobserve(e.target)}}),{threshold:.2});
+  document.querySelectorAll('.wipe').forEach(el=>wo.observe(el));
+
+  // lightbox over every [data-lb] photo
+  const lb=document.getElementById('lb'),img=lb.querySelector('img'),cnt=lb.querySelector('.lb-count');
+  const list=[...document.querySelectorAll('[data-lb]')];let cur=0;
+  const show=i=>{cur=(i+list.length)%list.length;img.style.opacity=0;const src=list[cur].currentSrc||list[cur].src;
+    const n=new Image();n.onload=()=>{img.src=src;img.style.opacity=1};n.src=src;cnt.textContent=`${cur+1} / ${list.length}`};
+  const open=i=>{show(i);lb.classList.add('on');document.body.style.overflow='hidden'};
+  const close=()=>{lb.classList.remove('on');document.body.style.overflow=''};
+  list.forEach((el,i)=>el.addEventListener('click',()=>open(i)));
+  lb.querySelector('.lb-x').onclick=close;lb.querySelector('.lb-p').onclick=e=>{e.stopPropagation();show(cur-1)};lb.querySelector('.lb-n').onclick=e=>{e.stopPropagation();show(cur+1)};
+  lb.addEventListener('click',e=>{if(e.target===lb)close()});
+  addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+  let sx=null;lb.addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});
+  lb.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)show(cur+(dx<0?1:-1));sx=null});
 })();
 </script>
 </body>
