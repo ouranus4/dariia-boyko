@@ -34,13 +34,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ---------- NAV ---------- */
 .nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad);transition:background .4s,padding .4s}
 .nav.scrolled{background:rgba(244,242,238,.9);backdrop-filter:blur(12px);padding-top:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
-.logo{font-family:var(--cond);font-weight:700;letter-spacing:.06em;font-size:20px;line-height:1}
-.logo small{display:block;font-family:var(--sans);font-weight:500;font-size:9px;letter-spacing:.32em;margin-top:5px;text-align:center}
+.logo{font-family:var(--serif);font-weight:400;letter-spacing:.01em;font-size:27px;line-height:1}
+.logo small{display:block;font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.38em;margin-top:6px;text-transform:uppercase;opacity:.75}
 .nav-links{display:flex;gap:34px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500}
 .nav-links a{position:relative}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;height:1px;width:0;background:currentColor;transition:width .35s}
 .nav-links a:hover::after{width:100%}
-.nav-cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:40px;padding:11px 20px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:transform .3s}
+.nav-cta{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border-radius:2px;padding:13px 22px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:transform .3s}
 .nav-cta:hover{transform:translateY(-2px)}
 .nav-links{margin-left:auto;margin-right:34px}
 .nav:not(.scrolled) .nav-links{color:#fff}
@@ -59,125 +59,111 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .menu-open .burger{background:var(--paper)}
 .menu-open .burger span{background:var(--ink)}
 
-/* ---------- HERO (video + portrait cut-out + booking) ---------- */
-.hero{position:relative;height:100vh;height:100svh;min-height:720px;overflow:hidden;background:#070707;color:#fff;isolation:isolate}
-.hv{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:3px;z-index:0;translate:calc(var(--mx,0) * -8px) calc(var(--sp,0) * 140px);scale:calc(1.05 + var(--sp,0) * .08)}
-.hv-p{position:relative;overflow:hidden;clip-path:inset(50% 0 50% 0);animation:curtain 1.6s cubic-bezier(.7,0,.2,1) forwards}
-.hv-p:nth-child(1){animation-delay:.15s}.hv-p:nth-child(3){animation-delay:.3s}
-@keyframes curtain{to{clip-path:inset(0 0 0 0)}}
-.hv-p video{width:100%;height:100%;object-fit:cover;scale:1.15;animation:settle 2.6s cubic-bezier(.2,.7,.2,1) forwards;filter:saturate(1.1) brightness(.78)}
-@keyframes settle{to{scale:1}}
-/* hide iOS "play" overlay when autoplay is delayed */
+/* ---------- HERO (editorial: video + arched portrait) ---------- */
+:root{--gold:#cdb28a;--ivory:#f4efe7;--night:#0f0e0c}
+.hero{position:relative;min-height:100vh;min-height:100svh;background:var(--night);color:var(--ivory);overflow:hidden;display:flex;flex-direction:column;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:0;translate:0 calc(var(--sp,0) * 120px)}
+.hero-bg video{width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.85) contrast(1.05);animation:kenburns 18s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1.12)}to{transform:scale(1)}}
 video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
 video::-webkit-media-controls{display:none!important}
-.hv-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
-  radial-gradient(90% 70% at 72% 60%,rgba(0,0,0,0),rgba(0,0,0,.5) 75%),
-  linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 50%,rgba(0,0,0,.85) 100%),
-  linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 55%)}
+.hero-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:
+  linear-gradient(90deg,rgba(15,14,12,.94) 0%,rgba(15,14,12,.72) 38%,rgba(15,14,12,.35) 70%,rgba(15,14,12,.55) 100%),
+  linear-gradient(180deg,rgba(15,14,12,.6) 0%,rgba(15,14,12,0) 22%,rgba(15,14,12,0) 70%,rgba(15,14,12,.9) 100%)}
 
-/* giant name behind her */
-.hero-name{position:absolute;z-index:2;left:0;right:0;top:clamp(70px,11svh,120px);text-align:center;font-family:var(--poster);font-size:21.5vw;line-height:.8;letter-spacing:-.005em;white-space:nowrap;pointer-events:none;
-  color:#fff;-webkit-mask-image:linear-gradient(180deg,#000 25%,rgba(0,0,0,.3) 100%);mask-image:linear-gradient(180deg,#000 25%,rgba(0,0,0,.3) 100%);
-  translate:calc(var(--mx,0) * 14px) calc(var(--my,0) * 8px + var(--sp,0) * -60px)}
-.hero-name span{display:inline-block;opacity:0;transform:translateY(40%);filter:blur(12px);animation:nameIn 1.2s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes nameIn{to{opacity:1;transform:none;filter:blur(0)}}
-
-/* warm spotlight + portrait */
-.spot{position:absolute;z-index:3;right:6vw;bottom:-10%;width:min(70vw,900px);aspect-ratio:1;border-radius:50%;pointer-events:none;
-  background:radial-gradient(closest-side,rgba(255,214,170,.42),rgba(255,190,140,.14) 55%,rgba(255,190,140,0));
-  translate:calc(var(--mx,0) * 30px) calc(var(--my,0) * 20px);opacity:0;animation:fadeIn 2s 1s forwards;mix-blend-mode:screen}
-.hero-person{position:absolute;z-index:4;right:clamp(20px,11vw,220px);bottom:0;height:min(90svh,1100px);pointer-events:none;
-  translate:calc(var(--mx,0) * 26px) calc(var(--my,0) * 10px + var(--sp,0) * -30px)}
-.hero-person picture{display:contents}
-.hero-person img{height:100%;width:auto;object-fit:contain;object-position:bottom;
-  filter:drop-shadow(0 0 30px rgba(255,210,170,.28)) drop-shadow(0 40px 60px rgba(0,0,0,.6));
-  opacity:0;transform:translateY(12%) scale(.94);animation:personIn 1.8s .9s cubic-bezier(.16,.84,.3,1) forwards;transform-origin:50% 100%}
-@keyframes personIn{0%{opacity:0;transform:translateY(12%) scale(.94);filter:blur(14px) drop-shadow(0 0 30px rgba(255,210,170,.28))}
-  100%{opacity:1;transform:none;filter:blur(0) drop-shadow(0 0 30px rgba(255,210,170,.28)) drop-shadow(0 40px 60px rgba(0,0,0,.6))}}
-.hero-person::after{content:"";position:absolute;left:-10%;right:-10%;bottom:0;height:22%;background:linear-gradient(transparent,#070707 92%);pointer-events:none}
-
-/* sparks canvas */
-.sparks{position:absolute;inset:0;z-index:5;pointer-events:none;mix-blend-mode:screen}
-
-/* spinning CTA badge */
-.badge{position:absolute;z-index:6;right:calc(clamp(20px,11vw,220px) + min(90svh,1100px) * .45 + 20px);top:46%;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;color:#fff;
-  opacity:0;animation:fadeIn 1s 2.6s forwards;translate:calc(var(--mx,0) * 40px) calc(var(--my,0) * 26px)}
-.badge svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 14s linear infinite}
-.badge text{font:600 10.5px var(--sans);letter-spacing:.32em;text-transform:uppercase;fill:#fff}
-.badge b{width:58px;height:58px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;font-size:20px;font-weight:400;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
-.badge:hover b{transform:scale(1.15) rotate(-45deg)}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* content */
-.hero-in{position:absolute;z-index:7;left:var(--pad);bottom:clamp(70px,10svh,110px);width:min(760px,58vw);display:flex;flex-direction:column;align-items:flex-start}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;padding:9px 16px;border:1px solid rgba(255,255,255,.28);border-radius:40px;background:rgba(255,255,255,.07);backdrop-filter:blur(8px);opacity:0;animation:fadeIn 1s 1.9s forwards}
-.hero-eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#7CFFB0;animation:ping 1.8s infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 rgba(124,255,176,.7)}70%{box-shadow:0 0 0 10px rgba(124,255,176,0)}100%{box-shadow:0 0 0 0 rgba(124,255,176,0)}}
+.hero-grid{position:relative;z-index:2;flex:1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:6vw;align-items:center;padding:clamp(120px,15svh,170px) var(--pad) 48px}
+.hero-eyebrow{display:flex;align-items:center;gap:16px;font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);opacity:0;animation:fadeIn 1.2s .2s forwards}
+.hero-eyebrow i{display:block;width:48px;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;animation:lineIn 1.2s .3s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes lineIn{to{transform:none}}
 @keyframes fadeIn{to{opacity:1}}
-.hero h1{margin-top:20px;font-weight:200;font-size:clamp(42px,5.4vw,96px);line-height:.95;letter-spacing:-.045em;text-shadow:0 10px 40px rgba(0,0,0,.35)}
-.hero h1 .ln{display:block}
-.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:300;letter-spacing:-.015em}
-.g{display:inline-block;transform:translateY(-120vh) rotate(var(--r,0deg));animation:fall 1.5s cubic-bezier(.33,0,.67,1) forwards;animation-delay:var(--d,0s)}
-@keyframes fall{
-  0%{transform:translateY(-120vh) rotate(var(--r,0deg))}
-  55%{transform:translateY(0) rotate(0);animation-timing-function:cubic-bezier(.2,.6,.4,1)}
-  70%{transform:translateY(-14%) rotate(calc(var(--r,0deg) * -.15))}
-  82%{transform:translateY(0)}
-  90%{transform:translateY(-4%)}
-  100%{transform:none}}
-.hero-lead{margin-top:20px;max-width:520px;font-size:clamp(14.5px,1.1vw,16.5px);line-height:1.6;color:rgba(255,255,255,.82);opacity:0;animation:fadeIn 1s 2.2s forwards}
+.hero h1{margin-top:30px;font-family:var(--serif);font-weight:300;font-size:clamp(52px,6.8vw,124px);line-height:.96;letter-spacing:-.015em}
+.hero h1 em{font-style:italic;color:#fff}
+.line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.line>span{display:inline-block;transform:translateY(108%);animation:lineUp 1.4s cubic-bezier(.16,1,.3,1) forwards}
+.line:nth-child(2)>span{animation-delay:.14s}
+@keyframes lineUp{to{transform:none}}
+.hero-lead{margin-top:30px;max-width:470px;font-size:16px;line-height:1.75;color:rgba(244,239,231,.72);opacity:0;animation:fadeIn 1.2s .7s forwards}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:42px;opacity:0;transform:translateY(16px);animation:ctaIn 1.2s .9s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes ctaIn{to{opacity:1;transform:none}}
+.btn-primary,.btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:18px;min-height:58px;padding:0 32px;border-radius:2px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .35s,color .35s,border-color .35s}
+.btn-primary{background:var(--ivory);color:var(--night)}
+.btn-primary span{transition:transform .35s}
+.btn-primary:hover{background:var(--gold)}
+.btn-primary:hover span{transform:translateX(5px)}
+.btn-ghost{border:1px solid rgba(244,239,231,.35);color:var(--ivory)}
+.btn-ghost:hover{border-color:var(--ivory);background:rgba(244,239,231,.06)}
+.hero-note{display:flex;align-items:center;gap:10px;margin-top:26px;font-size:12px;letter-spacing:.06em;color:rgba(244,239,231,.6);opacity:0;animation:fadeIn 1.2s 1.1s forwards}
+.hero-note .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(205,178,138,.6);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(205,178,138,.6)}70%,100%{box-shadow:0 0 0 9px rgba(205,178,138,0)}}
 
-.book{margin-top:28px;display:flex;align-items:stretch;padding:6px;border-radius:60px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);box-shadow:0 30px 80px -30px rgba(0,0,0,.8);opacity:0;transform:translateY(30px);animation:bookIn 1s 2.4s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes bookIn{to{opacity:1;transform:none}}
-.book label{display:flex;flex-direction:column;justify-content:center;gap:2px;padding:8px 20px;border-right:1px solid rgba(255,255,255,.18);min-width:140px}
-.book label span{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:600}
-.book select,.book input{appearance:none;-webkit-appearance:none;background:none;border:0;outline:0;color:#fff;font:400 15px/1.3 var(--sans);padding:2px 0;cursor:pointer;color-scheme:dark;width:100%}
-.book select option{color:#111}
-.book input::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.7;cursor:pointer}
-.book button{position:relative;overflow:hidden;margin-left:6px;display:inline-flex;align-items:center;gap:14px;padding:0 26px;min-height:60px;border-radius:50px;background:#fff;color:var(--ink);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
-.book button::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.9) 50%,transparent 70%);transform:translateX(-120%);animation:shine 3.5s 3.5s infinite}
-@keyframes shine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
-.book button i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;transition:transform .4s}
-.book button:hover i{transform:rotate(-45deg)}
-.book.flash{animation:flash 1.2s}
-@keyframes flash{30%{box-shadow:0 0 0 6px rgba(255,255,255,.45),0 30px 80px -30px rgba(0,0,0,.8)}}
-.book-alt{margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.65);opacity:0;animation:fadeIn 1s 2.8s forwards}
-.book-alt a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
+.hero-portrait{position:relative;justify-self:end;width:min(100%,430px);margin:0;translate:calc(var(--mx,0) * -10px) calc(var(--my,0) * -8px + var(--sp,0) * -50px)}
+.hero-portrait::before{content:"";position:absolute;inset:0 0 58px 0;border:1px solid rgba(205,178,138,.55);border-radius:999px 999px 0 0;transform:translate(22px,-22px);opacity:0;animation:fadeIn 1.4s 1.2s forwards}
+.arch{position:relative;aspect-ratio:3/4.2;border-radius:999px 999px 0 0;overflow:hidden;clip-path:inset(100% 0 0 0);animation:archIn 1.6s .35s cubic-bezier(.77,0,.18,1) forwards;background:#1a1816}
+@keyframes archIn{to{clip-path:inset(0 0 0 0)}}
+.arch img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;transform:scale(1.25);animation:archImg 2.4s .35s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes archImg{to{transform:scale(1)}}
+.hero-portrait figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;height:58px;padding-top:18px;border-bottom:1px solid rgba(244,239,231,.14);opacity:0;animation:fadeIn 1.2s 1.4s forwards}
+.hero-portrait figcaption b{font-family:var(--serif);font-style:italic;font-weight:400;font-size:24px}
+.hero-portrait figcaption span{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
 
-.hero-foot{position:absolute;z-index:7;right:var(--pad);bottom:26px;display:flex;align-items:center;gap:28px;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7);opacity:0;animation:fadeIn 1s 3s forwards;pointer-events:none}
-.hero-foot b{color:#fff;font-weight:600}
-.scroll-hint{display:flex;align-items:center;gap:12px}
-.scroll-hint i{display:block;width:1px;height:34px;background:rgba(255,255,255,.3);position:relative;overflow:hidden}
-.scroll-hint i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:#fff;animation:drip 1.8s infinite}
+.hero-bar{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,auto) 1fr;gap:clamp(24px,5vw,80px);align-items:center;padding:22px var(--pad) 26px;border-top:1px solid rgba(244,239,231,.12);opacity:0;animation:fadeIn 1.2s 1.5s forwards}
+.hero-bar div{display:flex;align-items:baseline;gap:12px}
+.hero-bar b{font-family:var(--serif);font-weight:300;font-size:34px;line-height:1}
+.hero-bar span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(244,239,231,.55)}
+.scroll-hint{justify-self:end;display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,231,.6)}
+.scroll-hint i{display:block;width:1px;height:34px;background:rgba(244,239,231,.25);position:relative;overflow:hidden}
+.scroll-hint i::after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--ivory);animation:drip 2s infinite}
 @keyframes drip{to{top:100%}}
 
-.fab{position:fixed;right:var(--pad);bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:40px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);transform:translateY(160%);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+/* floating CTA */
+.fab{position:fixed;right:var(--pad);bottom:22px;z-index:60;display:inline-flex;align-items:center;gap:12px;padding:16px 24px;border-radius:2px;background:var(--night);color:var(--ivory);font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 18px 40px -14px rgba(0,0,0,.55);transform:translateY(calc(100% + 110px));transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .fab.on{transform:none}
-.fab::before{content:"";width:8px;height:8px;border-radius:50%;background:#7CFFB0}
+.fab::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--gold)}
 
-@media (max-width:1100px){
-  .hero-in{width:min(640px,62vw)}
-  .book{flex-wrap:wrap;border-radius:26px}
-  .book label{flex:1 1 30%}
-  .book button{flex:1 1 100%;margin:6px 0 0;justify-content:space-between}
-  .badge{display:none}
+/* booking dialog */
+.dlg{border:0;padding:0;margin:auto;width:min(920px,calc(100% - 32px));max-height:calc(100svh - 32px);background:var(--paper);color:var(--ink);overflow:auto}
+.dlg[open]{display:grid;grid-template-columns:.85fr 1.15fr;animation:dlgIn .6s cubic-bezier(.16,1,.3,1)}
+@keyframes dlgIn{from{opacity:0;transform:translateY(24px)}}
+.dlg::backdrop{background:rgba(12,11,10,.62);backdrop-filter:blur(6px)}
+.dlg-img{position:relative;min-height:100%;background:#222}
+.dlg-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.dlg-body{position:relative;padding:clamp(28px,4vw,52px)}
+.dlg-close{position:absolute;right:18px;top:18px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);font-size:18px;line-height:1;transition:background .3s}
+.dlg-close:hover{background:rgba(0,0,0,.06)}
+.dlg .eyebrow{color:var(--muted)}
+.dlg h3{margin:16px 0 10px;font-family:var(--serif);font-weight:300;font-size:clamp(34px,3.6vw,48px);line-height:1}
+.dlg h3 em{font-style:italic}
+.dlg-sub{font-size:14px;color:var(--ink-2);margin-bottom:24px}
+.dlg-form{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.dlg-form label{display:flex;flex-direction:column;gap:6px}
+.dlg-form label.full{grid-column:1/-1}
+.dlg-form label span{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.dlg-form input,.dlg-form select{appearance:none;-webkit-appearance:none;border:0;border-bottom:1px solid rgba(13,13,13,.25);background:transparent;padding:8px 0 10px;font:400 16px var(--sans);color:var(--ink);outline:0;border-radius:0;transition:border-color .3s}
+.dlg-form input:focus,.dlg-form select:focus{border-color:var(--ink)}
+.dlg-form button{grid-column:1/-1;margin-top:10px;display:flex;justify-content:space-between;align-items:center;min-height:60px;padding:0 28px;background:var(--ink);color:var(--paper);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .3s}
+.dlg-form button:hover{background:#2a2622}
+.dlg-alt{margin-top:16px;font-size:12.5px;color:var(--muted)}
+.dlg-alt a{color:var(--ink);border-bottom:1px solid var(--line)}
+
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:56px;padding-top:120px;text-align:left}
+  .hero-portrait{justify-self:center;width:min(78vw,380px)}
+  .hero-bar{grid-template-columns:repeat(3,1fr);gap:12px}
+  .hero-bar div{flex-direction:column;gap:6px}
+  .scroll-hint{display:none}
+  .hero-shade{background:linear-gradient(180deg,rgba(15,14,12,.8) 0%,rgba(15,14,12,.55) 40%,rgba(15,14,12,.75) 75%,rgba(15,14,12,.95) 100%)}
 }
-/* phone: stage (video + name + portrait) then headline & form below */
-@media (max-width:820px){
-  .hero{height:auto;min-height:0;display:flex;flex-direction:column}
-  .hero-stage{position:relative;height:84svh;min-height:560px}
-  .hv{grid-template-columns:1fr}
-  .hv-p:nth-child(1),.hv-p:nth-child(3){display:none}
-  .hv-shade{background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 48%,rgba(7,7,7,.85) 78%,#070707 92%)}
-  .hero-name{top:88px;font-size:22.5vw}
-  .spot{right:50%;margin-right:-60vw;width:120vw;bottom:-20%}
-  .hero-person{right:50%;margin-right:calc(min(76svh,640px) * -.224);height:min(76svh,640px)}
-  .hero-in{position:relative;left:auto;bottom:auto;width:auto;margin-top:-18svh;padding:0 var(--pad) 60px;align-items:center;text-align:center}
-  .hero h1{font-size:clamp(40px,11.5vw,60px)}
-  .book{flex-direction:column;width:100%;max-width:440px;padding:8px}
-  .book label{border-right:0;border-bottom:1px solid rgba(255,255,255,.16);padding:12px 18px;flex:auto;text-align:left}
-  .book button{margin:8px 0 0;min-height:56px}
-  .hero-foot{display:none}
+@media (max-width:640px){
+  .hero h1{font-size:clamp(46px,13vw,64px)}
+  .hero-lead{font-size:15px;margin-top:22px}
+  .hero-cta{margin-top:30px}
+  .btn-primary,.btn-ghost{flex:1 1 100%}
+  .hero-bar b{font-size:28px}
+  .hero-portrait figcaption{flex-direction:column;align-items:flex-start;gap:4px;height:auto;padding:14px 0 12px}
+  .hero-portrait::before{inset:0 0 70px 0}
+  .dlg[open]{grid-template-columns:1fr}
+  .dlg-img{display:none}
+  .dlg-form{grid-template-columns:1fr}
   .fab{left:16px;right:16px;justify-content:center;bottom:60px}
 }
 /* ---------- common ---------- */
@@ -328,9 +314,9 @@ section{position:relative}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:24px var(--pad);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,242,238,.5);border-top:1px solid var(--line-inv)}
 
 /* ---------- PRELOADER ---------- */
-.loader{position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:28px var(--pad);transition:transform 1s cubic-bezier(.8,0,.2,1)}
+.loader{position:fixed;inset:0;z-index:100;background:#0f0e0c;color:var(--paper);display:flex;flex-direction:column;justify-content:space-between;padding:28px var(--pad);transition:transform 1s cubic-bezier(.8,0,.2,1)}
 .loader.done{transform:translateY(-100%)}
-.loader-word{font-family:var(--poster);font-size:clamp(70px,17vw,260px);line-height:.8;overflow:hidden;align-self:flex-start;padding-top:.05em}
+.loader-word{font-family:var(--serif);font-weight:300;font-size:clamp(56px,11vw,180px);line-height:.9;overflow:hidden;align-self:flex-start;padding-top:.05em}
 .loader-word span{display:inline-block;transform:translateY(100%);animation:up .9s cubic-bezier(.2,.7,.2,1) forwards}
 @keyframes up{to{transform:none}}
 .loader-row{display:flex;justify-content:space-between;align-items:end;gap:20px;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
@@ -516,13 +502,13 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 <div class="cursor" id="cursor"></div><div class="cursor-ring" id="ring"><span>Дивитись</span></div>
 
 <div class="loader" id="loader" aria-hidden="true">
-  <div class="loader-word"><span>DARUSHKA</span></div>
+  <div class="loader-word"><span>Daria <em>Boyko</em></span></div>
   <div class="loader-row"><span>Івент-організатор<br>як для себе</span><span class="loader-count" id="count">0</span></div>
 </div>
 
 <!-- NAV -->
 <header class="nav" id="nav">
-  <a href="#top" class="logo">DARIA BOYKO<small>EVENT</small></a>
+  <a href="#top" class="logo">Daria Boyko<small>Event planner</small></a>
   <nav class="nav-links">
     <a href="#about">Про мене</a>
     <a href="#show">Портфоліо</a>
@@ -544,51 +530,56 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 
 <!-- HERO -->
 <section class="hero" id="top">
-  <div class="hero-stage">
-    <div class="hv" aria-hidden="true">
-      <div class="hv-p"><video data-src="video/h1.mp4" poster="video/h1.jpg" muted loop playsinline autoplay preload="none"></video></div>
-      <div class="hv-p"><video src="video/h2.mp4" poster="video/h2.jpg" muted loop playsinline autoplay preload="auto"></video></div>
-      <div class="hv-p"><video data-src="video/h3.mp4" poster="video/h3.jpg" muted loop playsinline autoplay preload="none"></video></div>
+  <div class="hero-bg" aria-hidden="true"><video src="video/h2.mp4" poster="video/h2.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+  <div class="hero-shade"></div>
+
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow"><i></i>Event planner · організація та координація</p>
+      <h1><span class="line"><span>Ваше свято —</span></span><span class="line"><span><em>моя відповідальність</em></span></span></h1>
+      <p class="hero-lead">Весілля та приватні події під ключ — продумані до хвилини і зроблені як для себе. Ви насолоджуєтесь моментом, я піклуюсь про решту.</p>
+      <div class="hero-cta">
+        <button type="button" class="btn-primary" data-book>Забронювати дату <span>→</span></button>
+        <a href="#show" class="btn-ghost">Портфоліо</a>
+      </div>
+      <p class="hero-note"><span class="dot"></span>Відкрито бронювання на сезон 2026</p>
     </div>
-    <div class="hv-shade"></div>
-    <div class="hero-name" aria-hidden="true"><span style="animation-delay:0.50s">D</span><span style="animation-delay:0.57s">A</span><span style="animation-delay:0.64s">R</span><span style="animation-delay:0.71s">U</span><span style="animation-delay:0.78s">S</span><span style="animation-delay:0.85s">H</span><span style="animation-delay:0.92s">K</span><span style="animation-delay:0.99s">A</span></div>
-    <div class="spot" aria-hidden="true"></div>
-    <div class="hero-person"><picture><source srcset="img/daria_cut.webp" type="image/webp"><img src="img/daria_cut.png" alt="Дарія Бойко — івент-організатор" fetchpriority="high"></picture></div>
-    <canvas class="sparks" id="sparks" aria-hidden="true"></canvas>
-    <a href="#book" class="badge" id="badge" aria-label="Забронювати дату">
-      <svg viewBox="0 0 128 128"><defs><path id="circ" d="M64,64 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
-        <text><textPath href="#circ">Забронювати дату · 2026 · Забронювати дату · 2026 ·</textPath></text></svg>
-      <b>↗</b>
-    </a>
+    <figure class="hero-portrait">
+      <div class="arch"><img src="img/portrait.jpg" alt="Дарія Бойко — івент-організатор" fetchpriority="high"></div>
+      <figcaption><b>Дарія Бойко</b><span>Founder · event planner</span></figcaption>
+    </figure>
   </div>
 
-  <div class="hero-in">
-    <p class="hero-eyebrow"><span class="dot"></span>Приймаю бронювання на 2026</p>
-    <h1>
-      <span class="ln"><span class="g" style="--d:1.20s;--r:-14deg">Ваше</span> <span class="g" style="--d:1.32s;--r:9deg">свято</span> <span class="g" style="--d:1.44s;--r:-6deg">—</span></span>
-      <span class="ln"><em><span class="g" style="--d:1.56s;--r:8deg">моя</span></em> <span class="g" style="--d:1.68s;--r:-7deg">відповідальність</span></span>
-    </h1>
-    <p class="hero-lead">Дарія Бойко — івент-організатор і координатор. Весілля та події під ключ, зроблені як для себе. Ви насолоджуєтесь моментом — я піклуюсь про решту.</p>
-    <form class="book" id="book">
-      <label><span>Подія</span>
-        <select name="type">
-          <option>Весілля</option><option>Заручини / пропозиція</option><option>Корпоратив</option>
-          <option>День народження / ювілей</option><option>Гендер паті / хрестини</option><option>Конференція / форум</option>
-        </select></label>
-      <label><span>Дата</span><input type="date" name="date"></label>
-      <label><span>Послуга</span>
-        <select name="svc"><option>Повна організація</option><option>Координація дня</option><option>Ще не знаю</option></select></label>
-      <button type="submit">Забронювати дату <i>→</i></button>
-    </form>
-    <p class="book-alt">Відповім протягом години · або напишіть у <a href="https://t.me/daruuuushka" target="_blank" rel="noopener">Telegram</a></p>
-  </div>
-
-  <div class="hero-foot">
-    <span><b>100+</b> подій · <b>5</b> міст · <b>24/7</b></span>
-    <span class="scroll-hint">Гортайте <i></i></span>
+  <div class="hero-bar">
+    <div><b>100+</b><span>весіль і подій</span></div>
+    <div><b>5</b><span>міст України</span></div>
+    <div><b>24/7</b><span>на зв’язку</span></div>
+    <a href="#promise" class="scroll-hint">Гортайте <i></i></a>
   </div>
 </section>
-<a href="#top" class="fab" id="fab">Забронювати дату</a>
+<button type="button" class="fab" id="fab" data-book>Забронювати дату</button>
+
+<dialog class="dlg" id="bookDlg" aria-labelledby="dlgTitle">
+  <div class="dlg-img"><img src="img/n_bride.jpg" alt="" loading="lazy"></div>
+  <div class="dlg-body">
+    <button type="button" class="dlg-close" data-close aria-label="Закрити">×</button>
+    <p class="eyebrow">Бронювання</p>
+    <h3 id="dlgTitle">Забронювати <em>дату</em></h3>
+    <p class="dlg-sub">Залиште кілька деталей — я перевірю дату і відповім протягом години.</p>
+    <form class="dlg-form" id="book">
+      <label><span>Подія</span>
+        <select name="type"><option>Весілля</option><option>Заручини / пропозиція</option><option>Корпоратив</option><option>День народження / ювілей</option><option>Гендер паті / хрестини</option><option>Конференція / форум</option></select></label>
+      <label><span>Дата</span><input type="date" name="date"></label>
+      <label><span>Гостей</span>
+        <select name="guests"><option>до 30</option><option selected>30–80</option><option>80–150</option><option>150+</option></select></label>
+      <label><span>Послуга</span>
+        <select name="svc"><option>Повна організація</option><option>Координація дня</option><option>Ще не знаю</option></select></label>
+      <label class="full"><span>Ваше ім’я</span><input type="text" name="name" autocomplete="given-name" placeholder="Як до вас звертатися"></label>
+      <button type="submit">Надіслати у WhatsApp <span>→</span></button>
+    </form>
+    <p class="dlg-alt">Або напишіть у <a href="https://t.me/daruuuushka" target="_blank" rel="noopener">Telegram</a> · <a href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener">Instagram</a></p>
+  </div>
+</dialog>
 
 <!-- PROMISE -->
 <section class="promise wrap" id="promise">
@@ -1003,72 +994,37 @@ fill('m1',a);fill('m2',b);
   document.querySelectorAll('.stat b').forEach(b=>so.observe(b));
 })();
 
-// ---------- booking form -> WhatsApp with a ready message ----------
+// ---------- booking dialog -> WhatsApp with a ready message ----------
 (()=>{
-  const f=document.getElementById('book');
-  const d=f.querySelector('[name=date]');
+  const dlg=document.getElementById('bookDlg'),f=document.getElementById('book'),d=f.querySelector('[name=date]');
   d.min=new Date().toISOString().slice(0,10);
+  const open=()=>{if(!dlg.open){dlg.showModal();document.body.style.overflow='hidden'}};
+  const close=()=>{dlg.close()};
+  dlg.addEventListener('close',()=>{document.body.style.overflow=''});
+  document.querySelectorAll('[data-book]').forEach(b=>b.addEventListener('click',open));
+  dlg.querySelector('[data-close]').addEventListener('click',close);
+  dlg.addEventListener('click',e=>{if(e.target===dlg)close()});
   f.addEventListener('submit',e=>{
     e.preventDefault();
-    const date=d.value?new Date(d.value+'T12:00').toLocaleDateString('uk-UA',{day:'numeric',month:'long',year:'numeric'}):'дата ще не визначена';
-    const msg=`Вітаю, Даріє! Хочу забронювати дату 🤍\nПодія: ${f.type.value}\nДата: ${date}\nПослуга: ${f.svc.value}`;
+    const date=d.value?new Date(d.value+'T12:00').toLocaleDateString('uk-UA',{day:'numeric',month:'long',year:'numeric'}):'ще не визначена';
+    const name=f.querySelector('[name=name]').value.trim();
+    const msg=`Вітаю, Даріє!${name?' Мене звати '+name+'.':''} Хочу забронювати дату 🤍\nПодія: ${f.type.value}\nДата: ${date}\nГостей: ${f.guests.value}\nПослуга: ${f.svc.value}`;
     window.open('https://wa.me/380731174417?text='+encodeURIComponent(msg),'_blank','noopener');
   });
-  // floating CTA appears after the hero, hides near contacts
+
+  // floating CTA: after the hero, hidden near contacts
   const fab=document.getElementById('fab'),contact=document.getElementById('contact');
-  fab.addEventListener('click',e=>{e.preventDefault();scrollTo({top:0,behavior:'smooth'});setTimeout(()=>f.querySelector('select').focus(),900)});
-  const upd=()=>{const past=scrollY>innerHeight*.8,near=contact.getBoundingClientRect().top<innerHeight;fab.classList.toggle('on',past&&!near)};
+  const upd=()=>{fab.classList.toggle('on',scrollY>innerHeight*.8&&contact.getBoundingClientRect().top>innerHeight)};
   addEventListener('scroll',upd,{passive:true});upd();
-})();
 
-// ---------- hero: sparks, badge, reliable autoplay on phones ----------
-(()=>{
-  const hero=document.querySelector('.hero');
-  const mobile=matchMedia('(max-width:820px)').matches;
-  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-  // videos: side panels only on desktop; force muted inline autoplay (iOS / in-app browsers)
-  const vids=[...document.querySelectorAll('.hv video')];
-  if(!mobile)vids.forEach(v=>{if(v.dataset.src){v.src=v.dataset.src;v.preload='auto'}});
-  const kick=v=>{if(!v.getAttribute('src'))return;v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('muted','');v.setAttribute('playsinline','');const p=v.play();p&&p.catch(()=>{})};
+  // reliable muted autoplay (iOS Low Power Mode, Instagram/Telegram in-app browsers)
+  const vids=[document.querySelector('.hero-bg video')];
+  const kick=v=>{v.muted=true;v.defaultMuted=true;v.playsInline=true;v.setAttribute('muted','');v.setAttribute('playsinline','');const p=v.play();p&&p.catch(()=>{})};
   vids.forEach(v=>{kick(v);v.addEventListener('loadeddata',()=>kick(v),{once:true})});
-  // Low Power Mode / Instagram browser block autoplay until the first gesture — retry then
   const wake=()=>{vids.forEach(kick);document.querySelectorAll('.phone video').forEach(v=>{const r=v.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){v.muted=true;v.play().catch(()=>{})}})};
   ['touchstart','pointerdown','scroll','keydown'].forEach(ev=>addEventListener(ev,wake,{once:true,passive:true}));
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)vids.forEach(kick)});
-  // reels: tapping the video itself toggles play
   document.querySelectorAll('.phone video').forEach(v=>{v.setAttribute('muted','');v.addEventListener('click',()=>v.paused?v.play():v.pause())});
-
-  // badge -> focus the booking form
-  document.getElementById('badge').addEventListener('click',e=>{e.preventDefault();const f=document.getElementById('book');
-    f.scrollIntoView({behavior:'smooth',block:'center'});f.classList.remove('flash');void f.offsetWidth;f.classList.add('flash');setTimeout(()=>f.querySelector('select').focus({preventScroll:true}),600)});
-
-  // golden sparks rising (cold-fountain feel)
-  if(reduce)return;
-  const cv=document.getElementById('sparks'),ctx=cv.getContext('2d');
-  let W,H,dpr=Math.min(2,devicePixelRatio||1),parts=[],on=true;
-  const N=mobile?38:80;
-  const size=()=>{W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};
-  const spawn=(p,init)=>{p.x=W*(mobile?.5+ (Math.random()-.5)*.9:.35+Math.random()*.65);p.y=init?Math.random()*H:H+10;
-    p.vy=-(.35+Math.random()*1.1);p.vx=(Math.random()-.5)*.3;p.r=.6+Math.random()*1.8;p.life=0;p.max=240+Math.random()*320;p.tw=Math.random()*6.28;
-    p.c=Math.random()<.7?'255,214,150':'255,255,255';return p};
-  size();addEventListener('resize',size);
-  for(let i=0;i<N;i++)parts.push(spawn({},true));
-  new IntersectionObserver(([e])=>{on=e.isIntersecting;if(on)requestAnimationFrame(tick)}).observe(hero);
-  function tick(){
-    if(!on)return;
-    ctx.clearRect(0,0,W,H);ctx.globalCompositeOperation='lighter';
-    for(const p of parts){
-      p.life++;p.x+=p.vx+Math.sin((p.life+p.tw*40)/40)*.25;p.y+=p.vy;p.tw+=.08;
-      const k=Math.min(1,p.life/40)*Math.max(0,1-p.life/p.max),a=k*(.55+.45*Math.sin(p.tw));
-      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*5);
-      g.addColorStop(0,`rgba(${p.c},${a})`);g.addColorStop(1,`rgba(${p.c},0)`);
-      ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*5,0,6.283);ctx.fill();
-      if(p.life>p.max||p.y<-20)spawn(p,false);
-    }
-    requestAnimationFrame(tick);
-  }
-  requestAnimationFrame(tick);
 })();
 </script>
 </body>
