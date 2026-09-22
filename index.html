@@ -177,18 +177,21 @@ section{position:relative}
 .about-lead{font-size:14px;line-height:1.65;color:var(--ink-2);max-width:340px;justify-self:end;margin-top:14px}
 .about-grid{display:grid;grid-template-columns:5fr 4fr 3fr;gap:clamp(24px,4vw,70px);margin-top:clamp(40px,5vw,70px);align-items:start}
 .about-oval{aspect-ratio:3/4.4}
-.about-oval img{object-position:50% 30%}
+.about-oval img{object-position:50% 16%}
 .sign{display:flex;justify-content:space-between;margin-top:22px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
 .sign span:last-child{font-family:var(--serif);font-size:18px;letter-spacing:0;text-transform:none;font-weight:400;font-style:italic}
 .about-text{padding-top:clamp(20px,8vw,130px);font-size:14.5px;color:var(--ink-2)}
 .about-text p+p{margin-top:1.1em}
 .about-text p:first-child{text-indent:3em}
 .about-small{aspect-ratio:1/1.6;margin-top:clamp(0px,3vw,40px)}
-.about-small img{object-position:40% 30%}
+.about-small img{object-position:50% 42%}
 .principle{margin-top:34px;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.3;color:var(--ink)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:clamp(60px,8vw,110px)}
-.stat{padding:28px 20px 0 0}
-.stat b{display:block;color:var(--blue);font-family:var(--sans);font-weight:200;font-size:clamp(44px,5.6vw,84px);line-height:1;letter-spacing:-.04em}
+.stat{position:relative;padding:28px 20px 0 0}
+.stat::after{content:"";position:absolute;left:0;top:-1px;height:2px;width:0;background:var(--blue);transition:width 1.6s cubic-bezier(.16,1,.3,1) .15s}
+.stat.in::after{width:calc(100% - 20px)}
+.stat b i{font-style:normal}
+.stat b{display:block;color:var(--blue);font-variant-numeric:tabular-nums;font-family:var(--sans);font-weight:200;font-size:clamp(44px,5.6vw,84px);line-height:1;letter-spacing:-.04em}
 .stat span{display:block;margin-top:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
 
 /* ---------- EVENTS LIST ---------- */
@@ -281,15 +284,23 @@ section{position:relative}
 @media (max-width:640px){.stars-list{columns:1}}
 
 /* ---------- REVIEWS: real screenshots ---------- */
-.reviews{padding:clamp(90px,11vw,160px) 0;background:var(--sky)}
+.reviews{padding:clamp(90px,11vw,160px) 0;background:var(--sky);overflow:hidden}
 .rev-head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,70px)}
 .rev-head .eyebrow{margin-bottom:22px}
 .rev-note{max-width:340px;font-size:14px;color:var(--ink-2)}
-.shots-grid{columns:3;column-gap:clamp(16px,1.8vw,28px)}
-.shot{break-inside:avoid;margin:0 0 clamp(16px,1.8vw,28px);background:#fff;padding:10px 10px 0;border-radius:16px;box-shadow:0 22px 50px -30px rgba(15,28,63,.65);rotate:var(--rot,0deg);transition:rotate .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s;cursor:zoom-in}
-.shot:hover{rotate:0deg;transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(15,28,63,.75)}
-.shot img{width:100%;border-radius:10px;display:block}
-.shot figcaption{padding:12px 6px 14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--blue)}
+.rev-rows{display:grid;gap:clamp(10px,1vw,16px)}
+.rev-row{overflow:hidden;padding:clamp(14px,1.4vw,22px) 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.rev-track{display:flex;align-items:flex-start;width:max-content;animation:revslide 95s linear infinite;will-change:transform}
+.rev-row.rev-back .rev-track{animation-duration:125s;animation-direction:reverse}
+.rev-rows:hover .rev-track{animation-play-state:paused}
+@keyframes revslide{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.rev-card{flex:0 0 auto;width:clamp(226px,22vw,300px);margin-right:clamp(12px,1.3vw,20px);background:#fff;border-radius:18px;padding:12px 12px 0;box-shadow:0 26px 55px -34px rgba(15,28,63,.75);cursor:zoom-in;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
+.rev-card:hover{transform:translateY(-7px);box-shadow:0 36px 70px -32px rgba(15,28,63,.85)}
+.rev-card img{width:100%;display:block;border-radius:11px}
+.rev-card figcaption{display:flex;align-items:center;gap:8px;padding:12px 6px 14px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--blue)}
+.rev-card figcaption::before{content:"";width:14px;height:1px;background:currentColor;flex:none}
+.rev-hint{margin-top:clamp(26px,3vw,40px);padding:0 var(--pad);font-size:10.5px;line-height:1.8;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:center}
+@media (prefers-reduced-motion:reduce){.rev-track{animation:none}}
 @media (max-width:980px){.shots-grid{columns:2}}
 @media (max-width:640px){.shots-grid{columns:1}.shot{rotate:0deg}}
 
@@ -489,34 +500,29 @@ body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;
 
 /* ---------- GALLERY: mosaic + event rows ---------- */
 .gallery{padding:clamp(100px,12vw,180px) 0}
-.gal-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(36px,4vw,60px)}
-.gal-note{max-width:360px;font-size:14px;color:var(--ink-2)}
-.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(150px,15vw,240px);grid-auto-flow:dense;gap:clamp(8px,.9vw,14px)}
-.gal-grid figure{position:relative;margin:0;overflow:hidden;cursor:zoom-in;background:#dfe6f3}
-.gal-grid figure.tall{grid-row:span 2}
-.gal-grid figure.wide{grid-column:span 2}
-.gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
-.gal-grid figure:hover img{transform:scale(1.06)}
-.gal-grid figcaption{position:absolute;left:14px;bottom:12px;z-index:2;color:#fff;font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:.5s;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-.gal-grid figure:hover figcaption{opacity:1;transform:none}
-
-.ev-rows{margin-top:clamp(50px,6vw,90px);border-top:1px solid var(--line)}
-.ev-row{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,70px);align-items:center;padding:clamp(26px,3vw,44px) 0;border-bottom:1px solid var(--line)}
-.ev-row:nth-child(even) .ev-row-media{order:2}
-.ev-row-media{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#dfe6f3}
-.ev-row-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s cubic-bezier(.16,1,.3,1)}
-.ev-row:hover .ev-row-media img{transform:scale(1.05)}
-.ev-open{position:absolute;left:50%;top:50%;translate:-50% -50%;display:grid;place-items:center;width:clamp(120px,10vw,150px);height:clamp(120px,10vw,150px);border-radius:50%;background:rgba(43,75,214,.92);color:#fff;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-align:center;line-height:1.5;padding:0 18px;opacity:0;scale:.7;transition:opacity .45s,scale .45s cubic-bezier(.34,1.4,.64,1)}
-.ev-row:hover .ev-open{opacity:1;scale:1}
-.ev-row-text{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-.ev-num{font-style:normal;font-family:var(--serif);font-size:clamp(34px,3.4vw,54px);line-height:1;color:var(--blue);opacity:.5}
-.ev-row-text b{font-family:var(--serif);font-weight:300;font-size:clamp(32px,3.6vw,58px);line-height:1.02;letter-spacing:-.01em}
-.ev-row-text small{font-size:14.5px;line-height:1.65;color:var(--ink-2);max-width:30em}
-.ev-row-text u{text-decoration:none;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.ev-link{display:inline-flex;align-items:center;gap:14px;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
-.ev-link em{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(43,75,214,.4);transition:background .35s,color .35s,transform .35s}
-.ev-row:hover .ev-link em{background:var(--blue);color:#fff;transform:translateX(4px)}
-.gal-ig{display:inline-flex;margin-top:clamp(34px,4vw,54px);font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--blue);border-bottom:1px solid rgba(43,75,214,.35);padding-bottom:4px}
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(44px,5vw,80px)}
+.gal-head .eyebrow{margin-bottom:22px}
+.gal-note{max-width:330px;font-size:14px;color:var(--ink-2)}
+.ev-cards{display:grid;grid-template-columns:1fr 1fr;gap:clamp(44px,5vw,96px) clamp(24px,3.4vw,60px)}
+.ev-cards>*:nth-child(even){margin-top:clamp(40px,9vw,140px)}
+.ev-card{display:block;color:inherit}
+.ev-card-img{position:relative;display:block;aspect-ratio:4/5;background:#dfe6f3}
+.ev-card-img img{width:100%;height:100%;object-fit:cover}
+.ev-card-img::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(15,28,63,0) 50%,rgba(15,28,63,.5));opacity:0;transition:opacity .6s;pointer-events:none}
+.ev-card:hover .ev-card-img::before{opacity:1}
+.ev-card-img em{position:absolute;left:50%;bottom:clamp(20px,2.4vw,34px);translate:-50% 14px;z-index:3;opacity:0;font-style:normal;background:#fff;color:var(--ink);padding:14px 28px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;transition:opacity .5s,translate .5s cubic-bezier(.16,1,.3,1)}
+.ev-card:hover .ev-card-img em{opacity:1;translate:-50% 0}
+.ev-card:hover .ev-card-img img{transform:scale(1.045)}
+.ev-card-cap{display:block;margin-top:clamp(18px,1.8vw,26px);padding-top:clamp(16px,1.6vw,22px);border-top:1px solid var(--line);transition:border-color .5s}
+.ev-card:hover .ev-card-cap{border-color:var(--blue)}
+.ev-card-cap b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(26px,2.7vw,44px);line-height:1.04;letter-spacing:-.01em}
+.ev-card-cap i{display:block;margin-top:12px;font-style:normal;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ev-more{align-self:end;padding-bottom:clamp(6px,2.5vw,40px);max-width:26em}
+.ev-more p{font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+.ev-more-link{display:inline-flex;align-items:center;gap:14px;margin-top:24px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+.ev-more-link em{font-style:normal;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid rgba(43,75,214,.35);transition:background .35s,color .35s,transform .35s}
+.ev-more-link:hover em{background:var(--blue);color:#fff;transform:translateX(4px)}
+@media (max-width:760px){.ev-cards{grid-template-columns:1fr;gap:48px}.ev-cards>*:nth-child(even){margin-top:0}.ev-card-img em{opacity:1;translate:-50% 0;bottom:auto;top:16px;padding:11px 20px;font-size:9px}}
 
 @media (max-width:980px){
   .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:40vw}
@@ -721,7 +727,7 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 
   <div class="about-grid">
     <div>
-      <div class="oval about-oval reveal"><img src="img/s_p13.jpg" alt="Дарія готує декор до весілля" loading="lazy"></div>
+      <div class="oval about-oval reveal"><img src="img/g_p8_1.jpg" alt="Дарія Бойко — івент-координатор" loading="lazy"></div>
       <div class="sign"><span>Event organizer<br>&amp; coordinator</span><span>Дарія Бойко</span></div>
     </div>
     <div class="about-text reveal">
@@ -730,11 +736,11 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <p>У день заходу я завжди поруч — стежу, щоб усе йшло за планом, а непередбачувані ситуації вирішувалися швидко й непомітно для гостей.</p>
       <p class="principle">«Мій головний принцип — комфорт усіх учасників, спокій наречених і впевненість, що їх свято у надійних руках».</p>
     </div>
-    <div class="oval about-small reveal"><img src="img/g_p8_1.jpg" alt="Дарія на заході" loading="lazy"></div>
+    <div class="oval about-small reveal"><img src="img/s_p13.jpg" alt="Дарія готує декор до весілля" loading="lazy"></div>
   </div>
 
   <div class="stats">
-    <div class="stat reveal"><b data-count="100">100+</b><span>весіль і заходів</span></div>
+    <div class="stat reveal"><b>100+</b><span>весіль і заходів</span></div>
     <div class="stat reveal"><b>2</b><span>роки в івент-сфері</span></div>
     <div class="stat reveal"><b>5</b><span>міст України</span></div>
     <div class="stat reveal"><b>24/7</b><span>на зв’язку</span></div>
@@ -834,59 +840,31 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 <!-- GALLERY: photos + events -->
 <section class="gallery wrap" id="gallery">
   <div class="gal-head">
-    <h2 class="display reveal">Галерея<br><em>подій</em></h2>
-    <p class="gal-note reveal">Справжні кадри з весіль, гендер-паті та приватних свят. Натисніть на фото, щоб роздивитись, або відкрийте подію повністю.</p>
+    <div class="reveal">
+      <p class="eyebrow">Портфоліо</p>
+      <h2 class="display">Галерея<br><em>подій</em></h2>
+    </div>
+    <p class="gal-note reveal">Кожна подія — окрема історія. Натисніть на фото, щоб подивитися всі кадри з дня.</p>
   </div>
 
-  <div class="gal-grid">
-      <figure class="tall wipe" style="--wd:0.00s"><img src="img/gal/1/t17.jpg" alt="Бенгальські вогні" loading="lazy" data-lb><figcaption>Бенгальські вогні</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.07s"><img src="img/gal/2/t13.jpg" alt="Синій дим" loading="lazy" data-lb><figcaption>Синій дим</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.14s"><img src="img/gal/1/t09.jpg" alt="Серце з квітів" loading="lazy" data-lb><figcaption>Серце з квітів</figcaption></figure>
-      <figure class="tall wipe" style="--wd:0.21s"><img src="img/gal/3/t06.jpg" alt="Гендер-паті" loading="lazy" data-lb><figcaption>Гендер-паті</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.00s"><img src="img/gal/1/t14.jpg" alt="Полуничний торт" loading="lazy" data-lb><figcaption>Полуничний торт</figcaption></figure>
-      <figure class="wide wipe" style="--wd:0.07s"><img src="img/gal/2/t08.jpg" alt="Арка над озером" loading="lazy" data-lb><figcaption>Арка над озером</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.14s"><img src="img/gal/1/t04.jpg" alt="Вечір у палаці" loading="lazy" data-lb><figcaption>Вечір у палаці</figcaption></figure>
-      <figure class="tall wipe" style="--wd:0.21s"><img src="img/gal/2/t07.jpg" alt="Молодята" loading="lazy" data-lb><figcaption>Молодята</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.00s"><img src="img/gal/1/t01.jpg" alt="Деталі ранку" loading="lazy" data-lb><figcaption>Деталі ранку</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.07s"><img src="img/gal/3/t01.jpg" alt="Солодкий стіл" loading="lazy" data-lb><figcaption>Солодкий стіл</figcaption></figure>
-      <figure class="wide wipe" style="--wd:0.14s"><img src="img/gal/2/t05.jpg" alt="Перший танець" loading="lazy" data-lb><figcaption>Перший танець</figcaption></figure>
-      <figure class=" wipe" style="--wd:0.21s"><img src="img/gal/1/t12.jpg" alt="Кадр у ліфті" loading="lazy" data-lb><figcaption>Кадр у ліфті</figcaption></figure>
+  <div class="ev-cards">
+    <a class="ev-card reveal" href="gallery.html?e=1">
+      <span class="ev-card-img wipe"><img src="img/gal/1/06.jpg" alt="Весілля у палаці" loading="lazy"><em>Дивитись 20 фото</em></span>
+      <span class="ev-card-cap"><b>Весілля у палаці</b><i>Повна координація · 120 гостей</i></span>
+    </a>
+    <a class="ev-card reveal" href="gallery.html?e=2">
+      <span class="ev-card-img wipe"><img src="img/gal/2/13.jpg" alt="Весілля на березі озера" loading="lazy"><em>Дивитись 8 фото</em></span>
+      <span class="ev-card-cap"><b>Весілля на березі озера</b><i>Організація та координація · на воді</i></span>
+    </a>
+    <a class="ev-card reveal" href="gallery.html?e=3">
+      <span class="ev-card-img wipe"><img src="img/gal/3/03.jpg" alt="Гендер-паті" loading="lazy"><em>Дивитись 7 фото</em></span>
+      <span class="ev-card-cap"><b>Гендер-паті</b><i>Приватна подія · на природі</i></span>
+    </a>
+    <div class="ev-more reveal">
+      <p>Це лише частина історій. Нові кадри з підготовки та самих свят з’являються в Instagram щотижня — там же можна написати мені напряму.</p>
+      <a class="ev-more-link" href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener">@_daruuushka_ <em>&rarr;</em></a>
+    </div>
   </div>
-
-  <div class="ev-rows">
-    <a class="ev-row reveal" href="gallery.html?e=1">
-      <span class="ev-row-media wipe"><img src="img/gal/1/t17.jpg" alt="Весілля у палаці" loading="lazy"><em class="ev-open">Дивитись галерею</em></span>
-      <span class="ev-row-text">
-        <i class="ev-num">01</i>
-        <b>Весілля у палаці</b>
-        <small>Ранок у палаці, рожеве серце з живих квітів, полуничний торт і фінал із бенгальськими вогнями.</small>
-        <u>Повна координація · 120 гостей</u>
-        <span class="ev-link">20 фото <em>→</em></span>
-      </span>
-    </a>
-    <a class="ev-row reveal" href="gallery.html?e=2">
-      <span class="ev-row-media wipe"><img src="img/gal/2/t13.jpg" alt="Весілля на березі озера" loading="lazy"><em class="ev-open">Дивитись галерею</em></span>
-      <span class="ev-row-text">
-        <i class="ev-num">02</i>
-        <b>Весілля на березі озера</b>
-        <small>Квіткова арка над водою, синій дим на церемонії та перший танець у хмарах.</small>
-        <u>Організація та координація · на воді</u>
-        <span class="ev-link">14 фото <em>→</em></span>
-      </span>
-    </a>
-    <a class="ev-row reveal" href="gallery.html?e=3">
-      <span class="ev-row-media wipe"><img src="img/gal/3/t06.jpg" alt="Гендер-паті" loading="lazy"><em class="ev-open">Дивитись галерею</em></span>
-      <span class="ev-row-text">
-        <i class="ev-num">03</i>
-        <b>Гендер-паті</b>
-        <small>Рожево-блакитний дим у зеленому тунелі, кортеж і солодкий стіл у пастельних кольорах.</small>
-        <u>Приватна подія · на природі</u>
-        <span class="ev-link">7 фото <em>→</em></span>
-      </span>
-    </a>
-  </div>
-
-  <a class="gal-ig" href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener">Більше подій в Instagram →</a>
 </section>
 
 <!-- REELS -->
@@ -1005,59 +983,44 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
         <p class="eyebrow">Те, заради чого я працюю</p>
         <h2 class="display">Що пишуть<br><em>після свята</em></h2>
       </div>
-      <p class="rev-note reveal">Це справжні скриншоти повідомлень від наречених, гостей і підрядників. Натисніть, щоб прочитати повністю.</p>
-    </div>
-    <div class="shots-grid">
-      <figure class="shot" style="--rot:1.4deg;--wd:0.00s">
-        <img src="img/rev/r1.jpg" alt="Відгук: Lily · наречена" loading="lazy" data-lb>
-        <figcaption>Lily · наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:-1.4deg;--wd:0.08s">
-        <img src="img/rev/r11.jpg" alt="Відгук: Марина · наречена" loading="lazy" data-lb>
-        <figcaption>Марина · наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:1.4deg;--wd:0.16s">
-        <img src="img/rev/r4.jpg" alt="Відгук: Vladislava · наречена" loading="lazy" data-lb>
-        <figcaption>Vladislava · наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:-1.4deg;--wd:0.00s">
-        <img src="img/rev/r8.jpg" alt="Відгук: Anastasiia · гостя" loading="lazy" data-lb>
-        <figcaption>Anastasiia · гостя</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:1.4deg;--wd:0.08s">
-        <img src="img/rev/r6.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
-        <figcaption>Наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:-1.4deg;--wd:0.16s">
-        <img src="img/rev/r3.jpg" alt="Відгук: Di · наречена" loading="lazy" data-lb>
-        <figcaption>Di · наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:1.4deg;--wd:0.00s">
-        <img src="img/rev/r13.jpg" alt="Відгук: Наречений" loading="lazy" data-lb>
-        <figcaption>Наречений</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:-1.4deg;--wd:0.08s">
-        <img src="img/rev/r9.jpg" alt="Відгук: Гість свята" loading="lazy" data-lb>
-        <figcaption>Гість свята</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:1.4deg;--wd:0.16s">
-        <img src="img/rev/r7.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
-        <figcaption>Наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:-1.4deg;--wd:0.00s">
-        <img src="img/rev/r12.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
-        <figcaption>Наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:1.4deg;--wd:0.08s">
-        <img src="img/rev/r5.jpg" alt="Відгук: Vladislava · наречена" loading="lazy" data-lb>
-        <figcaption>Vladislava · наречена</figcaption>
-      </figure>
-      <figure class="shot" style="--rot:-1.4deg;--wd:0.16s">
-        <img src="img/rev/r10.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
-        <figcaption>Наречена</figcaption>
-      </figure>
+      <p class="rev-note reveal">Справжні повідомлення від наречених, гостей і підрядників — так, як вони прийшли мені в месенджер.</p>
     </div>
   </div>
+  <div class="rev-rows">
+    <div class="rev-row">
+      <div class="rev-track">
+      <figure class="rev-card"><img src="img/rev2/n01.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n02.jpg" alt="Скриншот відгуку — Марина · наречена" loading="lazy" data-lb><figcaption>Марина · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n03.jpg" alt="Скриншот відгуку — Anastasiia · гостя" loading="lazy" data-lb><figcaption>Anastasiia · гостя</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n04.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n05.jpg" alt="Скриншот відгуку — Гостя свята" loading="lazy" data-lb><figcaption>Гостя свята</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n06.jpg" alt="Скриншот відгуку — Наречений" loading="lazy" data-lb><figcaption>Наречений</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n01.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n02.jpg" alt="Скриншот відгуку — Марина · наречена" loading="lazy" data-lb><figcaption>Марина · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n03.jpg" alt="Скриншот відгуку — Anastasiia · гостя" loading="lazy" data-lb><figcaption>Anastasiia · гостя</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n04.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n05.jpg" alt="Скриншот відгуку — Гостя свята" loading="lazy" data-lb><figcaption>Гостя свята</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n06.jpg" alt="Скриншот відгуку — Наречений" loading="lazy" data-lb><figcaption>Наречений</figcaption></figure>
+      </div>
+    </div>
+    <div class="rev-row rev-back">
+      <div class="rev-track">
+      <figure class="rev-card"><img src="img/rev2/n08.jpg" alt="Скриншот відгуку — Lily · наречена" loading="lazy" data-lb><figcaption>Lily · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n09.jpg" alt="Скриншот відгуку — Di · наречена" loading="lazy" data-lb><figcaption>Di · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n10.jpg" alt="Скриншот відгуку — Vladislava · наречена" loading="lazy" data-lb><figcaption>Vladislava · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n11.jpg" alt="Скриншот відгуку — Vladislava · наречена" loading="lazy" data-lb><figcaption>Vladislava · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n12.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n07.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n08.jpg" alt="Скриншот відгуку — Lily · наречена" loading="lazy" data-lb><figcaption>Lily · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n09.jpg" alt="Скриншот відгуку — Di · наречена" loading="lazy" data-lb><figcaption>Di · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n10.jpg" alt="Скриншот відгуку — Vladislava · наречена" loading="lazy" data-lb><figcaption>Vladislava · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n11.jpg" alt="Скриншот відгуку — Vladislava · наречена" loading="lazy" data-lb><figcaption>Vladislava · наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n12.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      <figure class="rev-card"><img src="img/rev2/n07.jpg" alt="Скриншот відгуку — Наречена" loading="lazy" data-lb><figcaption>Наречена</figcaption></figure>
+      </div>
+    </div>
+  </div>
+  <p class="rev-hint">Натисніть на скриншот, щоб прочитати повністю</p>
 </section>
 
 <!-- CONTACT -->
@@ -1236,11 +1199,23 @@ strip.innerHTML=[...photos,...photos].map(p=>`<figure><img src="img/${p}.jpg" al
   }
 
   // stats count-up
+  const figs=[...document.querySelectorAll('.stat b')];
   const so=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;so.unobserve(e.target);
-    const el=e.target,m=el.textContent.match(/^(\d+)(.*)$/);if(!m)return;const to=+m[1],rest=m[2],t0=performance.now();
-    const step=t=>{const k=Math.min(1,(t-t0)/1600);el.textContent=Math.round(to*(1-Math.pow(1-k,3)))+rest;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);
+    const el=e.target,m=el.textContent.match(/^(\d+)(.*)$/);if(!m)return;
+    const to=+m[1],rest=m[2],i=figs.indexOf(el);
+    el.textContent='0'+rest;
+    setTimeout(()=>{
+      el.style.opacity='1';el.style.transform='none';
+      const t0=performance.now(),dur=1800;
+      const step=t=>{const k=Math.min(1,(t-t0)/dur);
+        el.textContent=Math.round(to*(k===1?1:1-Math.pow(2,-9*k)))+rest;
+        if(k<1)requestAnimationFrame(step);else el.textContent=to+rest};
+      requestAnimationFrame(step);
+      setTimeout(()=>{el.textContent=to+rest},dur+200);
+    },i*150);
   }),{threshold:.6});
-  document.querySelectorAll('.stat b').forEach(b=>so.observe(b));
+  figs.forEach(b=>{b.style.transition='opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)';
+    b.style.opacity='.18';b.style.transform='translateY(16px)';so.observe(b)});
 })();
 
 // ---------- booking dialog -> WhatsApp with a ready message ----------
@@ -1305,12 +1280,15 @@ strip.innerHTML=[...photos,...photos].map(p=>`<figure><img src="img/${p}.jpg" al
 
   // lightbox over every [data-lb] photo
   const lb=document.getElementById('lb'),img=lb.querySelector('img'),cnt=lb.querySelector('.lb-count');
-  const list=[...document.querySelectorAll('[data-lb]')];let cur=0;
+  const all=[...document.querySelectorAll('[data-lb]')],list=[],seen=new Map();
+  all.forEach(el=>{const k=el.getAttribute('src');
+    if(seen.has(k)){el.dataset.lbRef=seen.get(k)}else{seen.set(k,list.length);el.dataset.lbRef=list.length;list.push(el)}});
+  let cur=0;
   const show=i=>{cur=(i+list.length)%list.length;img.style.opacity=0;const src=list[cur].currentSrc||list[cur].src;
     const n=new Image();n.onload=()=>{img.src=src;img.style.opacity=1};n.src=src;cnt.textContent=`${cur+1} / ${list.length}`};
   const open=i=>{show(i);lb.classList.add('on');document.body.style.overflow='hidden'};
   const close=()=>{lb.classList.remove('on');document.body.style.overflow=''};
-  list.forEach((el,i)=>el.addEventListener('click',()=>open(i)));
+  all.forEach(el=>el.addEventListener('click',()=>open(+el.dataset.lbRef)));
   lb.querySelector('.lb-x').onclick=close;lb.querySelector('.lb-p').onclick=e=>{e.stopPropagation();show(cur-1)};lb.querySelector('.lb-n').onclick=e=>{e.stopPropagation();show(cur+1)};
   lb.addEventListener('click',e=>{if(e.target===lb)close()});
   addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')close();if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
