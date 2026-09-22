@@ -192,7 +192,7 @@ section{position:relative}
 .stat span{display:block;margin-top:10px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
 
 /* ---------- EVENTS LIST ---------- */
-.events{padding:0 0 clamp(80px,10vw,140px)}
+.events{padding:clamp(90px,11vw,160px) 0 clamp(80px,10vw,140px)}
 .events-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}
 .events-head p{max-width:300px;font-size:14px;color:var(--ink-2)}
 .ev-list{list-style:none;border-top:1px solid var(--line)}
@@ -280,24 +280,18 @@ section{position:relative}
 @media (max-width:980px){.stars-list{columns:2}}
 @media (max-width:640px){.stars-list{columns:1}}
 
-/* ---------- REVIEWS: chat ---------- */
-.reviews{padding:clamp(90px,11vw,160px) 0}
+/* ---------- REVIEWS: real screenshots ---------- */
+.reviews{padding:clamp(90px,11vw,160px) 0;background:var(--sky)}
 .rev-head{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,70px)}
 .rev-head .eyebrow{margin-bottom:22px}
 .rev-note{max-width:340px;font-size:14px;color:var(--ink-2)}
-.chat{list-style:none;columns:2;column-gap:clamp(24px,3vw,54px)}
-.msg{break-inside:avoid;display:flex;align-items:flex-end;gap:12px;margin-bottom:18px}
-.msg .ava{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-family:var(--serif);font-size:18px}
-.bubble{position:relative;background:#fff;border-radius:22px 22px 22px 6px;padding:16px 20px 12px;box-shadow:0 18px 40px -26px rgba(15,28,63,.5);max-width:560px}
-.bubble b{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:8px}
-.bubble p{font-size:15px;line-height:1.6;color:var(--ink)}
-.bubble time{display:block;margin-top:8px;font-size:10.5px;letter-spacing:.06em;color:var(--muted);text-align:right}
-.msg.me{flex-direction:row-reverse}
-.msg.me .bubble{background:var(--blue);color:#fff;border-radius:22px 22px 6px 22px}
-.msg.me .bubble b{color:rgba(255,255,255,.8)}
-.msg.me .bubble p{color:#fff}
-.msg.me .bubble time{color:rgba(255,255,255,.75)}
-@media (max-width:820px){.chat{columns:1}.bubble{padding:14px 16px 10px}.bubble p{font-size:14.5px}}
+.shots-grid{columns:3;column-gap:clamp(16px,1.8vw,28px)}
+.shot{break-inside:avoid;margin:0 0 clamp(16px,1.8vw,28px);background:#fff;padding:10px 10px 0;border-radius:16px;box-shadow:0 22px 50px -30px rgba(15,28,63,.65);rotate:var(--rot,0deg);transition:rotate .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s;cursor:zoom-in}
+.shot:hover{rotate:0deg;transform:translateY(-6px);box-shadow:0 30px 60px -28px rgba(15,28,63,.75)}
+.shot img{width:100%;border-radius:10px;display:block}
+.shot figcaption{padding:12px 6px 14px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:var(--blue)}
+@media (max-width:980px){.shots-grid{columns:2}}
+@media (max-width:640px){.shots-grid{columns:1}.shot{rotate:0deg}}
 
 /* ---------- CONTACT ---------- */
 .contact{background:linear-gradient(160deg,#2b4bd6 0%,#1b2f96 100%);color:#fff;overflow:hidden;padding:clamp(90px,11vw,160px) 0 0}
@@ -493,22 +487,43 @@ body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;
 .reel3-cap span{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase}
 .reel3-stick::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(15,28,63,0) 55%,rgba(15,28,63,.55));opacity:calc((var(--p,0) - .6) * 2.5)}
 
-/* ---------- GALLERY: event cards ---------- */
+/* ---------- GALLERY: mosaic + event rows ---------- */
 .gallery{padding:clamp(100px,12vw,180px) 0}
-.gal-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(40px,5vw,70px)}
-.gal-head a{font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--blue);border-bottom:1px solid rgba(43,75,214,.35);padding-bottom:4px}
-.ev-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,26px)}
-.ev-card{display:block;position:relative;overflow:hidden;background:#dfe6f3}
-.ev-card-img{display:block;aspect-ratio:4/5;overflow:hidden}
-.ev-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
-.ev-card:hover img{transform:scale(1.05)}
-.ev-card-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:80px 26px 24px;color:#fff;display:flex;flex-direction:column;gap:6px;background:linear-gradient(transparent,rgba(8,16,40,.15) 30%,rgba(8,16,40,.8))}
-.ev-card-body b{font-family:var(--serif);font-weight:300;font-size:clamp(26px,2.2vw,34px);line-height:1.05}
-.ev-card-body small{font-size:13px;line-height:1.45;color:rgba(255,255,255,.82);max-width:26em}
-.ev-card-body i{margin-top:10px;font-style:normal;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:10px}
-.ev-card-body em{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(6px);transition:background .35s,transform .35s}
-.ev-card:hover em{background:var(--blue);transform:translateX(4px)}
-@media (max-width:820px){.ev-cards{grid-template-columns:1fr}.ev-card-img{aspect-ratio:3/2.2}}
+.gal-head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap;margin-bottom:clamp(36px,4vw,60px)}
+.gal-note{max-width:360px;font-size:14px;color:var(--ink-2)}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(150px,15vw,240px);grid-auto-flow:dense;gap:clamp(8px,.9vw,14px)}
+.gal-grid figure{position:relative;margin:0;overflow:hidden;cursor:zoom-in;background:#dfe6f3}
+.gal-grid figure.tall{grid-row:span 2}
+.gal-grid figure.wide{grid-column:span 2}
+.gal-grid img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.gal-grid figure:hover img{transform:scale(1.06)}
+.gal-grid figcaption{position:absolute;left:14px;bottom:12px;z-index:2;color:#fff;font-size:10px;letter-spacing:.24em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:.5s;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.gal-grid figure:hover figcaption{opacity:1;transform:none}
+
+.ev-rows{margin-top:clamp(50px,6vw,90px);border-top:1px solid var(--line)}
+.ev-row{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,70px);align-items:center;padding:clamp(26px,3vw,44px) 0;border-bottom:1px solid var(--line)}
+.ev-row:nth-child(even) .ev-row-media{order:2}
+.ev-row-media{position:relative;display:block;aspect-ratio:16/10;overflow:hidden;background:#dfe6f3}
+.ev-row-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.5s cubic-bezier(.16,1,.3,1)}
+.ev-row:hover .ev-row-media img{transform:scale(1.05)}
+.ev-open{position:absolute;left:50%;top:50%;translate:-50% -50%;display:grid;place-items:center;width:clamp(120px,10vw,150px);height:clamp(120px,10vw,150px);border-radius:50%;background:rgba(43,75,214,.92);color:#fff;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-align:center;line-height:1.5;padding:0 18px;opacity:0;scale:.7;transition:opacity .45s,scale .45s cubic-bezier(.34,1.4,.64,1)}
+.ev-row:hover .ev-open{opacity:1;scale:1}
+.ev-row-text{display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+.ev-num{font-style:normal;font-family:var(--serif);font-size:clamp(34px,3.4vw,54px);line-height:1;color:var(--blue);opacity:.5}
+.ev-row-text b{font-family:var(--serif);font-weight:300;font-size:clamp(32px,3.6vw,58px);line-height:1.02;letter-spacing:-.01em}
+.ev-row-text small{font-size:14.5px;line-height:1.65;color:var(--ink-2);max-width:30em}
+.ev-row-text u{text-decoration:none;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.ev-link{display:inline-flex;align-items:center;gap:14px;margin-top:8px;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+.ev-link em{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;border:1px solid rgba(43,75,214,.4);transition:background .35s,color .35s,transform .35s}
+.ev-row:hover .ev-link em{background:var(--blue);color:#fff;transform:translateX(4px)}
+.gal-ig{display:inline-flex;margin-top:clamp(34px,4vw,54px);font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--blue);border-bottom:1px solid rgba(43,75,214,.35);padding-bottom:4px}
+
+@media (max-width:980px){
+  .gal-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:40vw}
+  .ev-row{grid-template-columns:1fr;gap:22px;padding:28px 0}
+  .ev-row:nth-child(even) .ev-row-media{order:0}
+  .ev-open{opacity:1;scale:1;width:104px;height:104px;font-size:9px}
+}
 
 /* curtain wipe reveal for photos */
 .wipe{position:relative;overflow:hidden}
@@ -734,8 +749,8 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <span class="stamp">Ранок нареченої</span>
     </div>
     <div class="bride-text">
-      <p class="eyebrow">Я поруч із самого ранку</p>
-      <h2>Кожен ґудзик — <em>з турботою</em></h2>
+      <p class="eyebrow">Ранок нареченої</p>
+      <h2>Я поруч <em>із самого ранку</em></h2>
       <p>Я збираю наречену так, ніби збираю найріднішу людину: застібну сукню, поправлю фату, заспокою і нагадаю, що все під контролем. Поки ви посміхаєтесь — я тримаю таймінг.</p>
       <ol class="bride-steps" id="brideSteps">
         <li><b>08:00</b>Зустріч стилістів, візажистів і фотографів</li>
@@ -769,7 +784,7 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
   <div class="show-stick">
     <div class="show-head">
       <h2 class="display">Моменти, які<br><em>ми створили</em></h2>
-      <span class="show-count"><span id="showNum">01</span> / 08</span>
+      <span class="show-count"><span id="showNum">01</span> / 13</span>
     </div>
     <div class="show-track" id="showTrack">
       <figure class="card t wipe"><img data-lb src="img/n_dance2.jpg" alt="Перший танець у важкому димі" loading="lazy"><figcaption><span>Весілля</span><b>Перший танець у хмарах</b></figcaption></figure>
@@ -780,6 +795,11 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <figure class="card t wipe"><img data-lb src="img/n_dance4.jpg" alt="Лазерне шоу на першому танці" loading="lazy"><figcaption><span>Шоу-програма</span><b>Світло, дим, лазери</b></figcaption></figure>
       <figure class="card w wipe"><img data-lb src="img/n_team.jpg" alt="Команда підрядників на весіллі" loading="lazy"><figcaption><span>Команда</span><b>Підрядники, які працюють як один</b></figcaption></figure>
       <figure class="card t wipe"><img data-lb src="img/n_smoke1.jpg" alt="Гендер-паті на воді" loading="lazy"><figcaption><span>Спецефекти</span><b>Момент, який запам’ятають усі</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/gal/1/t17.jpg" alt="Бенгальські вогні біля серця з квітів" loading="lazy"><figcaption><span>Фінал вечора</span><b>Бенгальські вогні та серце з квітів</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/gal/2/t13.jpg" alt="Синій дим на церемонії" loading="lazy"><figcaption><span>Церемонія</span><b>Синій дим над водою</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/gal/1/t14.jpg" alt="Полуничний торт" loading="lazy"><figcaption><span>Десерт</span><b>Полуничне серце замість торта</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/gal/3/t06.jpg" alt="Рожево-блакитний дим" loading="lazy"><figcaption><span>Гендер-паті</span><b>Дим у зеленому тунелі</b></figcaption></figure>
+      <figure class="card t wipe"><img data-lb src="img/gal/1/t04.jpg" alt="Молодята у палаці" loading="lazy"><figcaption><span>Вечір</span><b>Палац, люстри і перший тост</b></figcaption></figure>
     </div>
     <div class="show-bar"><i id="showBar"></i></div>
   </div>
@@ -811,38 +831,62 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
   <div class="strip-track" id="strip"></div>
 </section>
 
-<!-- GALLERY: events -->
+<!-- GALLERY: photos + events -->
 <section class="gallery wrap" id="gallery">
   <div class="gal-head">
     <h2 class="display reveal">Галерея<br><em>подій</em></h2>
-    <a href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener">Більше в Instagram →</a>
+    <p class="gal-note reveal">Справжні кадри з весіль, гендер-паті та приватних свят. Натисніть на фото, щоб роздивитись, або відкрийте подію повністю.</p>
   </div>
-  <div class="ev-cards">
-    <a class="ev-card wipe" href="gallery.html?e=1" style="--wd:0.00s">
-      <span class="ev-card-img"><img src="img/gal/1/t17.jpg" alt="Весілля у палаці" loading="lazy"></span>
-      <span class="ev-card-body">
+
+  <div class="gal-grid">
+      <figure class="tall wipe" style="--wd:0.00s"><img src="img/gal/1/t17.jpg" alt="Бенгальські вогні" loading="lazy" data-lb><figcaption>Бенгальські вогні</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.07s"><img src="img/gal/2/t13.jpg" alt="Синій дим" loading="lazy" data-lb><figcaption>Синій дим</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.14s"><img src="img/gal/1/t09.jpg" alt="Серце з квітів" loading="lazy" data-lb><figcaption>Серце з квітів</figcaption></figure>
+      <figure class="tall wipe" style="--wd:0.21s"><img src="img/gal/3/t06.jpg" alt="Гендер-паті" loading="lazy" data-lb><figcaption>Гендер-паті</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.00s"><img src="img/gal/1/t14.jpg" alt="Полуничний торт" loading="lazy" data-lb><figcaption>Полуничний торт</figcaption></figure>
+      <figure class="wide wipe" style="--wd:0.07s"><img src="img/gal/2/t08.jpg" alt="Арка над озером" loading="lazy" data-lb><figcaption>Арка над озером</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.14s"><img src="img/gal/1/t04.jpg" alt="Вечір у палаці" loading="lazy" data-lb><figcaption>Вечір у палаці</figcaption></figure>
+      <figure class="tall wipe" style="--wd:0.21s"><img src="img/gal/2/t07.jpg" alt="Молодята" loading="lazy" data-lb><figcaption>Молодята</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.00s"><img src="img/gal/1/t01.jpg" alt="Деталі ранку" loading="lazy" data-lb><figcaption>Деталі ранку</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.07s"><img src="img/gal/3/t01.jpg" alt="Солодкий стіл" loading="lazy" data-lb><figcaption>Солодкий стіл</figcaption></figure>
+      <figure class="wide wipe" style="--wd:0.14s"><img src="img/gal/2/t05.jpg" alt="Перший танець" loading="lazy" data-lb><figcaption>Перший танець</figcaption></figure>
+      <figure class=" wipe" style="--wd:0.21s"><img src="img/gal/1/t12.jpg" alt="Кадр у ліфті" loading="lazy" data-lb><figcaption>Кадр у ліфті</figcaption></figure>
+  </div>
+
+  <div class="ev-rows">
+    <a class="ev-row reveal" href="gallery.html?e=1">
+      <span class="ev-row-media wipe"><img src="img/gal/1/t17.jpg" alt="Весілля у палаці" loading="lazy"><em class="ev-open">Дивитись галерею</em></span>
+      <span class="ev-row-text">
+        <i class="ev-num">01</i>
         <b>Весілля у палаці</b>
-        <small>Рожеве серце, полуничний торт і бенгальські вогні</small>
-        <i>20 фото <em>→</em></i>
+        <small>Ранок у палаці, рожеве серце з живих квітів, полуничний торт і фінал із бенгальськими вогнями.</small>
+        <u>Повна координація · 120 гостей</u>
+        <span class="ev-link">20 фото <em>→</em></span>
       </span>
     </a>
-    <a class="ev-card wipe" href="gallery.html?e=2" style="--wd:0.10s">
-      <span class="ev-card-img"><img src="img/gal/2/t13.jpg" alt="Весілля на березі озера" loading="lazy"></span>
-      <span class="ev-card-body">
+    <a class="ev-row reveal" href="gallery.html?e=2">
+      <span class="ev-row-media wipe"><img src="img/gal/2/t13.jpg" alt="Весілля на березі озера" loading="lazy"><em class="ev-open">Дивитись галерею</em></span>
+      <span class="ev-row-text">
+        <i class="ev-num">02</i>
         <b>Весілля на березі озера</b>
-        <small>Квіткова арка, синій дим і перший танець у хмарах</small>
-        <i>14 фото <em>→</em></i>
+        <small>Квіткова арка над водою, синій дим на церемонії та перший танець у хмарах.</small>
+        <u>Організація та координація · на воді</u>
+        <span class="ev-link">14 фото <em>→</em></span>
       </span>
     </a>
-    <a class="ev-card wipe" href="gallery.html?e=3" style="--wd:0.20s">
-      <span class="ev-card-img"><img src="img/gal/3/t06.jpg" alt="Гендер-паті" loading="lazy"></span>
-      <span class="ev-card-body">
+    <a class="ev-row reveal" href="gallery.html?e=3">
+      <span class="ev-row-media wipe"><img src="img/gal/3/t06.jpg" alt="Гендер-паті" loading="lazy"><em class="ev-open">Дивитись галерею</em></span>
+      <span class="ev-row-text">
+        <i class="ev-num">03</i>
         <b>Гендер-паті</b>
-        <small>Рожево-блакитний дим у зеленому тунелі</small>
-        <i>7 фото <em>→</em></i>
+        <small>Рожево-блакитний дим у зеленому тунелі, кортеж і солодкий стіл у пастельних кольорах.</small>
+        <u>Приватна подія · на природі</u>
+        <span class="ev-link">7 фото <em>→</em></span>
       </span>
     </a>
   </div>
+
+  <a class="gal-ig" href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener">Більше подій в Instagram →</a>
 </section>
 
 <!-- REELS -->
@@ -853,9 +897,9 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
       <h2>Подивіться,<br>як це <em>відчувається</em></h2>
       <p>Від ранку нареченої до першого танцю в хмарах диму — справжні весілля, які я координувала. І один робочий день зі мною від першої до останньої хвилини. Увімкніть звук 🔊</p>
     </div>
-    <div class="phone reveal"><span class="lbl">Весілля · маєток</span><video src="video/reel1.mp4" poster="video/reel1.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
-    <div class="phone low reveal"><span class="lbl">Весілля · вечір</span><video src="video/reel2.mp4" poster="video/reel2.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
     <div class="phone reveal"><span class="lbl">Один день зі мною</span><video src="video/day.mp4" poster="video/day.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
+    <div class="phone low reveal"><span class="lbl">Весілля · маєток</span><video src="video/reel1.mp4" poster="video/reel1.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
+    <div class="phone reveal"><span class="lbl">Весілля · вечір</span><video src="video/reel2.mp4" poster="video/reel2.jpg" muted loop playsinline preload="metadata"></video><button class="snd" aria-label="Увімкнути звук">🔇</button></div>
   </div>
 </section>
 
@@ -954,46 +998,66 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
 </section>
 
 <!-- REVIEWS -->
-<section class="reviews wrap" id="reviews">
-  <div class="rev-head">
-    <div class="reveal">
-      <p class="eyebrow">Те, заради чого я працюю</p>
-      <h2 class="display">Що пишуть<br><em>після свята</em></h2>
+<section class="reviews" id="reviews">
+  <div class="wrap">
+    <div class="rev-head">
+      <div class="reveal">
+        <p class="eyebrow">Те, заради чого я працюю</p>
+        <h2 class="display">Що пишуть<br><em>після свята</em></h2>
+      </div>
+      <p class="rev-note reveal">Це справжні скриншоти повідомлень від наречених, гостей і підрядників. Натисніть, щоб прочитати повністю.</p>
     </div>
-    <p class="rev-note reveal">Справжні повідомлення від наречених, гостей і підрядників — одразу після події та через місяці після неї.</p>
+    <div class="shots-grid">
+      <figure class="shot" style="--rot:1.4deg;--wd:0.00s">
+        <img src="img/rev/r1.jpg" alt="Відгук: Lily · наречена" loading="lazy" data-lb>
+        <figcaption>Lily · наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:-1.4deg;--wd:0.08s">
+        <img src="img/rev/r11.jpg" alt="Відгук: Марина · наречена" loading="lazy" data-lb>
+        <figcaption>Марина · наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:1.4deg;--wd:0.16s">
+        <img src="img/rev/r4.jpg" alt="Відгук: Vladislava · наречена" loading="lazy" data-lb>
+        <figcaption>Vladislava · наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:-1.4deg;--wd:0.00s">
+        <img src="img/rev/r8.jpg" alt="Відгук: Anastasiia · гостя" loading="lazy" data-lb>
+        <figcaption>Anastasiia · гостя</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:1.4deg;--wd:0.08s">
+        <img src="img/rev/r6.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
+        <figcaption>Наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:-1.4deg;--wd:0.16s">
+        <img src="img/rev/r3.jpg" alt="Відгук: Di · наречена" loading="lazy" data-lb>
+        <figcaption>Di · наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:1.4deg;--wd:0.00s">
+        <img src="img/rev/r13.jpg" alt="Відгук: Наречений" loading="lazy" data-lb>
+        <figcaption>Наречений</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:-1.4deg;--wd:0.08s">
+        <img src="img/rev/r9.jpg" alt="Відгук: Гість свята" loading="lazy" data-lb>
+        <figcaption>Гість свята</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:1.4deg;--wd:0.16s">
+        <img src="img/rev/r7.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
+        <figcaption>Наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:-1.4deg;--wd:0.00s">
+        <img src="img/rev/r12.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
+        <figcaption>Наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:1.4deg;--wd:0.08s">
+        <img src="img/rev/r5.jpg" alt="Відгук: Vladislava · наречена" loading="lazy" data-lb>
+        <figcaption>Vladislava · наречена</figcaption>
+      </figure>
+      <figure class="shot" style="--rot:-1.4deg;--wd:0.16s">
+        <img src="img/rev/r10.jpg" alt="Відгук: Наречена" loading="lazy" data-lb>
+        <figcaption>Наречена</figcaption>
+      </figure>
+    </div>
   </div>
-  <ul class="chat">
-      <li class="msg"><span class="ava">L</span>
-        <div class="bubble"><b>Lily · наречена</b><p>Дуже вам дякую за координацію та декор, все було краще, ніж ми могли уявити 😍 Дуже гарно, ми в захваті 🙏</p><time>21:14</time></div>
-      </li>
-      <li class="msg"><span class="ava">L</span>
-        <div class="bubble"><b>Lily · наречена</b><p>Вам, Дарія, особисто велике дякую, завжди були поряд, допомагали, я ні про що не думала і відпочила як могла 😄</p><time>21:15</time></div>
-      </li>
-      <li class="msg"><span class="ava">V</span>
-        <div class="bubble"><b>Vladislava · наречена</b><p>Хочу від нас сказати особисто тобі, Даша — ти чудо. Якби не ти, наше свято не пройшло б так комфортно, так круто і безтурботно. Я готова дякувати тобі кожен день 🤍</p><time>23:02</time></div>
-      </li>
-      <li class="msg"><span class="ava">V</span>
-        <div class="bubble"><b>Vladislava · наречена</b><p>За ці місяці підготовки тільки твоє «все буде добре» і «ми все зробимо» заспокоювало мій тривожний розлад 😂 Дуже дуже дякую ❤️</p><time>23:03</time></div>
-      </li>
-      <li class="msg"><span class="ava">М</span>
-        <div class="bubble"><b>Марина · наречена</b><p>Добрий день! Все супер. Я дуже вам дякую за детальну інформацію. Далеко не всі, на жаль, так працюють, мені здається ви як скарб. Дуже дякую ☺️</p><time>13:41</time></div>
-      </li>
-      <li class="msg"><span class="ava">A</span>
-        <div class="bubble"><b>Anastasiia · гостя</b><p>Дякуємо дуже ❤️ Ви прекрасні, справжні професіонали, просто чудові!</p><time>12:20</time></div>
-      </li>
-      <li class="msg"><span class="ava">D</span>
-        <div class="bubble"><b>Di · наречена</b><p>Хотіли б висловити подяку за вашу роботу! Все саме так, як ми хотіли і розповідали вам на зустрічах. Дуже красивий декор, особливо оформлення на столах. День був шикарний, запам’ятається назавжди 🥰</p><time>19:30</time></div>
-      </li>
-      <li class="msg"><span class="ava">Н</span>
-        <div class="bubble"><b>Наречений</b><p>Все було чітко, взагалі кайфово — весілля без напряга 🤍</p><time>23:12</time></div>
-      </li>
-      <li class="msg"><span class="ava">Г</span>
-        <div class="bubble"><b>Гість свята · підрядник</b><p>Не знайшов тебе, щоб попрощатись, але хотів подякувати за насправді класну співпрацю 🙏 Було все чотко, легко 🫶</p><time>01:08</time></div>
-      </li>
-      <li class="msg me">
-        <div class="bubble"><b>Дарія</b><p>Дякую вам! Це найкраща оцінка моєї роботи 🤍</p><time>23:14 ✓✓</time></div>
-      </li>
-  </ul>
 </section>
 
 <!-- CONTACT -->
@@ -1005,7 +1069,7 @@ section.wrap{padding-left:var(--pad);padding-right:var(--pad)}
         <h2 class="display">Дізнавайтесь<br>дати на <em>2026</em></h2>
         <p class="contact-sub">На зв’язку 24/7 у будь-якому месенджері. Дякую, що дочитали до кінця — буду рада співпраці з кожним!</p>
       </div>
-      <div class="oval contact-oval reveal"><img src="img/g_p9_1.jpg" alt="Дарія Бойко" loading="lazy"></div>
+      <div class="oval contact-oval reveal"><img src="img/portrait.jpg" alt="Дарія Бойко" loading="lazy"></div>
     </div>
     <div class="links">
       <a href="https://www.instagram.com/_daruuushka_" target="_blank" rel="noopener"><span>Instagram</span><b>@_daruuushka_</b></a>
@@ -1104,7 +1168,7 @@ strip.innerHTML=[...photos,...photos].map(p=>`<figure><img src="img/${p}.jpg" al
       const sr=show.getBoundingClientRect(),d=track.scrollWidth-innerWidth,sp=clamp(-sr.top/(sr.height-vh));
       track.style.transform=`translate3d(${-sp*d}px,0,0)`;
       bar.style.width=sp*100+'%';
-      num.textContent=String(Math.min(8,1+Math.floor(sp*8))).padStart(2,'0');
+      num.textContent=String(Math.min(13,1+Math.floor(sp*13))).padStart(2,'0');
     }
   }
   addEventListener('resize',()=>{sizeShow();onScroll()});

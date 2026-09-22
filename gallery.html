@@ -23,46 +23,63 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 ::selection{background:var(--blue);color:#fff}
 
-.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px var(--pad);background:rgba(247,248,251,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.logo{font-family:var(--serif);font-size:27px;line-height:1}
+/* ---------- cover ---------- */
+.cover{position:relative;height:78svh;min-height:520px;overflow:hidden;color:#fff;background:#0d1730;isolation:isolate}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;animation:zoom 20s ease-out forwards}
+@keyframes zoom{from{transform:scale(1.12)}to{transform:scale(1)}}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,16,40,.72) 0%,rgba(8,16,40,.15) 35%,rgba(8,16,40,.35) 70%,rgba(8,16,40,.88) 100%)}
+.cover-nav{position:absolute;z-index:3;left:0;right:0;top:0;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px var(--pad)}
+.logo{font-family:var(--serif);font-size:26px;line-height:1;color:#fff}
 .logo small{display:block;font-family:var(--sans);font-weight:500;font-size:8.5px;letter-spacing:.38em;text-transform:uppercase;margin-top:6px;opacity:.75}
-.back{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--blue)}
-.back:hover{color:var(--blue-2)}
+.back{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border:1px solid rgba(255,255,255,.4);border-radius:2px;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;backdrop-filter:blur(6px);transition:background .3s}
+.back:hover{background:rgba(255,255,255,.16)}
+.cover-in{position:absolute;z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(38px,6vw,70px);display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.cover-in .eyebrow{display:flex;align-items:center;gap:12px;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;color:#c7d3ff;margin-bottom:18px}
+.cover-in .eyebrow::before{content:"";width:34px;height:1px;background:currentColor}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,7vw,120px);line-height:.95;letter-spacing:-.02em;text-shadow:0 6px 40px rgba(8,16,40,.5)}
+.cover-meta{display:flex;gap:clamp(18px,2.6vw,44px);align-items:flex-end}
+.cover-meta div span{display:block;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
+.cover-meta div b{font-family:var(--serif);font-weight:300;font-size:clamp(26px,2.6vw,40px);line-height:1}
 
-.head{padding:clamp(50px,8vw,110px) var(--pad) clamp(30px,4vw,50px);display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
-.eyebrow{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;color:var(--blue);margin-bottom:20px}
-.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
-h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6.4vw,104px);line-height:.98;letter-spacing:-.02em}
-.head p{max-width:360px;font-size:14.5px;color:var(--ink-2)}
+.intro{padding:clamp(50px,6vw,90px) var(--pad) clamp(26px,3vw,44px);display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.intro p{max-width:560px;font-size:clamp(16px,1.3vw,19px);line-height:1.65;color:var(--ink-2)}
+.intro span{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1vw,16px);padding:0 var(--pad) clamp(60px,7vw,100px)}
-.grid figure{position:relative;overflow:hidden;margin:0;background:#dfe6f3;aspect-ratio:3/4;cursor:zoom-in;opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
+/* ---------- masonry ---------- */
+.grid{columns:3;column-gap:clamp(10px,1.1vw,18px);padding:clamp(28px,3.4vw,54px) var(--pad) clamp(60px,7vw,110px)}
+.grid figure{break-inside:avoid;position:relative;margin:0 0 clamp(10px,1.1vw,18px);overflow:hidden;background:#dfe6f3;cursor:zoom-in;opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1)}
 .grid figure.in{opacity:1;transform:none}
-.grid img{width:100%;height:100%;object-fit:cover;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
+.grid img{width:100%;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
 .grid figure:hover img{transform:scale(1.05)}
-@media (max-width:820px){.grid{grid-template-columns:repeat(2,1fr)}}
+.grid figure::after{content:"⤢";position:absolute;right:14px;bottom:12px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.9);color:var(--blue);display:grid;place-items:center;font-size:15px;opacity:0;transform:translateY(8px);transition:.4s}
+.grid figure:hover::after{opacity:1;transform:none}
+@media (max-width:980px){.grid{columns:2}}
+@media (max-width:600px){.grid{columns:1}}
 
+/* ---------- other events ---------- */
 .more{border-top:1px solid var(--line);padding:clamp(50px,6vw,90px) var(--pad) clamp(70px,8vw,120px)}
-.more h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.4vw,52px);margin-bottom:30px}
+.more h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.4vw,52px);margin-bottom:clamp(24px,3vw,40px)}
 .more-row{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(14px,1.6vw,26px)}
-.more-card{position:relative;overflow:hidden;aspect-ratio:16/8;background:#dfe6f3}
-.more-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
-.more-card:hover img{transform:scale(1.05)}
-.more-card b{position:absolute;left:0;right:0;bottom:0;padding:60px 22px 20px;color:#fff;font-family:var(--serif);font-weight:300;font-size:clamp(22px,2vw,30px);background:linear-gradient(transparent,rgba(8,16,40,.8))}
+.more-card{position:relative;overflow:hidden;aspect-ratio:16/9;background:#dfe6f3}
+.more-card img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.more-card:hover img{transform:scale(1.06)}
+.more-card b{position:absolute;left:0;right:0;bottom:0;padding:70px 24px 22px;color:#fff;font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.2vw,34px);background:linear-gradient(transparent,rgba(8,16,40,.85))}
+.more-card i{position:absolute;right:20px;top:20px;font-style:normal;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:#fff;background:rgba(43,75,214,.9);padding:8px 14px;border-radius:2px}
 @media (max-width:820px){.more-row{grid-template-columns:1fr}}
 
 .cta{background:linear-gradient(160deg,#2b4bd6,#1b2f96);color:#fff;padding:clamp(60px,7vw,110px) var(--pad);display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
 .cta h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,4.4vw,72px);line-height:1}
 .cta h2 em{font-style:italic;color:#cfdcff}
-.cta a{display:inline-flex;align-items:center;gap:16px;min-height:60px;padding:0 32px;background:#fff;color:var(--blue);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;border-radius:2px;transition:background .3s,color .3s}
+.cta a{display:inline-flex;align-items:center;gap:16px;min-height:60px;padding:0 32px;background:#fff;color:var(--blue);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;border-radius:2px;transition:background .3s}
 .cta a:hover{background:#cfdcff}
 
-.lb{position:fixed;inset:0;z-index:120;background:rgba(10,18,42,.94);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .45s}
+/* ---------- lightbox ---------- */
+.lb{position:fixed;inset:0;z-index:120;background:rgba(10,18,42,.95);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .45s}
 .lb.on{opacity:1;pointer-events:auto}
 .lb img{max-width:min(92vw,1300px);max-height:84svh;object-fit:contain;box-shadow:0 40px 90px rgba(0,0,0,.5);transform:scale(.96);transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .3s}
 .lb.on img{transform:none}
 .lb button{position:absolute;color:#fff;width:54px;height:54px;border-radius:50%;border:1px solid rgba(255,255,255,.3);font-size:20px;display:grid;place-items:center;transition:background .3s}
-.lb button:hover{background:rgba(255,255,255,.12)}
+.lb button:hover{background:rgba(255,255,255,.14)}
 .lb .lb-x{top:22px;right:22px}.lb .lb-p{left:22px;top:50%;margin-top:-27px}.lb .lb-n{right:22px;top:50%;margin-top:-27px}
 .lb-count{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-size:11px;letter-spacing:.3em}
 @media (max-width:820px){.lb .lb-p,.lb .lb-n{top:auto;bottom:18px;margin:0}}
@@ -71,17 +88,27 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6.4vw,104px);li
 </head>
 <body>
 
-<header class="nav">
-  <a href="index.html" class="logo">Daria Boyko<small>Event planner</small></a>
-  <a href="index.html#gallery" class="back">← До всіх подій</a>
+<header class="cover">
+  <img id="coverImg" src="" alt="">
+  <div class="cover-nav">
+    <a href="index.html" class="logo">Daria Boyko<small>Event planner</small></a>
+    <a href="index.html#gallery" class="back">← До всіх подій</a>
+  </div>
+  <div class="cover-in">
+    <div>
+      <p class="eyebrow" id="kind">Портфоліо</p>
+      <h1 id="title">Подія</h1>
+    </div>
+    <div class="cover-meta">
+      <div><span>Фото</span><b id="count">0</b></div>
+      <div><span>Формат</span><b id="fmt">—</b></div>
+    </div>
+  </div>
 </header>
 
-<section class="head">
-  <div>
-    <p class="eyebrow" id="kind">Портфоліо</p>
-    <h1 id="title">Подія</h1>
-  </div>
+<section class="intro">
   <p id="sub"></p>
+  <span id="role"></span>
 </section>
 
 <div class="grid" id="grid"></div>
@@ -100,27 +127,34 @@ h1{font-family:var(--serif);font-weight:300;font-size:clamp(44px,6.4vw,104px);li
 
 <script>
 const EVENTS={
-  '1':{title:'Весілля у палаці',kind:'Весілля · повна координація',sub:'Ранок у палаці, рожеве серце з живих квітів, полуничний торт і фінал із бенгальськими вогнями.',n:20,cover:17},
-  '2':{title:'Весілля на березі озера',kind:'Весілля · організація та координація',sub:'Квіткова арка над водою, синій дим на церемонії та перший танець у хмарах.',n:14,cover:13},
-  '3':{title:'Гендер-паті',kind:'Приватна подія',sub:'Рожево-блакитний дим у зеленому тунелі, кортеж і солодкий стіл у пастельних кольорах.',n:7,cover:6}
+  '1':{title:'Весілля у палаці',kind:'Весілля',fmt:'Палац',role:'Повна координація дня',
+       sub:'Ранок у палаці, рожеве серце з живих квітів, полуничний торт замість традиційного та фінал із бенгальськими вогнями.',n:20,cover:17},
+  '2':{title:'Весілля на березі озера',kind:'Весілля',fmt:'На воді',role:'Організація та координація',
+       sub:'Квіткова арка над водою, синій дим на церемонії, вечеря на терасі та перший танець у хмарах.',n:14,cover:13},
+  '3':{title:'Гендер-паті',kind:'Приватна подія',fmt:'На природі',role:'Організація під ключ',
+       sub:'Рожево-блакитний дим у зеленому тунелі, кортеж, солодкий стіл у пастельних кольорах і головна новина дня.',n:7,cover:6}
 };
 const id=(new URLSearchParams(location.search).get('e')||'1');
 const ev=EVENTS[id]||EVENTS['1'];
+const pad=n=>String(n).padStart(2,'0');
 document.title=ev.title+' — Daria Boyko';
 document.getElementById('title').textContent=ev.title;
 document.getElementById('kind').textContent=ev.kind;
 document.getElementById('sub').textContent=ev.sub;
+document.getElementById('count').textContent=ev.n;
+document.getElementById('fmt').textContent=ev.fmt;
+document.getElementById('role').textContent=ev.role;
+document.getElementById('coverImg').src=`img/gal/${id}/${pad(ev.cover)}.jpg`;
 
 const grid=document.getElementById('grid');
-const pad=n=>String(n).padStart(2,'0');
 grid.innerHTML=Array.from({length:ev.n},(_,i)=>
   `<figure><img src="img/gal/${id}/t${pad(i)}.jpg" data-full="img/gal/${id}/${pad(i)}.jpg" alt="${ev.title} — фото ${i+1}" loading="lazy"></figure>`).join('');
 
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.08});
 grid.querySelectorAll('figure').forEach((f,i)=>{f.style.transitionDelay=(i%3)*.08+'s';io.observe(f)});
 
 document.getElementById('more').innerHTML=Object.entries(EVENTS).filter(([k])=>k!==id)
-  .map(([k,e])=>`<a class="more-card" href="gallery.html?e=${k}"><img src="img/gal/${k}/t${pad(e.cover)}.jpg" alt="${e.title}" loading="lazy"><b>${e.title}</b></a>`).join('');
+  .map(([k,e])=>`<a class="more-card" href="gallery.html?e=${k}"><img src="img/gal/${k}/t${pad(e.cover)}.jpg" alt="${e.title}" loading="lazy"><i>${e.n} фото</i><b>${e.title}</b></a>`).join('');
 
 // lightbox
 const lb=document.getElementById('lb'),img=lb.querySelector('img'),cnt=lb.querySelector('.lb-count');
